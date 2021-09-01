@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de37b2cd8387c141b9c2b0462c71534, type: 3}
+  m_Name: CategoryDatabase
+  m_EditorClassIdentifier: 
+  Categories:
+  - ID: 0
+    Name: Animals
+    Sprite: {fileID: 21300000, guid: 30613b26bc9b0944ba1f3fe9c61fbe38, type: 3}
+    ItemDatabase: {fileID: 11400000, guid: a55cf7a1949701e4ea1eb8a39092e01e, type: 2}
+    IsUnlocked: 1
+  - ID: 1
+    Name: Birds
+    Sprite: {fileID: 21300000, guid: 41847a033046d674885b0dc7835571aa, type: 3}
+    ItemDatabase: {fileID: 11400000, guid: dd7d352ee09ccbc43a688b1502ddcbe4, type: 2}
+    IsUnlocked: 0
+  - ID: 2
+    Name: Dinosaurs
+    Sprite: {fileID: 21300000, guid: 838ee3eb9a515234e8265cee123c7738, type: 3}
+    ItemDatabase: {fileID: 11400000, guid: 0e05df4e05f6b524c93a033754d5d1c6, type: 2}
+    IsUnlocked: 0
+  - ID: 3
+    Name: Ocean
+    Sprite: {fileID: 21300000, guid: bb543e7db9d036e499f9d72783f1e3ad, type: 3}
+    ItemDatabase: {fileID: 11400000, guid: 8142301ccf5ce804282ded3ba056b5df, type: 2}
+    IsUnlocked: 0
+  - ID: 4
+    Name: Professions
+    Sprite: {fileID: 21300000, guid: ebf55e1b617b1514d8843ddf917bac71, type: 3}
+    ItemDatabase: {fileID: 11400000, guid: 30a7b4b44b0381c4d8c51de980d19fd8, type: 2}
+    IsUnlocked: 0

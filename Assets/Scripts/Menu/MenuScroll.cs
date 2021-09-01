@@ -3,23 +3,12 @@ using UnityEngine.UI;
 
 public class MenuScroll : MonoBehaviour
 {
-    [SerializeField] private Canvas _canvas;
     [SerializeField] private Scrollbar _scrollBar;
 
     [SerializeField] private float _lerpTime;
     
     private float _scrollPosition;
     private float[] _positions;
-
-    private void Start()
-    {
-        HorizontalLayoutGroup layoutGroup = GetComponent<HorizontalLayoutGroup>();
-        
-        float canvasWidth = _canvas.GetComponent<RectTransform>().rect.width;
-        float buttonWidth = transform.GetChild(0).GetComponent<RectTransform>().rect.width;
-        
-        ConfigureLayoutGroup(layoutGroup, canvasWidth, buttonWidth);
-    }
 
     private void Update()
     {
@@ -47,12 +36,5 @@ public class MenuScroll : MonoBehaviour
             }
         }
 
-    }
-
-    private void ConfigureLayoutGroup(HorizontalLayoutGroup layoutGroup, float canvasWidth, float buttonWidth)
-    {
-        layoutGroup.padding.left = Mathf.RoundToInt((canvasWidth - buttonWidth) / 2f);
-        layoutGroup.padding.right = Mathf.RoundToInt((canvasWidth - buttonWidth) / 2f);
-        layoutGroup.spacing = Mathf.RoundToInt((canvasWidth - buttonWidth) / 2f);
     }
 }
