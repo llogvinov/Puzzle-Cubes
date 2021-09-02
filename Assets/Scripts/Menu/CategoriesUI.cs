@@ -12,8 +12,9 @@ public class CategoriesUI : MonoBehaviour
 
     [SerializeField] private Canvas _canvas;
     
-    private void Awake()
+    private void Start()
     {
+        ClearContainer();
         ConfigureLayoutGroup();
         
         GenerateScrollView();
@@ -41,6 +42,14 @@ public class CategoriesUI : MonoBehaviour
         }
     }
 
+    private void ClearContainer()
+    {
+        for (int i = 0; i < _buttonsContainer.childCount; i++)
+        {
+            Destroy(_buttonsContainer.GetChild(i).gameObject);
+        }
+    }
+    
     private void ConfigureLayoutGroup()
     {
         HorizontalLayoutGroup layoutGroup = _buttonsContainer.GetComponent<HorizontalLayoutGroup>();
