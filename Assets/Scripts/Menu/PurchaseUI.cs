@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +14,11 @@ public class PurchaseUI : MonoBehaviour
         CheckAgeUI.AgeConfirmed += OnAgeConfirmed;
     }
 
+    private void OnDisable()
+    {
+        CheckAgeUI.AgeConfirmed -= OnAgeConfirmed;
+    }
+
     private void Start()
     {
         AddButtonsEvents();
@@ -28,10 +30,25 @@ public class PurchaseUI : MonoBehaviour
         _closeButton.onClick.AddListener(ClosePanelUI);
     }
 
+    private void OnAgeConfirmed()
+    {
+        ShowPanel();
+        
+        foreach (var button in _buttonsToHide)
+        {
+            button.gameObject.SetActive(false);
+        }
+    }
+
+    private void ShowPanel()
+    {
+        _background.SetActive(true);
+        _panelUI.SetActive(true);
+    }
+   
     private void ClosePanelUI()
     {
-        _background.SetActive(false);
-        _panelUI.SetActive(false);
+        HidePanel();
         
         foreach (var button in _buttonsToHide)
         {
@@ -39,14 +56,9 @@ public class PurchaseUI : MonoBehaviour
         }
     }
 
-    private void OnAgeConfirmed()
+    private void HidePanel()
     {
         _background.SetActive(false);
         _panelUI.SetActive(false);
-        
-        foreach (var button in _buttonsToHide)
-        {
-            button.gameObject.SetActive(true);
-        }
     }
 }

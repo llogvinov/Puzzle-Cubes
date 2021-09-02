@@ -8,7 +8,7 @@ public class CategoryButtonUI : MonoBehaviour
 {
     [SerializeField] private Image _categoryImage;
     [SerializeField] private Text _categoryName;
-
+    
     public void SetCategoryImage(Sprite sprite) => _categoryImage.sprite = sprite;
 
     public void SetCategoryName(string name) => _categoryName.text = name;
