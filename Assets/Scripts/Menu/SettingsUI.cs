@@ -8,7 +8,6 @@ public class SettingsUI : MonoBehaviour
     [SerializeField] private GameObject _settingsPanel;
     [SerializeField] private GameObject _settingsBackground;
     [SerializeField] private Button _openSettings;
-    [SerializeField] private Button _closeSettings;
     [Space]
     [SerializeField] private Button[] _buttonsToHide;
     [Space]
@@ -25,18 +24,12 @@ public class SettingsUI : MonoBehaviour
     private const string Website = "";
     private const string PrivacyPolicy = "";
     
-    private void Start()
-    {
-        AddButtonsEvents();
-    }
+    private void Start() => AddButtonsEvents();
 
     private void AddButtonsEvents()
     {
         _openSettings.onClick.RemoveAllListeners();
         _openSettings.onClick.AddListener(OpenSettingsUI);
-        
-        _closeSettings.onClick.RemoveAllListeners();
-        _closeSettings.onClick.AddListener(CloseSettingsUI);
         
         _rateUs.onClick.RemoveAllListeners();
         _rateUs.onClick.AddListener(OpenRate);
@@ -59,17 +52,6 @@ public class SettingsUI : MonoBehaviour
         foreach (var button in _buttonsToHide)
         {
             button.gameObject.SetActive(false);
-        }
-    }
-
-    private void CloseSettingsUI()
-    {
-        _settingsBackground.SetActive(false);
-        _settingsPanel.SetActive(false);
-        
-        foreach (var button in _buttonsToHide)
-        {
-            button.gameObject.SetActive(true);
         }
     }
     

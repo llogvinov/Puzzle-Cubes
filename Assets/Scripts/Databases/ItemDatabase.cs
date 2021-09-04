@@ -7,4 +7,8 @@ using UnityEngine;
 public class ItemDatabase : ScriptableObject
 {
     public Item[] Items;
+    
+    public int GetLength() => Items.Length;
+
+    public Item GetItem(int index) => Items[index];
 }

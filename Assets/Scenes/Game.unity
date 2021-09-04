@@ -272,6 +272,7 @@ MonoBehaviour:
   _headPart: {fileID: 6037311580543344360, guid: 32518e2ff4154da46b3e46a2eacf8ea6, type: 3}
   _bodyPart: {fileID: 6037311580543344360, guid: 7ac556872c80a344ea015ef241c1872b, type: 3}
   _legsPart: {fileID: 6037311580543344360, guid: 685ba019e283b8840b2cbb83cb98ced0, type: 3}
+  _itemsDb: {fileID: 11400000, guid: a55cf7a1949701e4ea1eb8a39092e01e, type: 2}
 --- !u!4 &482503745
 Transform:
   m_ObjectHideFlags: 0

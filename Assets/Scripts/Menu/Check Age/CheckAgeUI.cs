@@ -11,15 +11,14 @@ public class CheckAgeUI : MonoBehaviour
     [SerializeField] private Button[] _buttonsToHide;
     
     public static UnityAction AgeConfirmed;
-
+    
+    private void OnAgeConfirmed() => ClosePanelUI();
+    
     private void OnEnable() => AgeConfirmed += OnAgeConfirmed;
 
-        private void OnDisable() => AgeConfirmed += OnAgeConfirmed;
+    private void OnDisable() => AgeConfirmed += OnAgeConfirmed;
 
-    private void Start()
-    {
-        AddButtonsEvents();
-    }
+    private void Start() => AddButtonsEvents();
     
     private void AddButtonsEvents()
     {
@@ -32,11 +31,7 @@ public class CheckAgeUI : MonoBehaviour
     private void OnPurchaseTried()
     {
         ShowPanel();
-        
-        foreach (var button in _buttonsToHide)
-        {
-            button.gameObject.SetActive(true);
-        }
+        HideButtons();
     }
 
     private void ShowPanel()
@@ -44,15 +39,19 @@ public class CheckAgeUI : MonoBehaviour
         _background.SetActive(false);
         _panelUI.SetActive(false);
     }
-    
-    private void ClosePanelUI()
+
+    private void HideButtons()
     {
-        HidePanel();
-        
         foreach (var button in _buttonsToHide)
         {
             button.gameObject.SetActive(true);
         }
+    }
+    
+    private void ClosePanelUI()
+    {
+        HidePanel();
+        ShowButtons();
     }
 
     private void HidePanel()
@@ -61,6 +60,12 @@ public class CheckAgeUI : MonoBehaviour
         _panelUI.SetActive(false);
     }
 
-    private void OnAgeConfirmed() => ClosePanelUI();
-    
+    private void ShowButtons()
+    {
+        foreach (var button in _buttonsToHide)
+        {
+            button.gameObject.SetActive(true);
+        }
+    }
+
 }
