@@ -15,10 +15,13 @@ public class GameUI : MonoBehaviour
     [SerializeField] private SpriteRenderer _bodyPart;
     [SerializeField] private SpriteRenderer _legsPart;
 
-    [SerializeField] private ItemDatabase _itemsDb; // change in future
+    [SerializeField] private CategoryDatabase _categoriesDb;
+    private ItemDatabase _itemsDb;
     
     private void Start()
     {
+        _itemsDb = _categoriesDb.Categories[GameDataManager.GetSelectedCategoryID()].ItemDatabase;
+        
         PLaceBodyParts((_numberOfItems - 1) / 2, _headPart, _headParts);
         PLaceBodyParts((_numberOfItems - 1) / 2, _bodyPart, _bodyParts);
         PLaceBodyParts((_numberOfItems - 1) / 2, _legsPart, _legsParts);

@@ -10,5 +10,5 @@ public class Category
     public Sprite Sprite;
     public ItemDatabase ItemDatabase;
 
-    public bool IsUnlocked;
+    public bool IsLocked;
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CategoriesUI : MonoBehaviour
@@ -34,13 +35,23 @@ public class CategoriesUI : MonoBehaviour
             // add information on button
             categoryButtonUI.SetCategoryImage(category.Sprite);
             categoryButtonUI.SetCategoryName(category.Name);
+            categoryButtonUI.SetCategoryLock(category.IsLocked);
 
-            if (!category.IsUnlocked)
+            if (!category.IsLocked)
             {
-                // TODO: add logic for LOCKED categories
+                categoryButtonUI.OnItemSelect(i, OnItemSelected);
             }
         }
     }
+    
+    private void OnItemSelected(int index)
+    {
+        //Save Data
+        GameDataManager.SetSelectedCategory(_categoryDb.GetCategory(index), index);
+
+        SceneManager.LoadScene(1);
+    }
+    
 
     private void ClearContainer()
     {
