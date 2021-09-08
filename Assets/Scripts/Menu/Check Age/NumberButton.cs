@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class NumberButton : MonoBehaviour
 {
     [SerializeField] private int _buttonValue;
+    
+    [SerializeField] private MenuSoundsManager _soundsManager;
 
     private EntryField _entryField;
 
@@ -18,6 +20,8 @@ public class NumberButton : MonoBehaviour
 
     private void ButtonClicked()
     {
+        _soundsManager.PlayClickedSound();
+        
         int index = _entryField.CurrentInputFieldIndex();
         _entryField.EnterNumber(index, _buttonValue);
 

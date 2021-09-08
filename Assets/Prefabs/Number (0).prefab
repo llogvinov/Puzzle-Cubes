@@ -134,3 +134,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buttonValue: 0
+  _soundsManager: {fileID: 5563259420942649945, guid: 570ea3ba17627c341bd5cdb20354ced1, type: 3}

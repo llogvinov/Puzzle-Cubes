@@ -14,7 +14,9 @@ public class SoundsUI : MonoBehaviour
     [SerializeField] private Sprite _soundSprite;
     [SerializeField] private Sprite _noMusicSprite;
     [SerializeField] private Sprite _noSoundSprite;
-
+    [Space]
+    [SerializeField] private MenuSoundsManager _soundsManager;
+    
     public static UnityAction<int> MusicVolumeChanged;
     public static UnityAction<int> SoundsVolumeChanged;
     
@@ -22,9 +24,9 @@ public class SoundsUI : MonoBehaviour
     {
         AddSoundsButtonsEvents();
 
-        if (PlayerPrefs.GetFloat("music") == 0) 
+        if (PlayerPrefs.GetInt("music") == 0) 
             _musicButton.image.sprite = _noMusicSprite;
-        if (PlayerPrefs.GetFloat("sounds") == 0) 
+        if (PlayerPrefs.GetInt("sounds") == 0) 
             _soundButton.image.sprite = _noSoundSprite;
     }
 
@@ -37,10 +39,12 @@ public class SoundsUI : MonoBehaviour
         _soundButton.onClick.AddListener(Sound);
     }
 
-    //Controls Music UI element
-    //Turns on or off the music
+    // controls Music UI element
+    // turns on or off the music
     private void Music()
     {
+        _soundsManager.PlayClickedSound();
+        
         if (_musicButton.image.sprite == _musicSprite)
         {
             _musicButton.image.sprite = _noMusicSprite;
@@ -59,10 +63,12 @@ public class SoundsUI : MonoBehaviour
         MusicVolumeChanged?.Invoke(PlayerPrefs.GetInt("music"));
     }
 
-    //Controls Sounds UI element
-    //Turns on or off the sounds
+    // controls Sounds UI element
+    // turns on or off the sounds
     private void Sound()
     {
+        _soundsManager.PlayClickedSound();
+        
         if (_soundButton.image.sprite == _soundSprite)
         {
             _soundButton.image.sprite = _noSoundSprite;

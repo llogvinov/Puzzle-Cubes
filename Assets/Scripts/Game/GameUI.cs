@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameUI : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class GameUI : MonoBehaviour
 
     [SerializeField] private CategoryDatabase _categoriesDb;
     private ItemDatabase _itemsDb;
+
+    public static UnityAction PartsMatched;
     
     private void Start()
     {
@@ -107,11 +110,11 @@ public class GameUI : MonoBehaviour
         int bodyItemID = _bodyParts.GetChild((_numberOfItems - 1) / 2).GetComponent<ItemPart>().ItemID;
         int legsItemID = _legsParts.GetChild((_numberOfItems - 1) / 2).GetComponent<ItemPart>().ItemID;
 
-        if (headItemID == bodyItemID && headItemID == legsItemID)
-        {
-            Debug.Log("kaif");
-            // TODO: match logic
-        }
+        if (headItemID != bodyItemID || headItemID != legsItemID) 
+            return;
+        
+        Debug.Log("kaif");
+        PartsMatched?.Invoke();
     }
     
     private List<Item> Shuffle(List<Item> list) 

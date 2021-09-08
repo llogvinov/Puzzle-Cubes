@@ -12,6 +12,8 @@ public class CheckAgeUI : MonoBehaviour
     [SerializeField] private Button[] _buttonsToHide;
 
     [SerializeField] private EntryField _entryField;
+    [Space]
+    [SerializeField] private MenuSoundsManager _soundsManager;
     
     public static int PanelID;
     
@@ -74,6 +76,8 @@ public class CheckAgeUI : MonoBehaviour
     
     private void ClosePanelUI()
     {
+        _soundsManager.PlayClickedSound();
+        
         HidePanel();
         // ShowButtons();
     }

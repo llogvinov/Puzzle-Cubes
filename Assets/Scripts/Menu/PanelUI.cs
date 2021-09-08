@@ -13,6 +13,8 @@ public class PanelUI : MonoBehaviour
 
     [SerializeField] private int _panelID;
 
+    [SerializeField] protected MenuSoundsManager _soundsManager;
+
     public int PanelID => _panelID;
 
     private void OnEnable() => CheckAgeUI.AgeConfirmed += OnAgeConfirmed;
@@ -50,6 +52,8 @@ public class PanelUI : MonoBehaviour
 
     private void ClosePanelUI()
     {
+        _soundsManager.PlayClickedSound();
+        
         HidePanel();
         ShowButtons();
     }

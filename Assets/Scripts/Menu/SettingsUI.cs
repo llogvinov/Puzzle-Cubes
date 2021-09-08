@@ -44,15 +44,37 @@ public class SettingsUI : PanelUI
 
     private void CheckAge()
     {
+        _soundsManager.PlayClickedSound();
+        
         CheckAgeUI.Instance.OnCheckAge(PanelID);
     }
     
-    private void OpenRate() => Application.OpenURL(RateUs);
-    
-    private void OpenContact() => Application.OpenURL("mailto:" + MailAddress);
+    private void OpenRate()
+    {
+        _soundsManager.PlayClickedSound();
+        
+        Application.OpenURL(RateUs);
+    }
 
-    private void OpenWebsite() => Application.OpenURL(Website);
+    private void OpenContact()
+    {
+        _soundsManager.PlayClickedSound();
+        
+        Application.OpenURL("mailto:" + MailAddress);
+    }
 
-    private void OpenPrivacyPolicy() => Application.OpenURL(PrivacyPolicy);
+    private void OpenWebsite()
+    {
+        _soundsManager.PlayClickedSound();
+        
+        Application.OpenURL(Website);
+    }
+
+    private void OpenPrivacyPolicy()
+    {
+        _soundsManager.PlayClickedSound();
+        
+        Application.OpenURL(PrivacyPolicy);
+    }
 
 }
