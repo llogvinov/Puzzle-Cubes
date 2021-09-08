@@ -1,24 +1,15 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class CheckAgeUI : MonoBehaviour
+public class CheckAgeUI : PanelUI
 {
-    [SerializeField] private GameObject _background;
-    [SerializeField] private GameObject _panelUI;
-    [SerializeField] private Button _closeButton;
-    [Space]
-    [SerializeField] private Button[] _buttonsToHide;
-
     [SerializeField] private EntryField _entryField;
-    [Space]
-    [SerializeField] private MenuSoundsManager _soundsManager;
     
-    public static int PanelID;
-    
+    public static int CurrentPanelID;
     public static UnityAction AgeConfirmed;
-
+    
     #region Singleton
 
     public static CheckAgeUI Instance;
@@ -42,58 +33,16 @@ public class CheckAgeUI : MonoBehaviour
         if (_entryField == null)
             _entryField = FindObjectOfType<EntryField>();
         
-        AddButtonsEvents();
-    }
-    
-    private void AddButtonsEvents()
-    {
-        _closeButton.onClick.RemoveAllListeners();
-        _closeButton.onClick.AddListener(ClosePanelUI);
+        AddPanelButtonsEvents();
     }
     
     public void OnCheckAge(int id)
     {
-        PanelID = id;
+        CurrentPanelID = id;
         
         // _entryField.ClearInputFields(); 
         ShowPanel();
         HideButtons();
     }
-
-    private void ShowPanel()
-    {
-        _background.SetActive(true);
-        _panelUI.SetActive(true);
-    }
-
-    private void HideButtons()
-    {
-        foreach (var button in _buttonsToHide)
-        {
-            button.gameObject.SetActive(false);
-        }
-    }
     
-    private void ClosePanelUI()
-    {
-        _soundsManager.PlayClickedSound();
-        
-        HidePanel();
-        // ShowButtons();
-    }
-
-    private void HidePanel()
-    {
-        _background.SetActive(false);
-        _panelUI.SetActive(false);
-    }
-
-    private void ShowButtons()
-    {
-        foreach (var button in _buttonsToHide)
-        {
-            button.gameObject.SetActive(true);
-        }
-    }
-
 }

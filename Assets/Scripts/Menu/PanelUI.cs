@@ -29,20 +29,20 @@ public class PanelUI : MonoBehaviour
     
     private void OnAgeConfirmed()
     {
-        if (_panelID != CheckAgeUI.PanelID)
+        if (_panelID != CheckAgeUI.CurrentPanelID)
             return;
         
         ShowPanel();
-        // HideButtons();
+        HideButtons();
     }
 
-    private void ShowPanel()
+    protected void ShowPanel()
     {
         _background.SetActive(true);
         _panelUI.SetActive(true);
     }
 
-    private void HideButtons()
+    protected void HideButtons()
     {
         foreach (var button in _buttonsToHide)
         {
@@ -50,7 +50,7 @@ public class PanelUI : MonoBehaviour
         }
     }
 
-    private void ClosePanelUI()
+    protected void ClosePanelUI()
     {
         _soundsManager.PlayClickedSound();
         
