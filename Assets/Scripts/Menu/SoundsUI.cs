@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class SoundsUI : MonoBehaviour
@@ -14,6 +15,9 @@ public class SoundsUI : MonoBehaviour
     [SerializeField] private Sprite _noMusicSprite;
     [SerializeField] private Sprite _noSoundSprite;
 
+    public static UnityAction<int> MusicVolumeChanged;
+    public static UnityAction<int> SoundsVolumeChanged;
+    
     private void Start()
     {
         AddSoundsButtonsEvents();
@@ -40,17 +44,19 @@ public class SoundsUI : MonoBehaviour
         if (_musicButton.image.sprite == _musicSprite)
         {
             _musicButton.image.sprite = _noMusicSprite;
-            PlayerPrefs.SetFloat("music", 0f);
+            PlayerPrefs.SetInt("music", 0);
         }
         else if (_musicButton.image.sprite == _noMusicSprite)
         {
             _musicButton.image.sprite = _musicSprite;
-            PlayerPrefs.SetFloat("music", 1f);
+            PlayerPrefs.SetInt("music", 1);
         }
         else
         {
             throw new Exception("Invalid button sprite");
         }
+        
+        MusicVolumeChanged?.Invoke(PlayerPrefs.GetInt("music"));
     }
 
     //Controls Sounds UI element
@@ -60,19 +66,19 @@ public class SoundsUI : MonoBehaviour
         if (_soundButton.image.sprite == _soundSprite)
         {
             _soundButton.image.sprite = _noSoundSprite;
-            PlayerPrefs.SetFloat("sounds", 0f);
+            PlayerPrefs.SetInt("sounds", 0);
         }
         else if (_soundButton.image.sprite == _noSoundSprite)
         {
             _soundButton.image.sprite = _soundSprite;
-            PlayerPrefs.SetFloat("sounds", 1f);
+            PlayerPrefs.SetInt("sounds", 1);
         }
         else
         {
             throw new Exception("Invalid button sprite");
         }
+        
+        SoundsVolumeChanged?.Invoke(PlayerPrefs.GetInt("sounds"));
     }
-    
-    
     
 }

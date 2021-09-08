@@ -32,7 +32,7 @@ MonoBehaviour:
     Name: Ocean
     Sprite: {fileID: 21300000, guid: bb543e7db9d036e499f9d72783f1e3ad, type: 3}
     ItemDatabase: {fileID: 11400000, guid: 8142301ccf5ce804282ded3ba056b5df, type: 2}
-    IsLocked: 1
+    IsLocked: 0
   - ID: 4
     Name: Professions
     Sprite: {fileID: 21300000, guid: ebf55e1b617b1514d8843ddf917bac71, type: 3}

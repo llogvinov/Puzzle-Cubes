@@ -20,7 +20,7 @@ public class Cloud : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector3.up * _speed * Time.deltaTime);
+        transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
         _lifeTime += Time.deltaTime;
         if (_lifeTime > _maxLifeTime)

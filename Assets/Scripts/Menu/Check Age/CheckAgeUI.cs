@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -9,8 +10,24 @@ public class CheckAgeUI : MonoBehaviour
     [SerializeField] private Button _closeButton;
     [Space]
     [SerializeField] private Button[] _buttonsToHide;
+
+    [SerializeField] private EntryField _entryField;
+    
+    public static int PanelID;
     
     public static UnityAction AgeConfirmed;
+
+    #region Singleton
+
+    public static CheckAgeUI Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+
+    #endregion
     
     private void OnAgeConfirmed() => ClosePanelUI();
     
@@ -18,7 +35,13 @@ public class CheckAgeUI : MonoBehaviour
 
     private void OnDisable() => AgeConfirmed += OnAgeConfirmed;
 
-    private void Start() => AddButtonsEvents();
+    private void Start()
+    {
+        if (_entryField == null)
+            _entryField = FindObjectOfType<EntryField>();
+        
+        AddButtonsEvents();
+    }
     
     private void AddButtonsEvents()
     {
@@ -26,32 +49,33 @@ public class CheckAgeUI : MonoBehaviour
         _closeButton.onClick.AddListener(ClosePanelUI);
     }
     
-    // TODO: add event on category buttons, invoke event whenever user clicks closed buttons
-    // calls when user clicks closed category
-    private void OnPurchaseTried()
+    public void OnCheckAge(int id)
     {
+        PanelID = id;
+        
+        // _entryField.ClearInputFields(); 
         ShowPanel();
         HideButtons();
     }
 
     private void ShowPanel()
     {
-        _background.SetActive(false);
-        _panelUI.SetActive(false);
+        _background.SetActive(true);
+        _panelUI.SetActive(true);
     }
 
     private void HideButtons()
     {
         foreach (var button in _buttonsToHide)
         {
-            button.gameObject.SetActive(true);
+            button.gameObject.SetActive(false);
         }
     }
     
     private void ClosePanelUI()
     {
         HidePanel();
-        ShowButtons();
+        // ShowButtons();
     }
 
     private void HidePanel()

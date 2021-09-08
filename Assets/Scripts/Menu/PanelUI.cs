@@ -5,22 +5,21 @@ using UnityEngine.UI;
 
 public class PanelUI : MonoBehaviour
 {
-    [SerializeField] private GameObject _background;
-    [SerializeField] private GameObject _panelUI;
+    [SerializeField] protected GameObject _background;
+    [SerializeField] protected GameObject _panelUI;
     [SerializeField] private Button _closeButton;
     [Space]
-    [SerializeField] private Button[] _buttonsToHide;
-    
+    [SerializeField] protected Button[] _buttonsToHide;
+
+    [SerializeField] private int _panelID;
+
+    public int PanelID => _panelID;
+
     private void OnEnable() => CheckAgeUI.AgeConfirmed += OnAgeConfirmed;
 
     private void OnDisable() => CheckAgeUI.AgeConfirmed -= OnAgeConfirmed;
     
-    private void Start()
-    {
-        AddButtonsEvents();
-    }
-    
-    private void AddButtonsEvents()
+    protected void AddPanelButtonsEvents()
     {
         _closeButton.onClick.RemoveAllListeners();
         _closeButton.onClick.AddListener(ClosePanelUI);
@@ -28,8 +27,11 @@ public class PanelUI : MonoBehaviour
     
     private void OnAgeConfirmed()
     {
+        if (_panelID != CheckAgeUI.PanelID)
+            return;
+        
         ShowPanel();
-        HideButtons();
+        // HideButtons();
     }
 
     private void ShowPanel()

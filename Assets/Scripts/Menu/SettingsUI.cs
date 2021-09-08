@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingsUI : MonoBehaviour
+public class SettingsUI : PanelUI
 {
-    [SerializeField] private GameObject _settingsPanel;
-    [SerializeField] private GameObject _settingsBackground;
     [SerializeField] private Button _openSettings;
-    [Space]
-    [SerializeField] private Button[] _buttonsToHide;
     [Space]
     [Header("Buttons on panel")] 
     [SerializeField] private Button _rateUs;
@@ -28,8 +24,10 @@ public class SettingsUI : MonoBehaviour
 
     private void AddButtonsEvents()
     {
+        AddPanelButtonsEvents();
+        
         _openSettings.onClick.RemoveAllListeners();
-        _openSettings.onClick.AddListener(OpenSettingsUI);
+        _openSettings.onClick.AddListener(CheckAge);
         
         _rateUs.onClick.RemoveAllListeners();
         _rateUs.onClick.AddListener(OpenRate);
@@ -44,15 +42,9 @@ public class SettingsUI : MonoBehaviour
         _privacyPolicy.onClick.AddListener(OpenPrivacyPolicy);
     }
 
-    private void OpenSettingsUI()
+    private void CheckAge()
     {
-        _settingsBackground.SetActive(true);
-        _settingsPanel.SetActive(true);
-        
-        foreach (var button in _buttonsToHide)
-        {
-            button.gameObject.SetActive(false);
-        }
+        CheckAgeUI.Instance.OnCheckAge(PanelID);
     }
     
     private void OpenRate() => Application.OpenURL(RateUs);

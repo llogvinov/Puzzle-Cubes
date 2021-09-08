@@ -32,7 +32,7 @@ public class EntryField : MonoBehaviour
         }
     }
     
-    private void ClearInputFields()
+    public void ClearInputFields()
     {
         foreach (var inputText in _inputTexts)
         {

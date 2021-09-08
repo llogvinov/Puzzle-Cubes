@@ -41,17 +41,20 @@ public class CategoriesUI : MonoBehaviour
             {
                 categoryButtonUI.OnItemSelect(i, OnItemSelected);
             }
+            else
+            {
+                categoryButtonUI.OnTryPurchase();
+            }
         }
     }
     
     private void OnItemSelected(int index)
     {
-        //Save Data
+        // save data
         GameDataManager.SetSelectedCategory(_categoryDb.GetCategory(index), index);
 
         SceneManager.LoadScene(1);
     }
-    
 
     private void ClearContainer()
     {
