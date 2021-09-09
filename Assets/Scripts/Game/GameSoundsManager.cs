@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundsManager : MonoBehaviour
+public class GameSoundsManager : MonoBehaviour
 {
     private AudioSource _audioSource;
 

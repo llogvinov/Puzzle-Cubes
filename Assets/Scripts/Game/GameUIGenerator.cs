@@ -1,61 +1,67 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameUI : MonoBehaviour
+public class GameUIGenerator : MonoBehaviour
 {
+    [Header("Containers")]
     [SerializeField] private Transform _headParts;
     [SerializeField] private Transform _bodyParts;
     [SerializeField] private Transform _legsParts;
-    
+    [Space]
     [SerializeField] private int _numberOfItems;
-
-    [SerializeField] private SpriteRenderer _headPart;
-    [SerializeField] private SpriteRenderer _bodyPart;
-    [SerializeField] private SpriteRenderer _legsPart;
-
+    [Space] 
+    [SerializeField] private ItemPart _itemPart;
+    
     [SerializeField] private CategoryDatabase _categoriesDb;
     private ItemDatabase _itemsDb;
 
+    private bool _hasMatchesAtStart = true;
+    
     public static UnityAction PartsMatched;
     
     private void Start()
     {
         _itemsDb = _categoriesDb.Categories[GameDataManager.GetSelectedCategoryID()].ItemDatabase;
+
+        int halfNumberOfItems = (_numberOfItems - 1) / 2;
         
-        PLaceBodyParts((_numberOfItems - 1) / 2, _headPart, _headParts);
-        PLaceBodyParts((_numberOfItems - 1) / 2, _bodyPart, _bodyParts);
-        PLaceBodyParts((_numberOfItems - 1) / 2, _legsPart, _legsParts);
+        PLaceItemsParts(halfNumberOfItems, _itemPart, new[] {_headParts, _bodyParts, _legsParts});
         
         List<Item> items = SelectRandomItems();
-
-        SetHeadItems(Shuffle(items));
-        SetBodyItems(Shuffle(items));
-        SetLegsItems(Shuffle(items));
-    }
-
-    // TODO: Invoke after UI Updates
-    private void Update()
-    {
-        CheckMatch();
-    }
-
-    private void PLaceBodyParts(int numberOfItems, SpriteRenderer spritePrefab, Transform container)
-    {
-        float spriteWidth = spritePrefab.bounds.extents.x;
-        
-        for (int i = -numberOfItems; i <= numberOfItems; i++)
+        while (_hasMatchesAtStart)
         {
-            SpriteRenderer spriteRenderer = 
-                Instantiate(spritePrefab, 
-                    spritePrefab.transform.position + Vector3.right *i * spriteWidth, 
-                    Quaternion.identity, 
-                    container);
+            SetHeadItems(Shuffle(items));
+            SetBodyItems(Shuffle(items));
+            SetLegsItems(Shuffle(items));
+            
+            CheckNearbyPartsMatch(halfNumberOfItems);
+        }
+    }
+    
+    private void PLaceItemsParts(int halfNumberOfItems, ItemPart itemPartPrefab, Transform[] containers)
+    {
+        SpriteRenderer itemPartSprite = itemPartPrefab.GetComponent<SpriteRenderer>();
+        float spriteWidth = itemPartSprite.bounds.extents.x;
+
+        foreach (var container in containers)
+        {
+            PlaceItemPartInContainer(container, halfNumberOfItems, itemPartPrefab, spriteWidth);
         }
     }
 
+    private void PlaceItemPartInContainer(Transform container, int halfNumberOfItems, ItemPart itemPartPrefab, float spriteWidth)
+    {
+        for (int i = -halfNumberOfItems; i <= halfNumberOfItems; i++)
+        {
+            Instantiate(itemPartPrefab, 
+                itemPartPrefab.transform.position + Vector3.right * i * spriteWidth, 
+                Quaternion.identity, 
+                container);
+        }
+    }
+    
     private List<Item> SelectRandomItems()
     {
         List<Item> finalItems = new List<Item>();
@@ -69,14 +75,14 @@ public class GameUI : MonoBehaviour
 
         for (int i = 0; i < _numberOfItems; i++)
         {
-            int index = UnityEngine.Random.Range(0,items.Count);
+            int index = UnityEngine.Random.Range(0, items.Count);
             finalItems.Add(items[index]);
             items.Remove(items[index]);
         }
         
         return finalItems;
     }
-
+    
     private void SetHeadItems(List<Item> items)
     {
         for (int i = 0; i < items.Count; i++)
@@ -103,19 +109,6 @@ public class GameUI : MonoBehaviour
             _legsParts.GetChild(i).GetComponent<ItemPart>().ItemID = items[i].ID;
         }
     }
-
-    private void CheckMatch()
-    {
-        int headItemID = _headParts.GetChild((_numberOfItems - 1) / 2).GetComponent<ItemPart>().ItemID;
-        int bodyItemID = _bodyParts.GetChild((_numberOfItems - 1) / 2).GetComponent<ItemPart>().ItemID;
-        int legsItemID = _legsParts.GetChild((_numberOfItems - 1) / 2).GetComponent<ItemPart>().ItemID;
-
-        if (headItemID != bodyItemID || headItemID != legsItemID) 
-            return;
-        
-        Debug.Log("kaif");
-        PartsMatched?.Invoke();
-    }
     
     private List<Item> Shuffle(List<Item> list) 
     {
@@ -129,5 +122,17 @@ public class GameUI : MonoBehaviour
         }
 
         return list;
+    }
+    
+    private void CheckNearbyPartsMatch(int halfNumberOfItems)
+    {
+        int headItemID = _headParts.GetChild(halfNumberOfItems).GetComponent<ItemPart>().ItemID;
+        int bodyItemID = _bodyParts.GetChild(halfNumberOfItems).GetComponent<ItemPart>().ItemID;
+        int legsItemID = _legsParts.GetChild(halfNumberOfItems).GetComponent<ItemPart>().ItemID;
+
+        if (headItemID == bodyItemID || bodyItemID == legsItemID)
+            return;
+
+        _hasMatchesAtStart = false;
     }
 }
