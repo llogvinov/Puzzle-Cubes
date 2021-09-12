@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,21 +12,17 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private ItemPart _itemPart;
     
     private int _halfNumberOfItems;
-    private float _spriteWidth;
     
     private enum SwipeDirection
     {
         Left, Right
     }
-
-    private SwipeDirection _swipeDirection;
     
     public static UnityAction PartsMatched;
 
     private void Start()
     {
         _halfNumberOfItems = (_headParts.childCount - 1) / 2;
-        _spriteWidth = _itemPart.GetComponent<SpriteRenderer>().bounds.extents.x;
     }
 
     private void Update()
@@ -68,40 +63,54 @@ public class PlayerInput : MonoBehaviour
                 OnSwipeRight(container);
                 break;
         }
+        
+        CheckAllPartsMatch(_halfNumberOfItems);
     }
 
     private void OnSwipeLeft(Transform container)
     {
-        Debug.Log(container.name + " left");
-
-        float currentPositionX = container.GetChild(0).position.x;
+        GameSoundsManager.Instance.PlaySwipeSound();
+        
+        var firstChild = container.GetChild(0);
+        
+        float currentPositionX = firstChild.position.x;
         float newPositionX = container.GetChild(container.childCount - 1).position.x;
 
-        container.GetChild(0).position = new Vector3(newPositionX, 0f);
+        firstChild.position = new Vector3(newPositionX, 0f);
 
         for (int i = 1; i < container.childCount; i++)
         {
-            newPositionX = currentPositionX;
-            currentPositionX = container.GetChild(i).position.x;
-            container.GetChild(i).position = new Vector3(newPositionX, 0f);
+            ChangeItemPosition(container, i, ref newPositionX, ref  currentPositionX);
         }
+        
+        firstChild.transform.SetAsLastSibling();
     }
 
     private void OnSwipeRight(Transform container)
     {
-        Debug.Log(container.name + " right");
+        GameSoundsManager.Instance.PlaySwipeSound();
         
-        float currentPositionX = container.GetChild(container.childCount - 1).position.x;
+        var lastChildIndex = container.childCount - 1;
+        var lastChild = container.GetChild(lastChildIndex);
+        
+        float currentPositionX = lastChild.position.x;
         float newPositionX = container.GetChild(0).position.x;
 
-        container.GetChild(container.childCount - 1).position = new Vector3(newPositionX, 0f);
+        lastChild.position = new Vector3(newPositionX, 0f);
 
-        for (int i = container.childCount - 1 - 1; i >= 0; i--)
+        for (int i = lastChildIndex - 1; i >= 0; i--)
         {
-            newPositionX = currentPositionX;
-            currentPositionX = container.GetChild(i).position.x;
-            container.GetChild(i).position = new Vector3(newPositionX, 0f);
+            ChangeItemPosition(container, i, ref newPositionX, ref  currentPositionX);
         }
+        
+        lastChild.transform.SetAsFirstSibling();
+    }
+
+    private void ChangeItemPosition(Transform container, int index, ref float newPositionX, ref float currentPositionX)
+    {
+        newPositionX = currentPositionX;
+        currentPositionX = container.GetChild(index).position.x;
+        container.GetChild(index).position = new Vector3(newPositionX, 0f);
     }
     
     private void CheckAllPartsMatch(int halfNumberOfItems)
@@ -113,6 +122,7 @@ public class PlayerInput : MonoBehaviour
         if (headItemID == bodyItemID && headItemID == legsItemID)
         {
             PartsMatched?.Invoke();
+            Debug.Log("parts matched");
         }
     }
 }

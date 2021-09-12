@@ -13,27 +13,20 @@ public class PanelUI : MonoBehaviour
 
     [SerializeField] private int _panelID;
 
-    [SerializeField] protected MenuSoundsManager _soundsManager;
-
     public int PanelID => _panelID;
 
-    private void OnEnable() => CheckAgeUI.AgeConfirmed += OnAgeConfirmed;
-
-    private void OnDisable() => CheckAgeUI.AgeConfirmed -= OnAgeConfirmed;
-    
     protected void AddPanelButtonsEvents()
     {
         _closeButton.onClick.RemoveAllListeners();
         _closeButton.onClick.AddListener(ClosePanelUI);
     }
     
-    private void OnAgeConfirmed()
+    protected void OnAgeConfirmed()
     {
         if (_panelID != CheckAgeUI.CurrentPanelID)
             return;
         
         ShowPanel();
-        HideButtons();
     }
 
     protected void ShowPanel()
@@ -50,15 +43,15 @@ public class PanelUI : MonoBehaviour
         }
     }
 
-    protected void ClosePanelUI()
+    private void ClosePanelUI()
     {
-        _soundsManager.PlayClickedSound();
+        MenuSoundsManager.Instance.PlayClickedSound();
         
         HidePanel();
         ShowButtons();
     }
 
-    private void HidePanel()
+    protected void HidePanel()
     {
         _background.SetActive(false);
         _panelUI.SetActive(false);

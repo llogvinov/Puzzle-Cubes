@@ -9,6 +9,7 @@ public class CheckAgeUI : PanelUI
     
     public static int CurrentPanelID;
     public static UnityAction AgeConfirmed;
+    public static UnityAction PanelOpened;
     
     #region Singleton
 
@@ -22,11 +23,11 @@ public class CheckAgeUI : PanelUI
 
     #endregion
     
-    private void OnAgeConfirmed() => ClosePanelUI();
+    private new void OnAgeConfirmed() => HidePanel();
     
     private void OnEnable() => AgeConfirmed += OnAgeConfirmed;
 
-    private void OnDisable() => AgeConfirmed += OnAgeConfirmed;
+    private void OnDisable() => AgeConfirmed -= OnAgeConfirmed;
 
     private void Start()
     {
@@ -38,9 +39,12 @@ public class CheckAgeUI : PanelUI
     
     public void OnCheckAge(int id)
     {
+        Debug.Log("opened");
+    
         CurrentPanelID = id;
         
-        // _entryField.ClearInputFields(); 
+        PanelOpened?.Invoke();
+        
         ShowPanel();
         HideButtons();
     }

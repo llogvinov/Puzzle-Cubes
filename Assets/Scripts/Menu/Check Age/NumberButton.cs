@@ -6,8 +6,6 @@ public class NumberButton : MonoBehaviour
 {
     [SerializeField] private int _buttonValue;
     
-    [SerializeField] private MenuSoundsManager _soundsManager;
-
     private EntryField _entryField;
 
     private void Start()
@@ -20,7 +18,7 @@ public class NumberButton : MonoBehaviour
 
     private void ButtonClicked()
     {
-        _soundsManager.PlayClickedSound();
+        MenuSoundsManager.Instance.PlayClickedSound();
         
         int index = _entryField.CurrentInputFieldIndex();
         _entryField.EnterNumber(index, _buttonValue);

@@ -20,6 +20,10 @@ public class SettingsUI : PanelUI
     private const string Website = "";
     private const string PrivacyPolicy = "";
     
+    private void OnEnable() => CheckAgeUI.AgeConfirmed += OnAgeConfirmed;
+
+    private void OnDisable() => CheckAgeUI.AgeConfirmed -= OnAgeConfirmed;
+    
     private void Start() => AddButtonsEvents();
 
     private void AddButtonsEvents()
@@ -44,35 +48,35 @@ public class SettingsUI : PanelUI
 
     private void CheckAge()
     {
-        _soundsManager.PlayClickedSound();
+        MenuSoundsManager.Instance.PlayClickedSound();
         
         CheckAgeUI.Instance.OnCheckAge(PanelID);
     }
     
     private void OpenRate()
     {
-        _soundsManager.PlayClickedSound();
+        MenuSoundsManager.Instance.PlayClickedSound();
         
         Application.OpenURL(RateUs);
     }
 
     private void OpenContact()
     {
-        _soundsManager.PlayClickedSound();
+        MenuSoundsManager.Instance.PlayClickedSound();
         
         Application.OpenURL("mailto:" + MailAddress);
     }
 
     private void OpenWebsite()
     {
-        _soundsManager.PlayClickedSound();
+        MenuSoundsManager.Instance.PlayClickedSound();
         
         Application.OpenURL(Website);
     }
 
     private void OpenPrivacyPolicy()
     {
-        _soundsManager.PlayClickedSound();
+        MenuSoundsManager.Instance.PlayClickedSound();
         
         Application.OpenURL(PrivacyPolicy);
     }

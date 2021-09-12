@@ -7,6 +7,18 @@ public class MenuSoundsManager : MonoBehaviour
 {
     private AudioSource _audioSource;
 
+    #region Singleton
+
+    public static MenuSoundsManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+
+    #endregion
+    
     private void OnEnable()
     {
         SoundsUI.SoundsVolumeChanged += OnSoundsVolumeChanged;

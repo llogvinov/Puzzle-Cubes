@@ -18,8 +18,6 @@ public class GameUI : MonoBehaviour
 
     [SerializeField] private CategoryDatabase _categoriesDb;
     private ItemDatabase _itemsDb;
-
-    public static UnityAction PartsMatched;
     
     private void Start()
     {
@@ -34,12 +32,6 @@ public class GameUI : MonoBehaviour
         SetHeadItems(Shuffle(items));
         SetBodyItems(Shuffle(items));
         SetLegsItems(Shuffle(items));
-    }
-
-    // TODO: Invoke after UI Updates
-    private void Update()
-    {
-        CheckMatch(); // change in future
     }
 
     private void PLaceBodyParts(int numberOfItems, SpriteRenderer spritePrefab, Transform container)
@@ -114,7 +106,6 @@ public class GameUI : MonoBehaviour
             return;
         
         Debug.Log("kaif");
-        PartsMatched?.Invoke();
     }
     
     private List<Item> Shuffle(List<Item> list) 

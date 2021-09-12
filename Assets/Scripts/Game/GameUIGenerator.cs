@@ -18,17 +18,22 @@ public class GameUIGenerator : MonoBehaviour
     private ItemDatabase _itemsDb;
 
     private bool _hasMatchesAtStart = true;
+    private int _halfNumberOfItems;
     
     public static UnityAction PartsMatched;
     
     private void Start()
     {
         _itemsDb = _categoriesDb.Categories[GameDataManager.GetSelectedCategoryID()].ItemDatabase;
+        _halfNumberOfItems = (_numberOfItems - 1) / 2;
+        
+        PLaceItemsParts(_halfNumberOfItems, _itemPart, new[] {_headParts, _bodyParts, _legsParts});
 
-        int halfNumberOfItems = (_numberOfItems - 1) / 2;
-        
-        PLaceItemsParts(halfNumberOfItems, _itemPart, new[] {_headParts, _bodyParts, _legsParts});
-        
+        GenerateUI();
+    }
+
+    public void GenerateUI()
+    {
         List<Item> items = SelectRandomItems();
         while (_hasMatchesAtStart)
         {
@@ -36,7 +41,7 @@ public class GameUIGenerator : MonoBehaviour
             SetBodyItems(Shuffle(items));
             SetLegsItems(Shuffle(items));
             
-            CheckNearbyPartsMatch(halfNumberOfItems);
+            CheckNearbyPartsMatch(_halfNumberOfItems);
         }
     }
     

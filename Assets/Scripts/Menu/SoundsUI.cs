@@ -14,9 +14,7 @@ public class SoundsUI : MonoBehaviour
     [SerializeField] private Sprite _soundSprite;
     [SerializeField] private Sprite _noMusicSprite;
     [SerializeField] private Sprite _noSoundSprite;
-    [Space]
-    [SerializeField] private MenuSoundsManager _soundsManager;
-    
+
     public static UnityAction<int> MusicVolumeChanged;
     public static UnityAction<int> SoundsVolumeChanged;
     
@@ -43,7 +41,7 @@ public class SoundsUI : MonoBehaviour
     // turns on or off the music
     private void Music()
     {
-        _soundsManager.PlayClickedSound();
+        MenuSoundsManager.Instance.PlayClickedSound();
         
         if (_musicButton.image.sprite == _musicSprite)
         {
@@ -67,7 +65,7 @@ public class SoundsUI : MonoBehaviour
     // turns on or off the sounds
     private void Sound()
     {
-        _soundsManager.PlayClickedSound();
+        MenuSoundsManager.Instance.PlayClickedSound();
         
         if (_soundButton.image.sprite == _soundSprite)
         {

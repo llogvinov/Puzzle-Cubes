@@ -70,11 +70,7 @@ public class CategoriesUI : MonoBehaviour
 
         float canvasWidth = _canvas.GetComponent<RectTransform>().rect.width;
         float buttonWidth = _categoryButton.GetComponent<RectTransform>().rect.width;
-        
-        Debug.Log("Canvas width - " + canvasWidth);
-        Debug.Log("Button width - " + buttonWidth);
-        Debug.Log((canvasWidth - buttonWidth) / 2f);
-        
+
         ConfigurePaddingAndSpacing(layoutGroup, canvasWidth, buttonWidth);
     }
     
