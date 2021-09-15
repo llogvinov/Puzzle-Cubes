@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour
     }
     
     public static UnityAction PartsMatched;
+    public static UnityAction<int> ItemCollected;
 
     private void Start()
     {
@@ -122,6 +123,7 @@ public class PlayerInput : MonoBehaviour
         if (headItemID == bodyItemID && headItemID == legsItemID)
         {
             PartsMatched?.Invoke();
+            ItemCollected?.Invoke(headItemID);
             Debug.Log("parts matched");
         }
     }

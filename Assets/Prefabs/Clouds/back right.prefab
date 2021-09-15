@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 990252292345286168}
   - component: {fileID: 990252292345286171}
-  - component: {fileID: 990252292345286170}
+  - component: {fileID: 6950717363190301619}
   m_Layer: 5
   m_Name: back right
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 990252292345286169}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.4, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &990252292345286170
+--- !u!114 &6950717363190301619
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,9 +92,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 990252292345286169}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b73bd52b7745b24894abd2c14b4fadb, type: 3}
+  m_Script: {fileID: 11500000, guid: ae3b3aa310228d042aae6a0b69aeaef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.8
-  _lifeTime: 0
-  _maxLifeTime: 25
+  _speed: 0.5
+  _ySpawnPosition: 12

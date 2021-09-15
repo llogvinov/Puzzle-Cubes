@@ -38,3 +38,13 @@ MonoBehaviour:
     Sprite: {fileID: 21300000, guid: ebf55e1b617b1514d8843ddf917bac71, type: 3}
     ItemDatabase: {fileID: 11400000, guid: 30a7b4b44b0381c4d8c51de980d19fd8, type: 2}
     IsLocked: 1
+  - ID: 5
+    Name: Houses
+    Sprite: {fileID: 0}
+    ItemDatabase: {fileID: 11400000, guid: 87449e1d92c68ec45bf555874b2662be, type: 2}
+    IsLocked: 0
+  - ID: 6
+    Name: Monsters
+    Sprite: {fileID: 0}
+    ItemDatabase: {fileID: 11400000, guid: b91eb7f8b9f305444af9dc310aac9564, type: 2}
+    IsLocked: 0

@@ -9,24 +9,18 @@ public class EntryField : MonoBehaviour
     
     private Text[] _inputTexts;
 
-    private int _permissibleAge = 16;
+    private const int PermissibleAge = 16;
 
-    private void OnEnable()
-    {
-        CheckAgeUI.PanelOpened += ClearInputFields;
-    }
+    private void OnEnable() => CheckAgeUI.PanelOpened += ClearInputFields;
 
-    private void OnDisable()
-    {
-        CheckAgeUI.PanelOpened -= ClearInputFields;
-    }
+    private void OnDisable() => CheckAgeUI.PanelOpened -= ClearInputFields;
 
     public int GetEntryCellsCount() => _inputTexts.Length;
     
     private void Start()
     {
         AdjustTextComponents();
-        // ClearInputFields();
+        ClearInputFields();
         
         _backspaceButton.onClick.RemoveAllListeners();
         _backspaceButton.onClick.AddListener(DeleteLastNumber);
@@ -84,7 +78,7 @@ public class EntryField : MonoBehaviour
         int confirmedAge = Convert.ToInt32(age);
         int yearsAge = DateTime.Today.Year - confirmedAge;
         
-        if (yearsAge >= _permissibleAge)
+        if (yearsAge >= PermissibleAge)
         {
             CheckAgeUI.AgeConfirmed?.Invoke();
         }

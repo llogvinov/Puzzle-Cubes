@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af8b13f7eaf557f4599984f0651854a1, type: 3}
+  m_Name: BirdsDatabase
+  m_EditorClassIdentifier: 
+  Items:
+  - ID: 0
+    Name: b01
+    FullItem: {fileID: 21300000, guid: 2c5136fdfb6ba1c4ea1c3809bf324cda, type: 3}
+    Background: {fileID: 21300000, guid: 1443c001acb5493439bf132a65b4bc88, type: 3}
+    Head: {fileID: 21300000, guid: bf01bcd781031f44ab4a9420c4bc8083, type: 3}
+    Body: {fileID: 21300000, guid: 7582226cb9911854dae33fe10040096b, type: 3}
+    Legs: {fileID: 21300000, guid: eb5119a61951a334fa07b308d4f6899a, type: 3}
+  - ID: 1
+    Name: b02
+    FullItem: {fileID: 21300000, guid: c963ae63fc24a6047bf4353b8d7c5e75, type: 3}
+    Background: {fileID: 21300000, guid: 7ead5fb10c2aea746b0e9b79d8256820, type: 3}
+    Head: {fileID: 21300000, guid: f9e9320d3c2b6044ebf0ffe9756e7b6c, type: 3}
+    Body: {fileID: 21300000, guid: 56dee75e8cf8c83418efafb61219eb5b, type: 3}
+    Legs: {fileID: 21300000, guid: 5fc0c5c3b57738d42ac45c7b182c1677, type: 3}
+  - ID: 2
+    Name: b03
+    FullItem: {fileID: 21300000, guid: e7c9c00e544b88c459e7dda117adeccc, type: 3}
+    Background: {fileID: 21300000, guid: ab9cc1431ad46ef4587ca561b3fedb8b, type: 3}
+    Head: {fileID: 21300000, guid: 384d78da24dd16246b358fc2007357af, type: 3}
+    Body: {fileID: 21300000, guid: 5ff16d18591ba114386f385899bb73d3, type: 3}
+    Legs: {fileID: 21300000, guid: 6bcc210da2e4abb49961cc5beff8e10c, type: 3}
+  - ID: 3
+    Name: b04
+    FullItem: {fileID: 21300000, guid: c6d6da06cf2b0d2438e3aaf871f4870b, type: 3}
+    Background: {fileID: 21300000, guid: 2f0c973fa5b878443a28a3a136f0caa1, type: 3}
+    Head: {fileID: 21300000, guid: cfac812f559723b429fca98f93135fa3, type: 3}
+    Body: {fileID: 21300000, guid: a7205bb88a7fe5e46a2ea5b2c2579e50, type: 3}
+    Legs: {fileID: 21300000, guid: a139a6984b83d084d8a21494f9713c3b, type: 3}
+  - ID: 4
+    Name: b05
+    FullItem: {fileID: 21300000, guid: 5ad7f27872a774e4895332ea2fef777c, type: 3}
+    Background: {fileID: 21300000, guid: c7e92688156879342ba695ea911d6694, type: 3}
+    Head: {fileID: 21300000, guid: 7b20c4b84d61b004c82b9cab8249e50f, type: 3}
+    Body: {fileID: 21300000, guid: 345e1876137ebf74b9e1759ce0cd6a65, type: 3}
+    Legs: {fileID: 21300000, guid: c227fd06d975b4c4ca8ed944888d30e7, type: 3}
+  - ID: 5
+    Name: b06
+    FullItem: {fileID: 21300000, guid: b2fcf8656f6e11044afd02b95e920847, type: 3}
+    Background: {fileID: 21300000, guid: a2f91a5922da0fa49a77e7d38a18a514, type: 3}
+    Head: {fileID: 21300000, guid: 00251f4bcbc36594bb04573cee7b78d5, type: 3}
+    Body: {fileID: 21300000, guid: afb82297ce40c0f44be8d5bdabd32287, type: 3}
+    Legs: {fileID: 21300000, guid: 215fa1339564b084ca9755ba4b211057, type: 3}
+  - ID: 6
+    Name: b07
+    FullItem: {fileID: 21300000, guid: ccd63fe854fa6dd4d9704b5f6fb9249a, type: 3}
+    Background: {fileID: 21300000, guid: 595fa4441a4b2b147890a7f2fb539230, type: 3}
+    Head: {fileID: 21300000, guid: e5c6ad0b10e3eaa4a93b351b6e545aca, type: 3}
+    Body: {fileID: 21300000, guid: 510afa05caed39d4fbd33c6912101bdb, type: 3}
+    Legs: {fileID: 21300000, guid: 1fbcaa23a2349d846a915f419f20606d, type: 3}
+  - ID: 7
+    Name: b08
+    FullItem: {fileID: 21300000, guid: f1f82d0b24e1a374b8d607f8c9a16e4d, type: 3}
+    Background: {fileID: 21300000, guid: ddfe15500e5e9aa4ab15acda1ca59f5b, type: 3}
+    Head: {fileID: 21300000, guid: 7899ed8e1e5b293458ad3dfd9eca4edf, type: 3}
+    Body: {fileID: 21300000, guid: cbee21eed2640dc4ebde501d035d7c8c, type: 3}
+    Legs: {fileID: 21300000, guid: e3a70dca73d455140816a2a1b5d6eaf4, type: 3}
+  - ID: 8
+    Name: b09
+    FullItem: {fileID: 21300000, guid: ab5f3315e6ba96549b5165ae7eb0c583, type: 3}
+    Background: {fileID: 21300000, guid: bd46c303987c80b4fb93a8cdf7d76d1b, type: 3}
+    Head: {fileID: 21300000, guid: 7873a3c32928e534785094dd68280559, type: 3}
+    Body: {fileID: 21300000, guid: 5c1c301daa80acc4db7c616f6497a7bf, type: 3}
+    Legs: {fileID: 21300000, guid: 2e0fbe18263541e4cbb0ceff977e75c2, type: 3}
+  - ID: 9
+    Name: b10
+    FullItem: {fileID: 21300000, guid: 0f64750b5642e3b42ba187d1938caf07, type: 3}
+    Background: {fileID: 21300000, guid: c2898a4977ec6dd4cbc1f8fa1166b375, type: 3}
+    Head: {fileID: 21300000, guid: 4c763c2399750c048bb07d49bf4d68a9, type: 3}
+    Body: {fileID: 21300000, guid: 2ec91daa3ca9324479c965d3ec0a4fcc, type: 3}
+    Legs: {fileID: 21300000, guid: 8dc6dd0f8d7e33b41942e363d5ba4a6c, type: 3}

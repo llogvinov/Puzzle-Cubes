@@ -11,7 +11,7 @@ public class CategoriesData
 [System.Serializable]
 public class PlayerData
 {
-    public string Language;
+    public SystemLanguage Language;
     
     public bool FullVersionOpened;
     public int SelectedCategoryID;
@@ -28,8 +28,14 @@ public static class GameDataManager
     {
         LoadPlayerData();
         LoadCategoriesData();
+        
+        _playerData.Language = Application.systemLanguage;
     }
 
+    public static void SetLanguage(SystemLanguage language) => _playerData.Language = language;
+
+    public static SystemLanguage GetLanguage() => _playerData.Language;
+    
     public static void OpenFullVersion() => _playerData.FullVersionOpened = true;
     
     public static bool IsFullVersionOpened() => _playerData.FullVersionOpened;

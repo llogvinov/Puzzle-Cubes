@@ -1,31 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cloud : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float _ySpawnPosition;
 
-    [SerializeField] private float _lifeTime;
-    [SerializeField] private float _maxLifeTime = 5f;
-
-    private CloudPool _pool;
-    
-    private void OnEnable()
-    {
-        _pool = transform.parent.GetComponent<CloudPool>();
-        
-        _lifeTime = 0;
-    }
+    private const float BottomBound = -12f;
 
     private void Update()
     {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
-        _lifeTime += Time.deltaTime;
-        if (_lifeTime > _maxLifeTime)
+        if (transform.position.y < BottomBound)
         {
-            _pool.ReturnToPool(this);
+            transform.position = new Vector3(transform.position.x, _ySpawnPosition, transform.position.z);
         }
     }
 }

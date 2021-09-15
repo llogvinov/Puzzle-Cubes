@@ -15,6 +15,8 @@ public class PanelUI : MonoBehaviour
 
     public int PanelID => _panelID;
 
+    private const float LeanTime = 0.3f;
+    
     protected void AddPanelButtonsEvents()
     {
         _closeButton.onClick.RemoveAllListeners();
@@ -33,6 +35,14 @@ public class PanelUI : MonoBehaviour
     {
         _background.SetActive(true);
         _panelUI.SetActive(true);
+
+        var background = _background.GetComponent<CanvasGroup>();
+        background.alpha = 0;
+        background.LeanAlpha(1, LeanTime);
+
+        var panel = _panelUI.GetComponent<Transform>();
+        panel.localPosition = new Vector2(0, Screen.height);
+        panel.LeanMoveLocalY(0, LeanTime).setEaseOutExpo();
     }
 
     protected void HideButtons()
@@ -53,8 +63,13 @@ public class PanelUI : MonoBehaviour
 
     protected void HidePanel()
     {
-        _background.SetActive(false);
-        _panelUI.SetActive(false);
+        var background = _background.GetComponent<CanvasGroup>();
+        background.LeanAlpha(1, LeanTime).setOnComplete(() => _background.SetActive(false));
+
+        var panel = _panelUI.GetComponent<Transform>();
+        panel.LeanMoveLocalY(Screen.height, LeanTime)
+            .setEaseInExpo()
+            .setOnComplete(() => _panelUI.SetActive(false));
     }
 
     private void ShowButtons()

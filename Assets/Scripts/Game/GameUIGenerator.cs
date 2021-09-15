@@ -15,16 +15,16 @@ public class GameUIGenerator : MonoBehaviour
     [SerializeField] private ItemPart _itemPart;
     
     [SerializeField] private CategoryDatabase _categoriesDb;
-    private ItemDatabase _itemsDb;
+    [HideInInspector] public ItemDatabase ItemsDb;
 
-    private bool _hasMatchesAtStart = true;
+    private bool _hasMatchesAtStart;
     private int _halfNumberOfItems;
     
     public static UnityAction PartsMatched;
     
     private void Start()
     {
-        _itemsDb = _categoriesDb.Categories[GameDataManager.GetSelectedCategoryID()].ItemDatabase;
+        ItemsDb = _categoriesDb.Categories[GameDataManager.GetSelectedCategoryID()].ItemDatabase;
         _halfNumberOfItems = (_numberOfItems - 1) / 2;
         
         PLaceItemsParts(_halfNumberOfItems, _itemPart, new[] {_headParts, _bodyParts, _legsParts});
@@ -34,6 +34,8 @@ public class GameUIGenerator : MonoBehaviour
 
     public void GenerateUI()
     {
+        _hasMatchesAtStart = true;
+        
         List<Item> items = SelectRandomItems();
         while (_hasMatchesAtStart)
         {
@@ -72,9 +74,9 @@ public class GameUIGenerator : MonoBehaviour
         List<Item> finalItems = new List<Item>();
 
         List<Item> items = new List<Item>();
-        for (int i = 0; i < _itemsDb.GetLength(); i++)
+        for (int i = 0; i < ItemsDb.GetLength(); i++)
         {
-            Item item = _itemsDb.GetItem(i);
+            Item item = ItemsDb.GetItem(i);
             items.Add(item);
         }
 
