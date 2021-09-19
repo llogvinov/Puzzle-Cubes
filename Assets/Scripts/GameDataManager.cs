@@ -29,10 +29,18 @@ public static class GameDataManager
         LoadPlayerData();
         LoadCategoriesData();
         
-        _playerData.Language = Application.systemLanguage;
+        SetLanguage(Application.systemLanguage);
     }
 
-    public static void SetLanguage(SystemLanguage language) => _playerData.Language = language;
+    public static void SetLanguage(SystemLanguage language)
+    {
+        _playerData.Language = language;
+        AudioHolder.SetAudioClipsList(language);
+        
+#if UNITY_EDITOR
+        Debug.Log("Language changed to " + language);
+#endif
+    }
 
     public static SystemLanguage GetLanguage() => _playerData.Language;
     

@@ -33,6 +33,19 @@ public class PlayerInput : MonoBehaviour
 
     private void GetPlayerInput()
     {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            GameDataManager.SetLanguage(SystemLanguage.Japanese);
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameDataManager.SetLanguage(SystemLanguage.Russian);
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            GameDataManager.SetLanguage(SystemLanguage.Korean);
+        }
+        
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             if (Input.GetKey(KeyCode.H))
