@@ -2,14 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditorInternal.Profiling.Memory.Experimental;
+using TMPro;
 using UnityEngine;
 
 public static class TextHolder
 {
     private static Dictionary<string, List<string>> _generalTextsDictionary = new Dictionary<string, List<string>>();
     private static Dictionary<string, List<string>> _namesDictionary = new Dictionary<string, List<string>>();
-    
+
+    private static TMP_FontAsset _categoryTMP;
+    private static TMP_FontAsset _mainTMP;
+    private static TMP_FontAsset _cnTMP;
+    private static TMP_FontAsset _jpTMP;
+    private static TMP_FontAsset _krTMP;
+
     private static Font _mainFont;
     private static Font _cnFont;
     private static Font _jpFont;
@@ -19,6 +25,7 @@ public static class TextHolder
     {
         _namesDictionary = ReadCsv("NamesLocalization");
         _generalTextsDictionary = ReadCsv("GeneralTexts");
+        
         AdjustFonts();
     }
 
@@ -32,6 +39,17 @@ public static class TextHolder
             _ => _mainFont
         };
     }
+
+    public static TMP_FontAsset GetCategoryFont(SystemLanguage language)
+    {
+        return language switch
+        {
+            SystemLanguage.ChineseSimplified => _cnTMP,
+            SystemLanguage.Japanese => _jpTMP,
+            SystemLanguage.Korean => _krTMP,
+            _ => _categoryTMP
+        };
+    }
     
     public static string GetName(SystemLanguage language, string name)
     {
@@ -42,10 +60,10 @@ public static class TextHolder
     {
         return GetTextFromDictionary(_generalTextsDictionary, language, title);
     }
-
+    
     private static string GetTextFromDictionary(Dictionary<string, List<string>> dictionary, SystemLanguage language, string key)
     {
-        int index = GetLanguageIndex(language);
+        int index = Array.IndexOf(GameDataManager.AvailableLanguages, language);
         if (index == -1)
             throw new ArgumentException();
         
@@ -84,25 +102,12 @@ public static class TextHolder
         _cnFont = Resources.Load<Font>("Fonts/Chineese/NotoSansSC-Medium");
         _jpFont = Resources.Load<Font>("Fonts/Japaneese/KosugiMaru-Regular");
         _krFont = Resources.Load<Font>("Fonts/Korean/Gugi-Regular");
-    }
 
-    private static int GetLanguageIndex(SystemLanguage language)
-    {
-        return language switch
-        {
-            SystemLanguage.English => 0,
-            SystemLanguage.Russian => 1,
-            SystemLanguage.German => 2,
-            SystemLanguage.French => 3,
-            SystemLanguage.Italian => 4,
-            SystemLanguage.Spanish => 5,
-            SystemLanguage.Portuguese => 6,
-            SystemLanguage.Polish => 7,
-            SystemLanguage.ChineseSimplified => 8,
-            SystemLanguage.Japanese => 9,
-            SystemLanguage.Korean => 10,
-            _ => -1
-        };
+        _categoryTMP = Resources.Load<TMP_FontAsset>("Fonts/TMPro Fonts/Categories");
+        _mainTMP = Resources.Load<TMP_FontAsset>("Fonts/TMPro Fonts/Other");
+        _cnTMP = Resources.Load<TMP_FontAsset>("Fonts/TMPro Fonts/Chinese");
+        _jpTMP = Resources.Load<TMP_FontAsset>("Fonts/TMPro Fonts/Japanese");
+        _krTMP = Resources.Load<TMP_FontAsset>("Fonts/TMPro Fonts/Korean");
     }
 
 }

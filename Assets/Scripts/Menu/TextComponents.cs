@@ -21,12 +21,12 @@ public class TextComponents : MonoBehaviour
 
     private void OnEnable()
     {
-        LanguageChanger.LanguageChanged += TranslateAllTexts;
+        LanguagePanel.LanguageChanged += TranslateAllTexts;
     }
 
     private void OnDisable()
     {
-        LanguageChanger.LanguageChanged -= TranslateAllTexts;
+        LanguagePanel.LanguageChanged -= TranslateAllTexts;
     }
 
     private void Start()
@@ -45,26 +45,27 @@ public class TextComponents : MonoBehaviour
     
     private void TranslateSettings(SystemLanguage language)
     {
-        _rateUs.text = TranslateWord(language, "rate us");
-        _contactUs.text = TranslateWord(language, "contact us");
-        _privacyPolicy.text = TranslateWord(language, "privacy policy");
-        _website.text = TranslateWord(language, "website");
-        _restore.text = TranslateWord(language, "restore");
+        TranslateWord(_rateUs, language, "rate us");
+        TranslateWord(_contactUs, language, "contact us");
+        TranslateWord(_privacyPolicy, language, "privacy policy");
+        TranslateWord(_website, language, "website");
+        TranslateWord(_restore, language, "restore");
     }
 
     private void TranslateCheckAge(SystemLanguage language)
     {
-        _checkAge.text = TranslateWord(language, "check age");
+        TranslateWord(_checkAge, language, "check age");
     }
 
     private void TranslateFullVersion(SystemLanguage language)
     {
-        _fullVersion.text = TranslateWord(language, "full version");
-        _openFullVersion.text = TranslateWord(language, "open full version");
+        TranslateWord(_fullVersion, language, "full version");
+        TranslateWord(_openFullVersion, language, "open full version");
     }
 
-    private string TranslateWord(SystemLanguage language, string key)
+    private void TranslateWord(Text title, SystemLanguage language, string key)
     {
-        return TextHolder.GetTitle(language, key);
+        title.text = TextHolder.GetTitle(language, key);
+        title.font = TextHolder.GetFont(language);
     }
 }

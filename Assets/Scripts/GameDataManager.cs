@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -24,6 +25,22 @@ public static class GameDataManager
     private static CategoriesData _categoriesData = new CategoriesData();
     private static Category _selectedCategory = new Category();
 
+    private const SystemLanguage DefaultLanguage = SystemLanguage.English;
+    public static SystemLanguage[] AvailableLanguages =
+    {
+        SystemLanguage.English,
+        SystemLanguage.Russian,
+        SystemLanguage.German,
+        SystemLanguage.French,
+        SystemLanguage.Italian,
+        SystemLanguage.Spanish,
+        SystemLanguage.Portuguese,
+        SystemLanguage.Polish,
+        SystemLanguage.ChineseSimplified,
+        SystemLanguage.Japanese,
+        SystemLanguage.Korean
+    };
+    
     static GameDataManager()
     {
         LoadPlayerData();
@@ -34,6 +51,11 @@ public static class GameDataManager
 
     public static void SetLanguage(SystemLanguage language)
     {
+        if (!AvailableLanguages.Contains(language))
+        {
+            language = DefaultLanguage;
+        }
+
         _playerData.Language = language;
         AudioHolder.SetAudioClipsList(language);
         

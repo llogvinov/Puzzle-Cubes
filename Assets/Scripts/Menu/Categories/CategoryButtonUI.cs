@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -8,8 +8,7 @@ using UnityEngine.Events;
 public class CategoryButtonUI : MonoBehaviour
 {
     [SerializeField] private Image _categoryImage;
-    [SerializeField] private Text _categoryName;
-    
+    [SerializeField] private TMP_Text _categoryName;
     [SerializeField] private Image _lockImage;
 
     private Button _categoryButton;
@@ -21,13 +20,31 @@ public class CategoryButtonUI : MonoBehaviour
         _purchaseUI = FindObjectOfType<PurchaseUI>();
     }
 
-    public void SetCategoryImage(Sprite sprite) => _categoryImage.sprite = sprite;
+    public void SetInformation(Category category, SystemLanguage language, string key)
+    {
+        SetImage(category.Sprite);
+        
+        SetTitle(category, language, key);
+        
+        SetLock(category.IsLocked);
+    }
 
-    public void SetCategoryName(string name) => _categoryName.text = name;
+    private void SetImage(Sprite sprite) => _categoryImage.sprite = sprite;
 
-    public void SetCategoryLock(bool isLocked) => _lockImage.gameObject.SetActive(isLocked);
-    
-    // public void SetHatImageOpacity() => hatImage.color = new Color(0f, 0f, 0f, 0f);
+    private void SetTitle(Category category, SystemLanguage language, string key)
+    {
+        SetName(language, key);
+        SetColor(category.NameColor);
+    }
+
+    public void SetName(SystemLanguage language, string key)
+    {
+        _categoryName.font = TextHolder.GetCategoryFont(language);
+        _categoryName.text = TextHolder.GetTitle(language, key);
+    }
+
+    private void SetColor(Color color) => _categoryName.color = color;
+    private void SetLock(bool isLocked) => _lockImage.gameObject.SetActive(isLocked);
     
     public void OnItemSelect(int itemIndex, UnityAction<int> action)
     {

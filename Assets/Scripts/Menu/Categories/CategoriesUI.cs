@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,17 +13,28 @@ public class CategoriesUI : MonoBehaviour
     [SerializeField] private Transform _buttonsContainer;
 
     [SerializeField] private Canvas _canvas;
-    
+
+    private void OnEnable()
+    {
+        LanguagePanel.LanguageChanged += TranslateCategories;
+    }
+
+    private void OnDisable()
+    {
+        LanguagePanel.LanguageChanged -= TranslateCategories;
+    }
+
     private void Start()
     {
         ClearContainer();
         ConfigureLayoutGroup();
-        
         GenerateScrollView();
     }
 
     private void GenerateScrollView()
     {
+        var lang = GameDataManager.GetLanguage();
+        
         for (int i = 0; i < _categoryDb.GetLength(); i++)
         {
             Category category = _categoryDb.GetCategory(i);
@@ -30,13 +42,11 @@ public class CategoriesUI : MonoBehaviour
                 Instantiate(_categoryButton, _buttonsContainer).GetComponent<CategoryButtonUI>();
 
             // set button name in Hierarchy
-            categoryButtonUI.gameObject.name = category.Name;
+            categoryButtonUI.gameObject.name = "category" + i;
             
             // add information on button
-            categoryButtonUI.SetCategoryImage(category.Sprite);
-            categoryButtonUI.SetCategoryName(category.Name);
-            categoryButtonUI.SetCategoryLock(category.IsLocked);
-
+            categoryButtonUI.SetInformation(category, lang, categoryButtonUI.gameObject.name);
+            
             if (!category.IsLocked)
             {
                 categoryButtonUI.OnItemSelect(i, OnItemSelected);
@@ -79,5 +89,17 @@ public class CategoriesUI : MonoBehaviour
         layoutGroup.padding.left = Mathf.RoundToInt((canvasWidth - buttonWidth) / 2f);
         layoutGroup.padding.right = Mathf.RoundToInt((canvasWidth - buttonWidth) / 2f);
         layoutGroup.spacing = Mathf.RoundToInt((canvasWidth - buttonWidth) / 2f);
+    }
+
+    private void TranslateCategories()
+    {
+        var lang = GameDataManager.GetLanguage();
+        
+        for (int i = 0; i < _buttonsContainer.transform.childCount; i++)
+        {
+            var categoryButtonUI = _buttonsContainer.transform.GetChild(i).GetComponent<CategoryButtonUI>();
+            
+            categoryButtonUI.SetName(lang, categoryButtonUI.gameObject.name);
+        }
     }
 }

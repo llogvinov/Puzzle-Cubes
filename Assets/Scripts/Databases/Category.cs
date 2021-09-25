@@ -7,6 +7,9 @@ public class Category
 {
     public int ID;
     public string Name;
+    public Color NameColor;
+    public Color DarkShadow;
+    public Color LightShadow;
     public Sprite Sprite;
     public ItemDatabase ItemDatabase;
 

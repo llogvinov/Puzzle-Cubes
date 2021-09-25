@@ -15,36 +15,57 @@ MonoBehaviour:
   Categories:
   - ID: 0
     Name: Animals
-    Sprite: {fileID: 21300000, guid: 30613b26bc9b0944ba1f3fe9c61fbe38, type: 3}
+    NameColor: {r: 0, g: 1, b: 1, a: 1}
+    DarkShadow: {r: 0.5372549, g: 0, b: 0, a: 1}
+    LightShadow: {r: 0.81960785, g: 0, b: 0.03137255, a: 0.5019608}
+    Sprite: {fileID: 21300000, guid: 5ab2fb91082812b4898ef7019bfce1f2, type: 3}
     ItemDatabase: {fileID: 11400000, guid: a55cf7a1949701e4ea1eb8a39092e01e, type: 2}
     IsLocked: 0
   - ID: 1
     Name: Birds
-    Sprite: {fileID: 21300000, guid: 41847a033046d674885b0dc7835571aa, type: 3}
+    NameColor: {r: 1, g: 0.8862745, b: 0, a: 1}
+    DarkShadow: {r: 0, g: 0.23529412, b: 0.50980395, a: 1}
+    LightShadow: {r: 0, g: 0.6039216, b: 0.62352943, a: 0.5019608}
+    Sprite: {fileID: 21300000, guid: 29de544ad4639ae4da729031b1e80207, type: 3}
     ItemDatabase: {fileID: 11400000, guid: dd7d352ee09ccbc43a688b1502ddcbe4, type: 2}
     IsLocked: 1
   - ID: 2
     Name: Dinosaurs
-    Sprite: {fileID: 21300000, guid: 838ee3eb9a515234e8265cee123c7738, type: 3}
+    NameColor: {r: 1, g: 0.45490196, b: 1, a: 1}
+    DarkShadow: {r: 0.33333334, g: 0.13333334, b: 0, a: 1}
+    LightShadow: {r: 0.047058824, g: 0.627451, b: 0.08235294, a: 0.5019608}
+    Sprite: {fileID: 21300000, guid: 51fa50b52855aad4c97d2f10c4e4a6b8, type: 3}
     ItemDatabase: {fileID: 11400000, guid: 0e05df4e05f6b524c93a033754d5d1c6, type: 2}
     IsLocked: 1
   - ID: 3
     Name: Ocean
-    Sprite: {fileID: 21300000, guid: bb543e7db9d036e499f9d72783f1e3ad, type: 3}
+    NameColor: {r: 1, g: 0.6117647, b: 0, a: 1}
+    DarkShadow: {r: 0.0627451, g: 0, b: 0.5294118, a: 1}
+    LightShadow: {r: 0.15294118, g: 0.13333334, b: 1, a: 0.5019608}
+    Sprite: {fileID: 21300000, guid: bea967d2daa25d248848ac9815a2df61, type: 3}
     ItemDatabase: {fileID: 11400000, guid: 8142301ccf5ce804282ded3ba056b5df, type: 2}
     IsLocked: 1
   - ID: 4
     Name: Professions
-    Sprite: {fileID: 21300000, guid: ebf55e1b617b1514d8843ddf917bac71, type: 3}
+    NameColor: {r: 0, g: 0.8235294, b: 1, a: 1}
+    DarkShadow: {r: 0.46666667, g: 0, b: 0.21176471, a: 1}
+    LightShadow: {r: 0.78039217, g: 0, b: 0.62352943, a: 0.5019608}
+    Sprite: {fileID: 21300000, guid: 9885e7f5a4d5ad34bb0a9344f21159fc, type: 3}
     ItemDatabase: {fileID: 11400000, guid: 30a7b4b44b0381c4d8c51de980d19fd8, type: 2}
     IsLocked: 1
   - ID: 5
     Name: Houses
-    Sprite: {fileID: 0}
+    NameColor: {r: 0, g: 1, b: 0.08235294, a: 1}
+    DarkShadow: {r: 0.6627451, g: 0.15294118, b: 0.007843138, a: 1}
+    LightShadow: {r: 0.9607843, g: 0.4, b: 0.019607844, a: 0.5019608}
+    Sprite: {fileID: 21300000, guid: 9ff93e216d7740342897cd09b2997b04, type: 3}
     ItemDatabase: {fileID: 11400000, guid: 87449e1d92c68ec45bf555874b2662be, type: 2}
     IsLocked: 1
   - ID: 6
     Name: Monsters
-    Sprite: {fileID: 0}
+    NameColor: {r: 0.9019608, g: 1, b: 0, a: 1}
+    DarkShadow: {r: 0.36862746, g: 0, b: 0.36078432, a: 1}
+    LightShadow: {r: 0.6117647, g: 0, b: 0.7764706, a: 0.5019608}
+    Sprite: {fileID: 21300000, guid: ebdfb94362d76e14599331976e7acb56, type: 3}
     ItemDatabase: {fileID: 11400000, guid: b91eb7f8b9f305444af9dc310aac9564, type: 2}
     IsLocked: 1
