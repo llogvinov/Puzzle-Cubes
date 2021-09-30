@@ -20,8 +20,6 @@ public class GameUIGenerator : MonoBehaviour
     private bool _hasMatchesAtStart;
     private int _halfNumberOfItems;
     
-    public static UnityAction PartsMatched;
-    
     private void Start()
     {
         ItemsDb = _categoriesDb.Categories[GameDataManager.GetSelectedCategoryID()].ItemDatabase;

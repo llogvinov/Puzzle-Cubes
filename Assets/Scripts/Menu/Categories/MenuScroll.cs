@@ -30,7 +30,7 @@ public class MenuScroll : MonoBehaviour
             {
                 if (_scrollPosition < position + (distance/2) && _scrollPosition>position - (distance/2))
                 {
-                    _scrollBar.GetComponent<Scrollbar>().value =
+                    _scrollBar.value =
                         Mathf.Lerp(_scrollBar.value, position, _lerpTime);
                 }
             }

@@ -4,27 +4,16 @@ using UnityEngine.UI;
 
 public class SceneControl : MonoBehaviour
 {
-    private Button _backButton;
-    
-    private int _menuSceneIndex = 0;
+    private static int _menuSceneIndex = 0;
+    private static int _gameSceneIndex = 1;
 
-    private void Start()
+    public static void LoadGameScene()
     {
-        _backButton = GetComponent<Button>();
-
-        AddButtonsEvents();
+        SceneManager.LoadScene(_gameSceneIndex);
     }
 
-    private void AddButtonsEvents()
+    public static void LoadMenuScene()
     {
-        _backButton.onClick.RemoveAllListeners();
-        _backButton.onClick.AddListener(BackToMenu);
-    }
-    
-    private void BackToMenu()
-    {
-        GameSoundsManager.Instance.PlayButtonSound();
-        
         SceneManager.LoadScene(_menuSceneIndex);
     }
 }

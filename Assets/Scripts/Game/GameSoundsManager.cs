@@ -29,13 +29,17 @@ public class GameSoundsManager : MonoBehaviour
     private void OnEnable()
     {
         SoundsUI.SoundsVolumeChanged += OnSoundsVolumeChanged;
-        PlayerInput.PartsMatched += OnPartsMatched;
+        NewMatchCheck.PlayerWon += OnPlayerWon;
+
+        // PlayerInput.PartsMatched += OnPartsMatched;
     }
 
     private void OnDisable()
     {
         SoundsUI.SoundsVolumeChanged -= OnSoundsVolumeChanged;
-        PlayerInput.PartsMatched -= OnPartsMatched;
+        NewMatchCheck.PlayerWon -= OnPlayerWon;
+        
+        // PlayerInput.PartsMatched -= OnPartsMatched;
     }
 
     private void Start()
@@ -44,12 +48,9 @@ public class GameSoundsManager : MonoBehaviour
         _audioSource.volume = PlayerPrefs.GetInt("music");
     } 
     
-    private void OnSoundsVolumeChanged(int volume)
-    {
-        _audioSource.volume = volume;
-    }
+    private void OnSoundsVolumeChanged(int volume) => _audioSource.volume = volume;
 
-    private void OnPartsMatched()
+    private void OnPlayerWon()
     {
         foreach (var audioClip in _winAudioClips)
         {
@@ -57,15 +58,9 @@ public class GameSoundsManager : MonoBehaviour
         }
     }
 
-    public void PlaySwipeSound()
-    {
-        _audioSource.PlayOneShot(RandomSwipeClip());
-    }
+    public void PlaySwipeSound() => _audioSource.PlayOneShot(RandomSwipeClip());
     
     private AudioClip RandomSwipeClip() => _swipeAudioClips[Random.Range(0, _swipeAudioClips.Length)];
 
-    public void PlayButtonSound()
-    {
-        _audioSource.PlayOneShot(_buttonClickClip);
-    }
+    public void PlayButtonSound() => _audioSource.PlayOneShot(_buttonClickClip);
 }

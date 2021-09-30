@@ -1,8 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CategoriesUI : MonoBehaviour
@@ -63,7 +61,7 @@ public class CategoriesUI : MonoBehaviour
         // save data
         GameDataManager.SetSelectedCategory(_categoryDb.GetCategory(index), index);
 
-        SceneManager.LoadScene(1);
+        SceneControl.LoadGameScene();
     }
 
     private void ClearContainer()
