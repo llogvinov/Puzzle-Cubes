@@ -28,7 +28,7 @@ public class MenuScroll : MonoBehaviour
         {
             foreach (var position in _positions)
             {
-                if (_scrollPosition < position + (distance/2) && _scrollPosition>position - (distance/2))
+                if (_scrollPosition < position + (distance/2) && _scrollPosition > position - (distance/2))
                 {
                     _scrollBar.value =
                         Mathf.Lerp(_scrollBar.value, position, _lerpTime);

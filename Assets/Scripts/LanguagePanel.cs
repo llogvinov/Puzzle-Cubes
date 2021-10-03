@@ -16,7 +16,8 @@ public class LanguagePanel : PanelUI
 
     private void Start()
     {
-        ChangeSprite(GameDataManager.GetLanguage());
+        DeselectAllButtons();
+        SetLanguageUI(GameDataManager.GetLanguage());
         
         AddButtonsEvents();
     }
@@ -68,18 +69,40 @@ public class LanguagePanel : PanelUI
     
     private void SetLanguage(SystemLanguage language)
     {
+        DeselectAllButtons();
+        
         MenuSoundsManager.Instance.PlayClickedSound();
         
         GameDataManager.SetLanguage(language);
-        ChangeSprite(language);
+        SetLanguageUI(language);
         
         LanguageChanged?.Invoke();
     }
 
-    private void ChangeSprite(SystemLanguage language)
+    private void SetLanguageUI(SystemLanguage language)
     {
-        _openButton.gameObject.GetComponent<Image>().sprite = 
-            _languageSprites[Array.IndexOf(GameDataManager.AvailableLanguages, language)];
+        int index = Array.IndexOf(GameDataManager.AvailableLanguages, language);
+        
+        _openButton.gameObject.GetComponent<Image>().sprite = _languageSprites[index];
+        SetBackgroundImageAlpha(_languageButtons[index], 1f);
+    }
+
+    private void SetBackgroundImageAlpha(Button button, float alpha = 0f)
+    {
+        if (Math.Abs(button.image.color.a - alpha) < .01f)
+            return;
+        
+        var color = button.image.color;
+        color.a = alpha;
+        button.image.color = color;
+    }
+
+    private void DeselectAllButtons()
+    {
+        foreach (var button in _languageButtons)
+        {
+            SetBackgroundImageAlpha(button);
+        }
     }
 
 }

@@ -7,6 +7,7 @@ public class NewWinUI : MonoBehaviour
 {
     [SerializeField] private Image _background;
     [SerializeField] private Text _itemName;
+    [SerializeField] private Animator _animator;
 
     [SerializeField] private NewGenerateUI _uiGenerator;
 
@@ -33,6 +34,9 @@ public class NewWinUI : MonoBehaviour
         StartCoroutine(ShowNameAndPlayAudio(id));
         
         _uiGenerator.GenerateUI();
+
+        SetAnimator(id, _uiGenerator.ItemsDb.Items[id].Controller);
+        _animator.gameObject.SetActive(true);
 
         StartCoroutine(HidePanel());
     }
@@ -87,12 +91,28 @@ public class NewWinUI : MonoBehaviour
         return clip;
     }
     
-    // TODO: remove method
     private IEnumerator HidePanel()
     {
         yield return new WaitForSeconds(5f);
         
         _background.gameObject.SetActive(false);
         _itemName.gameObject.SetActive(false);
+        _animator.gameObject.SetActive(false);
+    }
+
+    // TODO: remove if parts
+    private void SetAnimator(int id, Animator itemAnimator)
+    {
+        if (itemAnimator == null)
+        {
+            _animator.enabled = false;
+            _animator.gameObject.GetComponent<SpriteRenderer>().sprite = _uiGenerator.ItemsDb.Items[id].FullItem;
+            return;
+        }
+
+        if (!_animator.enabled)
+            _animator.enabled = true;
+        
+        _animator.runtimeAnimatorController = itemAnimator.runtimeAnimatorController;
     }
 }

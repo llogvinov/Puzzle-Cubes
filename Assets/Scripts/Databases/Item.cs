@@ -12,4 +12,5 @@ public class Item
     public Sprite Head;
     public Sprite Body;
     public Sprite Legs;
+    public Animator Controller;
 }
