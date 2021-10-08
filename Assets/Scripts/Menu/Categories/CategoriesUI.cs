@@ -11,16 +11,11 @@ public class CategoriesUI : MonoBehaviour
     [SerializeField] private Transform _buttonsContainer;
 
     [SerializeField] private Canvas _canvas;
+    [SerializeField] private PurchaseUI _purchaseUI;
 
-    private void OnEnable()
-    {
-        LanguagePanel.LanguageChanged += TranslateCategories;
-    }
+    private void OnEnable() => LanguageUI.LanguageChanged += TranslateCategories;
 
-    private void OnDisable()
-    {
-        LanguagePanel.LanguageChanged -= TranslateCategories;
-    }
+    private void OnDisable() => LanguageUI.LanguageChanged -= TranslateCategories;
 
     private void Start()
     {
@@ -51,19 +46,27 @@ public class CategoriesUI : MonoBehaviour
             }
             else
             {
-                categoryButtonUI.OnTryPurchase();
+                categoryButtonUI.OnTryPurchase(OnPurchaseTried);
             }
         }
     }
     
     private void OnItemSelected(int index)
     {
+        MenuSoundsManager.Instance.PlayClickedSound();
         // save data
         GameDataManager.SetSelectedCategory(_categoryDb.GetCategory(index), index);
 
         SceneControl.LoadGameScene();
     }
 
+    private void OnPurchaseTried()
+    {
+        MenuSoundsManager.Instance.PlayClickedSound();
+
+        CheckAgeUI.Instance.OnCheckAge(_purchaseUI.PanelID);
+    }
+    
     private void ClearContainer()
     {
         for (int i = 0; i < _buttonsContainer.childCount; i++)
@@ -89,15 +92,13 @@ public class CategoriesUI : MonoBehaviour
         layoutGroup.spacing = Mathf.RoundToInt((canvasWidth - buttonWidth) / 2f);
     }
 
-    private void TranslateCategories()
+    private void TranslateCategories(SystemLanguage language)
     {
-        var lang = GameDataManager.GetLanguage();
-        
         for (int i = 0; i < _buttonsContainer.transform.childCount; i++)
         {
             var categoryButtonUI = _buttonsContainer.transform.GetChild(i).GetComponent<CategoryButtonUI>();
-            
-            categoryButtonUI.SetName(lang, categoryButtonUI.gameObject.name);
+
+            categoryButtonUI.SetName(language, categoryButtonUI.gameObject.name);
         }
     }
 }

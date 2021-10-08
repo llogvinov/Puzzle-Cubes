@@ -34,7 +34,7 @@ public class EntryField : MonoBehaviour
         for (int i = 0; i < _inputTexts.Length; i++)
         {
             _inputTexts[i] = _entryField.transform.GetChild(i)
-                .transform.GetChild(0).GetComponent<Text>();
+                .transform.GetChild(1).GetComponent<Text>();
         }
     }
     
@@ -44,8 +44,6 @@ public class EntryField : MonoBehaviour
         {
             inputText.text = "";
         }
-        
-        Debug.Log("cleared");
     }
 
     public int CurrentInputFieldIndex()

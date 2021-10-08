@@ -27,22 +27,26 @@ public class PanelUI : MonoBehaviour
     {
         if (_panelID != CheckAgeUI.CurrentPanelID)
             return;
-        
+
         ShowPanel();
     }
 
     protected void ShowPanel()
     {
-        _background.SetActive(true);
         _panelUI.SetActive(true);
-
-        var background = _background.GetComponent<CanvasGroup>();
-        background.alpha = 0;
-        background.LeanAlpha(1, LeanTime);
 
         var panel = _panelUI.GetComponent<Transform>();
         panel.localPosition = new Vector2(0, Screen.height);
         panel.LeanMoveLocalY(0, LeanTime).setEaseOutExpo();
+    }
+
+    protected void ShowBackground()
+    {
+        _background.SetActive(true);
+        
+        var background = _background.GetComponent<CanvasGroup>();
+        background.alpha = 0;
+        background.LeanAlpha(1, LeanTime);
     }
 
     protected void HideButtons()
@@ -56,20 +60,24 @@ public class PanelUI : MonoBehaviour
     private void ClosePanelUI()
     {
         MenuSoundsManager.Instance.PlayClickedSound();
-        
+
         HidePanel();
+        HideBackground();
         ShowButtons();
     }
 
     protected void HidePanel()
     {
-        var background = _background.GetComponent<CanvasGroup>();
-        background.LeanAlpha(1, LeanTime).setOnComplete(() => _background.SetActive(false));
-
         var panel = _panelUI.GetComponent<Transform>();
-        panel.LeanMoveLocalY(Screen.height, LeanTime)
+        panel.LeanMoveLocalY(-Screen.height, LeanTime)
             .setEaseInExpo()
             .setOnComplete(() => _panelUI.SetActive(false));
+    }
+
+    protected void HideBackground()
+    {
+        var background = _background.GetComponent<CanvasGroup>();
+        background.LeanAlpha(1, LeanTime).setOnComplete(() => _background.SetActive(false));
     }
 
     private void ShowButtons()

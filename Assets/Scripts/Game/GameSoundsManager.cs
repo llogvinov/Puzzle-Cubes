@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameSoundsManager : MonoBehaviour
 {
-    private AudioSource _audioSource;
+    [SerializeField] private AudioSource _audioSource;
 
     [SerializeField] private AudioClip _buttonClickClip;
     
@@ -26,29 +26,9 @@ public class GameSoundsManager : MonoBehaviour
 
     #endregion
     
-    private void OnEnable()
-    {
-        SoundsUI.SoundsVolumeChanged += OnSoundsVolumeChanged;
-        NewMatchCheck.PlayerWon += OnPlayerWon;
+    private void OnEnable() => NewMatchCheck.PlayerWon += OnPlayerWon;
 
-        // PlayerInput.PartsMatched += OnPartsMatched;
-    }
-
-    private void OnDisable()
-    {
-        SoundsUI.SoundsVolumeChanged -= OnSoundsVolumeChanged;
-        NewMatchCheck.PlayerWon -= OnPlayerWon;
-        
-        // PlayerInput.PartsMatched -= OnPartsMatched;
-    }
-
-    private void Start()
-    {
-        _audioSource = GetComponent<AudioSource>();
-        _audioSource.volume = PlayerPrefs.GetInt("music");
-    } 
-    
-    private void OnSoundsVolumeChanged(int volume) => _audioSource.volume = volume;
+    private void OnDisable() => NewMatchCheck.PlayerWon -= OnPlayerWon;
 
     private void OnPlayerWon()
     {

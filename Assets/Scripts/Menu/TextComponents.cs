@@ -19,28 +19,20 @@ public class TextComponents : MonoBehaviour
     [SerializeField] private Text _fullVersion;
     [SerializeField] private Text _openFullVersion;
 
-    private void OnEnable()
-    {
-        LanguagePanel.LanguageChanged += TranslateAllTexts;
-    }
+    private void OnEnable() => LanguageUI.LanguageChanged += TranslateAllTexts;
 
-    private void OnDisable()
-    {
-        LanguagePanel.LanguageChanged -= TranslateAllTexts;
-    }
+    private void OnDisable() => LanguageUI.LanguageChanged -= TranslateAllTexts;
 
     private void Start()
     {
-        TranslateAllTexts();
+        TranslateAllTexts(GameDataManager.GetLanguage());
     }
 
-    private void TranslateAllTexts()
+    private void TranslateAllTexts(SystemLanguage language)
     {
-        var lang = GameDataManager.GetLanguage();
-        
-        TranslateSettings(lang);
-        TranslateCheckAge(lang);
-        TranslateFullVersion(lang);
+        TranslateSettings(language);
+        TranslateCheckAge(language);
+        TranslateFullVersion(language);
     }
     
     private void TranslateSettings(SystemLanguage language)

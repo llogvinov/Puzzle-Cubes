@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +21,14 @@ public class NewSliderInput : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 
     private void Start()
     {
+        CountPositions();
+        
+        _scrollbar.value = 0.5f;
+        _startValue = _scrollbar.value;
+    }
+
+    private void CountPositions()
+    {
         _positions = new float[_container.childCount];
         _distance = 1f / (_positions.Length - 1);
 
@@ -27,40 +36,40 @@ public class NewSliderInput : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         {
             _positions[i] = _distance * i;
         }
-        
-        _scrollbar.value = 0.5f;
-        _startValue = _scrollbar.value;
     }
-
-
+    
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log("down");
+
         _startValue = _scrollbar.value;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (_scrollbar.value > _startValue)
-        {
-            OnSwipeLeft();
-        }
-        else
-        {
-            OnSwipeRight();
-        }
+        Debug.Log("up");
+
+        CheckSwipe();
     }
 
+    private void CheckSwipe()
+    {
+        if (_scrollbar.value > _startValue)
+            OnSwipeLeft();
+        else
+            OnSwipeRight();
+    }
+    
     private void OnSwipeLeft()
     {
         var firstChild = _container.GetChild(0);
 
         _scrollbar.value =
-            Mathf.Lerp(_scrollbar.value, _positions[_middleChildIndex - 1], 0.2f);
+            Mathf.Lerp(_scrollbar.value, .25f, 0.1f);
         
         firstChild.transform.SetAsLastSibling();
-
         _scrollbar.value = _positions[_middleChildIndex];
-        
+                
         Swiped?.Invoke();
     }
 
@@ -70,12 +79,12 @@ public class NewSliderInput : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         var lastChild = _container.GetChild(lastChildIndex);
 
         _scrollbar.value = 
-            Mathf.Lerp(_scrollbar.value, _positions[_middleChildIndex + 1], 0.2f);
+            Mathf.Lerp(_scrollbar.value, .75f, 0.1f);
         
         lastChild.transform.SetAsFirstSibling();
-
         _scrollbar.value = _positions[_middleChildIndex];
         
         Swiped?.Invoke();
     }
+
 }

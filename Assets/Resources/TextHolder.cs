@@ -74,14 +74,9 @@ public static class TextHolder
     private static Dictionary<string, List<string>> ReadCsv(string path)
     {
         Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
-
-        // Loading the dataset from Unity's Resources folder
         var dataset = Resources.Load<TextAsset>(path);
- 
-        // Splitting the dataset in the end of line
         var splitDataset = dataset.text.Split(new char[] {'\n'});
  
-        // Iterating through the split dataset in order to split into rows
         for (int i = 1; i < splitDataset.Length; i++) 
         {
             string[] row = splitDataset[i].Split(new char[] {';'});

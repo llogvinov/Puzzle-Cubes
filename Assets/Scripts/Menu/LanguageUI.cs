@@ -5,14 +5,16 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class LanguagePanel : PanelUI
+public class LanguageUI : PanelUI
 {
     [SerializeField] private Button[] _languageButtons;
     [SerializeField] private Button _openButton;
 
     [SerializeField] private Sprite[] _languageSprites;
+
+    private int _lastSelectedLanguageIndex;
     
-    public static UnityAction LanguageChanged;
+    public static UnityAction<SystemLanguage> LanguageChanged;
 
     private void Start()
     {
@@ -50,7 +52,8 @@ public class LanguagePanel : PanelUI
     private void OpenLanguageUI()
     {
         MenuSoundsManager.Instance.PlayClickedSound();
-        
+
+        ShowBackground();
         ShowPanel();
         HideButtons();
     }
@@ -69,27 +72,29 @@ public class LanguagePanel : PanelUI
     
     private void SetLanguage(SystemLanguage language)
     {
-        DeselectAllButtons();
+        SetBackgroundImageAlpha(_languageButtons[_lastSelectedLanguageIndex]);
         
         MenuSoundsManager.Instance.PlayClickedSound();
         
         GameDataManager.SetLanguage(language);
         SetLanguageUI(language);
         
-        LanguageChanged?.Invoke();
+        LanguageChanged?.Invoke(language);
     }
 
     private void SetLanguageUI(SystemLanguage language)
     {
         int index = Array.IndexOf(GameDataManager.AvailableLanguages, language);
         
-        _openButton.gameObject.GetComponent<Image>().sprite = _languageSprites[index];
+        _openButton.image.sprite = _languageSprites[index];
         SetBackgroundImageAlpha(_languageButtons[index], 1f);
+
+        _lastSelectedLanguageIndex = index;
     }
 
     private void SetBackgroundImageAlpha(Button button, float alpha = 0f)
     {
-        if (Math.Abs(button.image.color.a - alpha) < .01f)
+        if (Math.Abs(button.image.color.a - alpha) < 0.01f)
             return;
         
         var color = button.image.color;

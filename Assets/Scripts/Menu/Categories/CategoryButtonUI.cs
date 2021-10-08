@@ -12,20 +12,16 @@ public class CategoryButtonUI : MonoBehaviour
     [SerializeField] private Image _lockImage;
 
     private Button _categoryButton;
-    private PurchaseUI _purchaseUI;
 
     private void Awake()
     {
         _categoryButton = GetComponent<Button>();
-        _purchaseUI = FindObjectOfType<PurchaseUI>();
     }
 
     public void SetInformation(Category category, SystemLanguage language, string key)
     {
         SetImage(category.Sprite);
-        
         SetTitle(category, language, key);
-        
         SetLock(category.IsLocked);
     }
 
@@ -52,9 +48,9 @@ public class CategoryButtonUI : MonoBehaviour
         _categoryButton.onClick.AddListener(() => action?.Invoke(itemIndex));
     }
 
-    public void OnTryPurchase()
+    public void OnTryPurchase(UnityAction action)
     {
         _categoryButton.onClick.RemoveAllListeners();
-        _categoryButton.onClick.AddListener(() => CheckAgeUI.Instance.OnCheckAge(_purchaseUI.PanelID));
+        _categoryButton.onClick.AddListener(() => action?.Invoke());
     }
 }

@@ -39,12 +39,11 @@ public class CheckAgeUI : PanelUI
     
     public void OnCheckAge(int id)
     {
-        Debug.Log("opened");
-    
         CurrentPanelID = id;
         
         PanelOpened?.Invoke();
         
+        ShowBackground();
         ShowPanel();
         HideButtons();
     }

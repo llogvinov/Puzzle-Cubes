@@ -16,7 +16,6 @@ public class NewWinScroll : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private float _distance;
 
     private bool _isPointerDown;
-    private float t = 16;
     
     private void OnEnable()
     {
@@ -35,38 +34,20 @@ public class NewWinScroll : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if (_scrollView.activeSelf)
             _scrollView.SetActive(false);
 
+        CountPositions();
+    }
+
+    private void CountPositions()
+    {
         _positions = new float[2];
         _distance = 1f / (_positions.Length - 1);
         
         for (int i = 0; i < _positions.Length; i++)
         {
             _positions[i] = _distance * i;
-            Debug.Log(_positions[i]);
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetMouseButton(0))
-        {
-            _scrollbarPosition = _scrollbar.value;
-        }
-        else
-        {
-            foreach (var position in _positions)
-            {
-                if (_scrollbarPosition > position - _distance * 0.9f &&
-                    _scrollbarPosition < position + _distance * 0.9f)
-                {
-                    _scrollbar.value = Mathf.Lerp(_scrollbar.value, position, .2f);
-                }
-            }
-        }
-        
-        if (Math.Abs(_scrollbar.value - 1f) < 0.01f)
-            ClosePanel();
-    }
-
+    
     public void OnPointerDown(PointerEventData eventData)
     {
         _isPointerDown = true;
@@ -74,31 +55,26 @@ public class NewWinScroll : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (_isPointerDown)
-            _isPointerDown = false;
+        _isPointerDown = false;
         
-        /*
-        Debug.Log(_scrollbar.value);
-        if (_scrollbar.value > 0)
-        {
-            // hide win ui panel
+        if (_scrollbar.value > 0.1f)
             ClosePanel();
-        }
-        */
     }
 
     private void ClosePanel()
     {
         Debug.Log("close");
         
+        _scrollbar.value = Mathf.Lerp(_scrollbar.value, 1f, 0.05f);
+        
         _scrollView.SetActive(false);
-        _scrollbar.value = 0f;
     }
 
     private void OpenPanel(int id)
     {
         Debug.Log("open");
         
+        _scrollbar.value = 0f;
         _scrollView.SetActive(true);
     }
 }
