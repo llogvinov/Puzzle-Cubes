@@ -6,61 +6,86 @@ using DG.Tweening;
 
 public class WinUI : MonoBehaviour
 {
+    [SerializeField] private Canvas _winCanvas;
     [SerializeField] private Image _background;
     [SerializeField] private Text _itemName;
-
+    [SerializeField] private Animator _animator;
+    [Space]
     [SerializeField] private GameUIGenerator _uiGenerator;
-
     [SerializeField] private AudioSource _audioSource;
+    [Space]
+    [SerializeField] private float _delay = 2f;
 
-    private void OnEnable() => TestScript.ItemCollected += OnItemCollected;
+    private void OnEnable()
+    {
+        WinChecker.ItemCollected += OnItemCollected;
+        Win.PanelSwiped += HideCanvas;
+    }
 
-    private void OnDisable() => TestScript.ItemCollected -= OnItemCollected;
-
+    private void OnDisable()
+    {
+        WinChecker.ItemCollected -= OnItemCollected;
+        Win.PanelSwiped -= HideCanvas;
+    }
+    
+    private void Start()
+    {
+        if (_winCanvas.gameObject.activeSelf)
+            _winCanvas.gameObject.SetActive(false);
+    }
+    
     private void OnItemCollected(int id)
     {
+        StartCoroutine(OnItemCollectedRoutine(id));
+    }
+
+    private IEnumerator OnItemCollectedRoutine(int id)
+    {
+        ShowCanvas();
         ShowBackground(id);
-        StartCoroutine(ShowNameAndPlayAudio(id));
+        SetAnimation(id);
         
         _uiGenerator.GenerateUI();
-
-        // TODO: remove this part
-        StartCoroutine(HidePanel());
-    }
-
-    private IEnumerator ShowNameAndPlayAudio(int id)
-    {
-        string itemName = _uiGenerator.ItemsDb.Items[id].Name;
         
+        string itemName = _uiGenerator.ItemsDb.Items[id].Name;
         SetFont(GameDataManager.GetLanguage());
         SetItemName(itemName);
-        
-        yield return new WaitForSeconds(2f);
+
+        yield return new WaitForSeconds(_delay);
 
         ShowName();
-        StartCoroutine(PlayNameClip(itemName));
+        
+        yield return new WaitForSeconds(_delay / 2f);
+
+        PlayNameClip(itemName);
+
+        // yield return new WaitForSeconds(_delay * 2f);
+        // HideCanvas();
     }
 
-    private void ShowName()
+    private void ShowCanvas()
     {
-        _itemName.transform.localScale = Vector2.zero;
-        _itemName.gameObject.SetActive(true);
-        _itemName.transform.DOScale(Vector2.one, 0.4f);
+        _winCanvas.gameObject.SetActive(true);
     }
     
     private void ShowBackground(int id)
     {
         _background.sprite = _uiGenerator.ItemsDb.Items[id].Background;
-        _background.gameObject.SetActive(true);
     }
-
-    private IEnumerator PlayNameClip(string itemName)
+    
+    private void SetAnimation(int id)
     {
-        yield return new WaitForSeconds(1f);
-        
-        _audioSource.PlayOneShot(SetItemClip(itemName));
-    }
+        if (!_animator.enabled)
+            _animator.enabled = true;
 
+        var controller = _uiGenerator.ItemsDb.Items[id].Controller;
+        if (controller == null)
+            return;
+        
+        _animator.runtimeAnimatorController = controller.runtimeAnimatorController;
+        _animator.gameObject.SetActive(true);
+    }
+    
     private void SetItemName(string itemName)
     {
         string itemNameText = TextHolder.GetName(GameDataManager.GetLanguage(), itemName);
@@ -73,6 +98,18 @@ public class WinUI : MonoBehaviour
         _itemName.font = TextHolder.GetFont(language);
     }
     
+    private void ShowName()
+    {
+        _itemName.transform.localScale = Vector2.zero;
+        _itemName.gameObject.SetActive(true);
+        _itemName.transform.DOScale(Vector2.one, 0.4f);
+    }
+
+    private void PlayNameClip(string itemName)
+    {
+        _audioSource.PlayOneShot(SetItemClip(itemName));
+    }
+    
     private AudioClip SetItemClip(string itemName)
     {
         AudioClip clip = AudioHolder.GetAudioClip(itemName);
@@ -80,11 +117,10 @@ public class WinUI : MonoBehaviour
         return clip;
     }
     
-    private IEnumerator HidePanel()
+    private void HideCanvas()
     {
-        yield return new WaitForSeconds(5f);
-        
-        _background.gameObject.SetActive(false);
+        _animator.gameObject.SetActive(false);
+        _winCanvas.gameObject.SetActive(false);
         _itemName.gameObject.SetActive(false);
     }
 }

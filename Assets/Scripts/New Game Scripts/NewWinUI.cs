@@ -51,7 +51,7 @@ public class NewWinUI : MonoBehaviour
 
         _itemName.transform.localScale = Vector2.zero;
         _itemName.gameObject.SetActive(true);
-        _itemName.transform.LeanScale(Vector2.one, 0.5f);
+        // _itemName.transform.LeanScale(Vector2.one, 0.5f);
         
         StartCoroutine(PlayNameClip(itemName));
     }

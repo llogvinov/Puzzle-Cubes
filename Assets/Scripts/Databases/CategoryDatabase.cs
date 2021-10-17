@@ -7,25 +7,59 @@ using UnityEngine.Events;
     menuName = "Database/CategoryDatabase")]
 public class CategoryDatabase : ScriptableObject
 {
-    public static UnityAction FullVersionPurchased;
-    
     public Category[] Categories;
 
     public int GetLength() => Categories.Length;
-
+    
     public Category GetCategory(int index) => Categories[index];
 
-    public void PurchaseFullVersion()
+    public void CheckPurchase()
     {
-        FullVersionPurchased?.Invoke();
+        Debug.Log("full version purchased: " + GameDataManager.GetFullVersionPurchased());
         
-        for (int i = 0; i < Categories.Length; i++)
+        if (!GameDataManager.GetFullVersionPurchased())
         {
-            if (Categories[i].IsLocked)
+            FullVersionNotPurchased();
+        }
+        else
+        {
+            FullVersionPurchased();
+        }
+    }
+
+    private void FullVersionNotPurchased()
+    {
+        for (int i = 0; i < GetLength(); i++)
+        {
+            if (i == 0)
             {
-                Categories[i].IsLocked = false;
-                GameDataManager.AddPurchasedCategory(i);
+                PurchaseCategory(i);
+            }
+            else
+            {
+                LockCategory(i);
             }
         }
+    }
+
+    private void FullVersionPurchased()
+    {
+        for (int i = 0; i < GetLength(); i++)
+        {
+            if (!Categories[i].IsLocked)
+                continue;
+            
+            PurchaseCategory(i);
+        }
+    }
+    
+    private void PurchaseCategory(int id)
+    {
+        Categories[id].IsLocked = false;
+    }
+
+    private void LockCategory(int id)
+    {
+        Categories[id].IsLocked = true;
     }
 }

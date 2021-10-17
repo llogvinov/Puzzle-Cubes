@@ -14,7 +14,7 @@ public class PlayerData
 {
     public SystemLanguage Language;
     
-    public bool FullVersionOpened;
+    public bool IsFullVersionPurchased;
     public int SelectedCategoryID;
 }
 
@@ -66,9 +66,19 @@ public static class GameDataManager
 
     public static SystemLanguage GetLanguage() => _playerData.Language;
     
-    public static void OpenFullVersion() => _playerData.FullVersionOpened = true;
+    public static void PurchaseFullVersion()
+    {
+        _playerData.IsFullVersionPurchased = true;
+        SavePlayerData();
+    }
     
-    public static bool IsFullVersionOpened() => _playerData.FullVersionOpened;
+    public static void UnpurchaseFullVersion()
+    {
+        _playerData.IsFullVersionPurchased = false;
+        SavePlayerData();
+    }
+    
+    public static bool GetFullVersionPurchased() => _playerData.IsFullVersionPurchased;
     
     public static Category GetSelectedCategory => _selectedCategory;
     

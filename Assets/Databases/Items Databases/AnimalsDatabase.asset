@@ -20,7 +20,7 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: 6112669bb79ad6245a0b79c93052f926, type: 3}
     Body: {fileID: 21300000, guid: cf2e8422087cf6e4db270a25ec2fcb25, type: 3}
     Legs: {fileID: 21300000, guid: e5b6905ec2a101243af9f250cc8926c6, type: 3}
-    Controller: {fileID: 4488273431726150965, guid: 4e0414d940a8f2442b1f96a36c5a0a33, type: 3}
+    Controller: {fileID: 7124746085907311202, guid: 4e0414d940a8f2442b1f96a36c5a0a33, type: 3}
   - ID: 1
     Name: a02
     FullItem: {fileID: 21300000, guid: 429fefaa24c1a8e40ad268e42514a5ac, type: 3}
@@ -28,7 +28,7 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: 15df2dd461736cf46a521c1ad0961ed0, type: 3}
     Body: {fileID: 21300000, guid: 3f4481d6e26e3174ea69f54be8312fdb, type: 3}
     Legs: {fileID: 21300000, guid: d2b3fa6483544a144939900ca74d141d, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 6108474203555878024, guid: 8e2d39b396474054b93d24b6ae32630b, type: 3}
   - ID: 2
     Name: a03
     FullItem: {fileID: 21300000, guid: 6f4c1c65c7ebc16469667263e1ab56e9, type: 3}
@@ -36,7 +36,7 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: 81a92d55a679bb0408f1493b99427bec, type: 3}
     Body: {fileID: 21300000, guid: bb8896edb565b57418a4179c09518dc9, type: 3}
     Legs: {fileID: 21300000, guid: 9509ba35d9728fe4ea7d27b6c59d3c87, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 174472111244033582, guid: 4e081537d474c0e40abed012a8ed7a6c, type: 3}
   - ID: 3
     Name: a04
     FullItem: {fileID: 21300000, guid: efa7bf41b1e45134789a5dfc45b26245, type: 3}
@@ -44,7 +44,7 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: 93ee324e4ecea4d4f85d3a4a24dbaa65, type: 3}
     Body: {fileID: 21300000, guid: a538bf9c1b2af35459d6b6b8533de05f, type: 3}
     Legs: {fileID: 21300000, guid: 7603c54c0d51486409059f47370207d7, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 3699541722255478562, guid: 733c0fc0c6b4d2e4abad4e9567f86dd4, type: 3}
   - ID: 4
     Name: a05
     FullItem: {fileID: 21300000, guid: 26819de791f173a41882de500ae27a7c, type: 3}
@@ -52,7 +52,7 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: c4ee3fc99a6c96746b6cd816c845f941, type: 3}
     Body: {fileID: 21300000, guid: 95bd7b2e79fc33b4da2fad32d8ff0ef7, type: 3}
     Legs: {fileID: 21300000, guid: be0a06e729c68e3498bce8df524e2f22, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 9087929137202899545, guid: 8394baa7f3c5cab46aa13d1658231a71, type: 3}
   - ID: 5
     Name: a06
     FullItem: {fileID: 21300000, guid: bb9a210a67f712d439a73cd50812a000, type: 3}
@@ -60,7 +60,7 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: 5e531c55892448c47b0e4c099629cf45, type: 3}
     Body: {fileID: 21300000, guid: e97aa7c422fe5eb4ea0d77704fb5b5f6, type: 3}
     Legs: {fileID: 21300000, guid: c453acc62b9947747bd6ee85a000589d, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 6741629737236636740, guid: 26342e313890902489d5739d17f5945c, type: 3}
   - ID: 6
     Name: a07
     FullItem: {fileID: 21300000, guid: ce6616426e444ec429bd9b907c056b2e, type: 3}
@@ -68,7 +68,7 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: db2aef36eb8e44e4583effc7806e551a, type: 3}
     Body: {fileID: 21300000, guid: 624f5c34fb8d4ee4880b293c125999ef, type: 3}
     Legs: {fileID: 21300000, guid: 46c30e27d7ccefe4c9e2b03b4a72720e, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 3599404333083806092, guid: 02c2d4076a242a54ebb6a42c67e6d9ed, type: 3}
   - ID: 7
     Name: a08
     FullItem: {fileID: 21300000, guid: 70e31c0b72217a04e8bdee0b0aa79a94, type: 3}
@@ -76,7 +76,7 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: 5d4082e6f9b734c4ea64497b1128a982, type: 3}
     Body: {fileID: 21300000, guid: 8ec63f676e2479d42b746c9d6ba8f8e9, type: 3}
     Legs: {fileID: 21300000, guid: 84c87f973368d5b45b16487e8c2d439f, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 3698475161128824518, guid: b154f711f68c8e0409e04a97becd6b95, type: 3}
   - ID: 8
     Name: a09
     FullItem: {fileID: 21300000, guid: 0ec04b41ad885bc49853af251be1e92c, type: 3}
@@ -84,7 +84,7 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: c82cf564e75ca2b4382071086284f7fd, type: 3}
     Body: {fileID: 21300000, guid: b8b92d0bf0b34c4418ef7856cb05091a, type: 3}
     Legs: {fileID: 21300000, guid: 53671294a708d504caef5aa3672c72b6, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 6277069229199101523, guid: ac963f5e6ad22034b8d17bb52d12477a, type: 3}
   - ID: 9
     Name: a10
     FullItem: {fileID: 21300000, guid: 9e0e8df1d96a68b4f927b9df413762d3, type: 3}
@@ -92,4 +92,4 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: 0d6c5961136aa5143b4ba61e50ff0516, type: 3}
     Body: {fileID: 21300000, guid: 3f87786f0cd47ed42b3b8ef90ce57074, type: 3}
     Legs: {fileID: 21300000, guid: ae956d7dac5c03f4ea7f9df2016977f3, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 6482555255818452513, guid: 0de8aaa45dd41d14bbebd2de52f73357, type: 3}

@@ -28,14 +28,14 @@ public class GameSoundsManager : MonoBehaviour
     
     private void OnEnable()
     {
-        TestScript.Swiped += PlaySwipeSound;
-        TestScript.PlayerWon += OnPlayerWon;
+        SliderInpt.Swiped += PlaySwipeSound;
+        WinChecker.PlayerWon += OnPlayerWon;
     }
 
     private void OnDisable()
     {
-        TestScript.Swiped += PlaySwipeSound;
-        TestScript.PlayerWon -= OnPlayerWon;
+        SliderInpt.Swiped -= PlaySwipeSound;
+        WinChecker.PlayerWon -= OnPlayerWon;
     } 
 
     private void OnPlayerWon()
@@ -46,7 +46,13 @@ public class GameSoundsManager : MonoBehaviour
         }
     }
 
-    public void PlaySwipeSound() => _audioSource.PlayOneShot(RandomSwipeClip());
+    private void PlaySwipeSound()
+    {
+        var clip = RandomSwipeClip();
+
+        if (clip != null)
+            _audioSource.PlayOneShot(clip);
+    }
     
     private AudioClip RandomSwipeClip() => _swipeAudioClips[Random.Range(0, _swipeAudioClips.Length)];
 

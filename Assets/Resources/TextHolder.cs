@@ -10,6 +10,7 @@ public static class TextHolder
     private static Dictionary<string, List<string>> _generalTextsDictionary = new Dictionary<string, List<string>>();
     private static Dictionary<string, List<string>> _namesDictionary = new Dictionary<string, List<string>>();
 
+    private static Font _categoriesFont;
     private static Font _mainFont;
     private static Font _cnFont;
     private static Font _jpFont;
@@ -23,6 +24,11 @@ public static class TextHolder
         AdjustFonts();
     }
 
+    public static Font GetCategoryFont()
+    {
+        return _categoriesFont;
+    }
+    
     public static Font GetFont(SystemLanguage language)
     {
         return language switch
@@ -76,6 +82,7 @@ public static class TextHolder
 
     private static void AdjustFonts()
     {
+        _categoriesFont = Resources.Load<Font>("Fonts/Other/NamesOnCategories");
         _mainFont = Resources.Load<Font>("Fonts/Other/ButtonsAndItemsNames");
         _cnFont = Resources.Load<Font>("Fonts/Chineese/NotoSansSC-Medium");
         _jpFont = Resources.Load<Font>("Fonts/Japaneese/KosugiMaru-Regular");
