@@ -12,12 +12,20 @@ public class LanguageUI : PanelUI
 
     [SerializeField] private Sprite[] _languageSprites;
 
+    private Image[] _buttonsBackgroundImages;
+    
     private int _lastSelectedLanguageIndex;
     
     public static UnityAction<SystemLanguage> LanguageChanged;
 
     private void Start()
     {
+        _buttonsBackgroundImages = new Image[_languageButtons.Length];
+        for (int i = 0; i < _buttonsBackgroundImages.Length; i++)
+        {
+            _buttonsBackgroundImages[i] = _languageButtons[i].transform.GetChild(0).GetComponent<Image>();
+        }
+        
         DeselectAllButtons();
         SetLanguageUI(GameDataManager.GetLanguage());
         
@@ -72,7 +80,7 @@ public class LanguageUI : PanelUI
     
     private void SetLanguage(SystemLanguage language)
     {
-        SetBackgroundImageAlpha(_languageButtons[_lastSelectedLanguageIndex]);
+        SetBackgroundImageAlpha(_buttonsBackgroundImages[_lastSelectedLanguageIndex]);
         
         MenuSoundsManager.Instance.PlayClickedSound();
         
@@ -87,26 +95,26 @@ public class LanguageUI : PanelUI
         int index = Array.IndexOf(GameDataManager.AvailableLanguages, language);
         
         _openButton.image.sprite = _languageSprites[index];
-        SetBackgroundImageAlpha(_languageButtons[index], 1f);
+        SetBackgroundImageAlpha(_buttonsBackgroundImages[index], 1f);
 
         _lastSelectedLanguageIndex = index;
     }
 
-    private void SetBackgroundImageAlpha(Button button, float alpha = 0f)
+    private void SetBackgroundImageAlpha(Image backgroundImage, float alpha = 0f)
     {
-        if (Math.Abs(button.image.color.a - alpha) < 0.01f)
+        if (Math.Abs(backgroundImage.color.a - alpha) < 0.01f)
             return;
         
-        var color = button.image.color;
+        var color = backgroundImage.color;
         color.a = alpha;
-        button.image.color = color;
+        backgroundImage.color = color;
     }
 
     private void DeselectAllButtons()
     {
-        foreach (var button in _languageButtons)
+        foreach (var backgroundImage in _buttonsBackgroundImages)
         {
-            SetBackgroundImageAlpha(button);
+            SetBackgroundImageAlpha(backgroundImage);
         }
     }
 

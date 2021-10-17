@@ -17,10 +17,12 @@ public class GameUIGenerator : MonoBehaviour
     [SerializeField] private CategoryDatabase _categoriesDb;
     [HideInInspector] public ItemDatabase ItemsDb;
 
+    public static float SpriteWidth;
+    
     private bool _hasMatchesAtStart;
     private int _halfNumberOfItems;
     
-    private void Start()
+    private void Awake()
     {
         ItemsDb = _categoriesDb.Categories[GameDataManager.GetSelectedCategoryID()].ItemDatabase;
         _halfNumberOfItems = (_numberOfItems - 1) / 2;
@@ -48,11 +50,11 @@ public class GameUIGenerator : MonoBehaviour
     private void PLaceItemsParts(int halfNumberOfItems, ItemPart itemPartPrefab, Transform[] containers)
     {
         SpriteRenderer itemPartSprite = itemPartPrefab.GetComponent<SpriteRenderer>();
-        float spriteWidth = itemPartSprite.bounds.extents.x;
+        SpriteWidth = itemPartSprite.bounds.extents.x;
 
         foreach (var container in containers)
         {
-            PlaceItemPartInContainer(container, halfNumberOfItems, itemPartPrefab, spriteWidth);
+            PlaceItemPartInContainer(container, halfNumberOfItems, itemPartPrefab, SpriteWidth);
         }
     }
 

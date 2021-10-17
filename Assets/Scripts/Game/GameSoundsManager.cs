@@ -26,9 +26,17 @@ public class GameSoundsManager : MonoBehaviour
 
     #endregion
     
-    private void OnEnable() => NewMatchCheck.PlayerWon += OnPlayerWon;
+    private void OnEnable()
+    {
+        TestScript.Swiped += PlaySwipeSound;
+        TestScript.PlayerWon += OnPlayerWon;
+    }
 
-    private void OnDisable() => NewMatchCheck.PlayerWon -= OnPlayerWon;
+    private void OnDisable()
+    {
+        TestScript.Swiped += PlaySwipeSound;
+        TestScript.PlayerWon -= OnPlayerWon;
+    } 
 
     private void OnPlayerWon()
     {

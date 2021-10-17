@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class WinUI : MonoBehaviour
 {
@@ -10,22 +11,11 @@ public class WinUI : MonoBehaviour
 
     [SerializeField] private GameUIGenerator _uiGenerator;
 
-    private AudioSource _audioSource;
+    [SerializeField] private AudioSource _audioSource;
 
-    private void OnEnable()
-    {
-        PlayerInput.ItemCollected += OnItemCollected;
-    }
+    private void OnEnable() => TestScript.ItemCollected += OnItemCollected;
 
-    private void OnDisable()
-    {
-        PlayerInput.ItemCollected -= OnItemCollected;
-    }
-
-    private void Start()
-    {
-        _audioSource = GetComponent<AudioSource>();
-    }
+    private void OnDisable() => TestScript.ItemCollected -= OnItemCollected;
 
     private void OnItemCollected(int id)
     {
@@ -34,24 +24,30 @@ public class WinUI : MonoBehaviour
         
         _uiGenerator.GenerateUI();
 
+        // TODO: remove this part
         StartCoroutine(HidePanel());
     }
 
     private IEnumerator ShowNameAndPlayAudio(int id)
     {
-        var itemName = _uiGenerator.ItemsDb.Items[id].Name;
-        SetFont();
+        string itemName = _uiGenerator.ItemsDb.Items[id].Name;
+        
+        SetFont(GameDataManager.GetLanguage());
         SetItemName(itemName);
         
         yield return new WaitForSeconds(2f);
 
-        _itemName.transform.localScale = Vector2.zero;
-        _itemName.gameObject.SetActive(true);
-        _itemName.transform.LeanScale(Vector2.one, 0.5f);
-        
+        ShowName();
         StartCoroutine(PlayNameClip(itemName));
     }
 
+    private void ShowName()
+    {
+        _itemName.transform.localScale = Vector2.zero;
+        _itemName.gameObject.SetActive(true);
+        _itemName.transform.DOScale(Vector2.one, 0.4f);
+    }
+    
     private void ShowBackground(int id)
     {
         _background.sprite = _uiGenerator.ItemsDb.Items[id].Background;
@@ -67,27 +63,23 @@ public class WinUI : MonoBehaviour
 
     private void SetItemName(string itemName)
     {
-        var lang = GameDataManager.GetLanguage();
-        var itemNameText = TextHolder.GetName(lang, itemName);
+        string itemNameText = TextHolder.GetName(GameDataManager.GetLanguage(), itemName);
 
         _itemName.text = itemNameText;
     }
 
-    private void SetFont()
+    private void SetFont(SystemLanguage language)
     {
-        var lang = GameDataManager.GetLanguage();
-        
-        _itemName.font = TextHolder.GetFont(lang);
+        _itemName.font = TextHolder.GetFont(language);
     }
     
     private AudioClip SetItemClip(string itemName)
     {
-        var clip = AudioHolder.GetAudioClip(itemName);
+        AudioClip clip = AudioHolder.GetAudioClip(itemName);
 
         return clip;
     }
     
-    // TODO: remove method
     private IEnumerator HidePanel()
     {
         yield return new WaitForSeconds(5f);

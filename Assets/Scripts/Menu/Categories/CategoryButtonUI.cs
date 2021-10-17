@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -8,7 +7,9 @@ using UnityEngine.Events;
 public class CategoryButtonUI : MonoBehaviour
 {
     [SerializeField] private Image _categoryImage;
-    [SerializeField] private TMP_Text _categoryName;
+    [SerializeField] private Text _categoryName;
+    [SerializeField] private Shadow _darkShadow;
+    [SerializeField] private Shadow _lightShadow;
     [SerializeField] private Image _lockImage;
 
     private Button _categoryButton;
@@ -30,17 +31,22 @@ public class CategoryButtonUI : MonoBehaviour
     private void SetTitle(Category category, SystemLanguage language, string key)
     {
         SetName(language, key);
-        SetColor(category.NameColor);
+        SetColor(category);
     }
 
     public void SetName(SystemLanguage language, string key)
     {
-        _categoryName.font = TextHolder.GetCategoryFont(language);
+        _categoryName.font = TextHolder.GetFont(language);
         _categoryName.text = TextHolder.GetTitle(language, key);
     }
 
-    private void SetColor(Color color) => _categoryName.color = color;
-    private void SetLock(bool isLocked) => _lockImage.gameObject.SetActive(isLocked);
+    private void SetColor(Category category)
+    {
+        _categoryName.color = category.NameColor;
+        _darkShadow.effectColor = category.DarkShadow;
+        _lightShadow.effectColor = category.LightShadow;
+    }
+    public void SetLock(bool isLocked) => _lockImage.gameObject.SetActive(isLocked);
     
     public void OnItemSelect(int itemIndex, UnityAction<int> action)
     {

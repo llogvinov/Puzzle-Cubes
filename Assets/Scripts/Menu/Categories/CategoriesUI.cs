@@ -13,9 +13,17 @@ public class CategoriesUI : MonoBehaviour
     [SerializeField] private Canvas _canvas;
     [SerializeField] private PurchaseUI _purchaseUI;
 
-    private void OnEnable() => LanguageUI.LanguageChanged += TranslateCategories;
+    private void OnEnable()
+    {
+        CategoryDatabase.FullVersionPurchased += OnFullVersionPurchased;
+        LanguageUI.LanguageChanged += TranslateCategories;
+    }
 
-    private void OnDisable() => LanguageUI.LanguageChanged -= TranslateCategories;
+    private void OnDisable()
+    {
+        CategoryDatabase.FullVersionPurchased -= OnFullVersionPurchased;
+        LanguageUI.LanguageChanged -= TranslateCategories;
+    }
 
     private void Start()
     {
@@ -99,6 +107,16 @@ public class CategoriesUI : MonoBehaviour
             var categoryButtonUI = _buttonsContainer.transform.GetChild(i).GetComponent<CategoryButtonUI>();
 
             categoryButtonUI.SetName(language, categoryButtonUI.gameObject.name);
+        }
+    }
+
+    private void OnFullVersionPurchased()
+    {
+        for (int i = 0; i < _buttonsContainer.transform.childCount; i++)
+        {
+            var categoryButtonUI = _buttonsContainer.transform.GetChild(i).GetComponent<CategoryButtonUI>();
+            
+            categoryButtonUI.SetLock(false);
         }
     }
 }
