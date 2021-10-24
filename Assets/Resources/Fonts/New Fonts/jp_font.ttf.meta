@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: e5644172f47aeeb4693d5497ccbc1393
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - MotoyaLMaru
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 906d6a97a51ec9c46ba62e65b06b6907, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
