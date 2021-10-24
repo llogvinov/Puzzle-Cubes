@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,11 +8,15 @@ public static class TextHolder
     private static Dictionary<string, List<string>> _generalTextsDictionary = new Dictionary<string, List<string>>();
     private static Dictionary<string, List<string>> _namesDictionary = new Dictionary<string, List<string>>();
 
-    private static Font _categoriesFont;
-    private static Font _mainFont;
+    private static Font _defaultFont;
     private static Font _cnFont;
     private static Font _jpFont;
     private static Font _krFont;
+
+    private static Font _defaultThinFont;
+    private static Font _cnThinFont;
+    private static Font _jpThinFont;
+    private static Font _krThinFont;
 
     static TextHolder()
     {
@@ -23,11 +26,6 @@ public static class TextHolder
         AdjustFonts();
     }
 
-    public static Font GetCategoryFont()
-    {
-        return _categoriesFont;
-    }
-    
     public static Font GetFont(SystemLanguage language)
     {
         return language switch
@@ -35,7 +33,18 @@ public static class TextHolder
             SystemLanguage.ChineseSimplified => _cnFont,
             SystemLanguage.Japanese => _jpFont,
             SystemLanguage.Korean => _krFont,
-            _ => _mainFont
+            _ => _defaultFont
+        };
+    }
+    
+    public static Font GetThinFont(SystemLanguage language)
+    {
+        return language switch
+        {
+            SystemLanguage.ChineseSimplified => _cnThinFont,
+            SystemLanguage.Japanese => _jpThinFont,
+            SystemLanguage.Korean => _krThinFont,
+            _ => _defaultThinFont
         };
     }
     
@@ -81,11 +90,14 @@ public static class TextHolder
 
     private static void AdjustFonts()
     {
-        _categoriesFont = Resources.Load<Font>("Fonts/Other/NamesOnCategories");
-        _mainFont = Resources.Load<Font>("Fonts/Other/ButtonsAndItemsNames");
-        _cnFont = Resources.Load<Font>("Fonts/Chineese/NotoSansSC-Medium");
-        _jpFont = Resources.Load<Font>("Fonts/Japaneese/KosugiMaru-Regular");
-        _krFont = Resources.Load<Font>("Fonts/Korean/Gugi-Regular");
-    }
+        _defaultFont = Resources.Load<Font>("Fonts/default_font");
+        _cnFont = Resources.Load<Font>("Fonts/cn_font");
+        _jpFont = Resources.Load<Font>("Fonts/jp_font");
+        _krFont = Resources.Load<Font>("Fonts/kr_font");
 
+        _defaultThinFont = Resources.Load<Font>("Fonts/default_thin_font");
+        _cnThinFont = Resources.Load<Font>("Fonts/cn_thin_font");
+        _jpThinFont = Resources.Load<Font>("Fonts/jp_thin_font");
+        _krThinFont = Resources.Load<Font>("Fonts/kr_thin_font");
+    }
 }

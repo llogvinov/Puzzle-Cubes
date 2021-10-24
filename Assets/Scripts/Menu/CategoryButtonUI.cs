@@ -36,7 +36,7 @@ public class CategoryButtonUI : MonoBehaviour
 
     public void SetName(SystemLanguage language, string key)
     {
-        _categoryName.font = TextHolder.GetCategoryFont();
+        _categoryName.font = TextHolder.GetFont(language);
         _categoryName.text = TextHolder.GetTitle(language, key);
     }
 

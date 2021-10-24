@@ -11,6 +11,7 @@ public class WinScroll : MonoBehaviour, IEndDragHandler
     [SerializeField] private float _duration = 0.3f;
 
     public static UnityAction PanelSwiped;
+    public static UnityAction PanelClicked;
     
     private void OnEnable()
     {
@@ -24,7 +25,10 @@ public class WinScroll : MonoBehaviour, IEndDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        SwipePanel();
+        if (_scrollRect.horizontalNormalizedPosition < 0.05f)
+            ResetPanel();
+        else
+            SwipePanel();
     }
 
     private void OnPanelSwiped()
@@ -37,5 +41,13 @@ public class WinScroll : MonoBehaviour, IEndDragHandler
         _scrollRect
             .DOHorizontalNormalizedPos(1f, _duration)
             .OnComplete(() => PanelSwiped?.Invoke());
+    }
+
+    private void ResetPanel()
+    {
+        PanelClicked?.Invoke();
+        _scrollRect
+            .DOHorizontalNormalizedPos(0f, _duration / 2f)
+            .OnComplete(() => PanelClicked?.Invoke());
     }
 }

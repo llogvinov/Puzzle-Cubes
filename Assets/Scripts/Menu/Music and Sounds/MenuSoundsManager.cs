@@ -7,6 +7,9 @@ public class MenuSoundsManager : MonoBehaviour
 {
     [SerializeField] private AudioSource _audioSource;
 
+    [SerializeField] private AudioClip _buttonClickClip;
+    [SerializeField] private AudioClip _swipeCategoriesClip;
+    
     #region Singleton
 
     public static MenuSoundsManager Instance;
@@ -18,6 +21,10 @@ public class MenuSoundsManager : MonoBehaviour
     }
 
     #endregion
+
+    private void PlayClip(AudioClip audioClip) => _audioSource.PlayOneShot(audioClip);
     
-    public void PlayClickedSound() => _audioSource.Play();
+    public void PlayClickedSound() => PlayClip(_buttonClickClip);
+
+    public void PlaySwipeSound() => PlayClip(_swipeCategoriesClip);
 }

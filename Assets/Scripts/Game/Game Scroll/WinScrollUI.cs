@@ -7,7 +7,7 @@ public class WinScrollUI : MonoBehaviour
 {
     [SerializeField] private Canvas _winCanvas;
     [SerializeField] private Image _background;
-    [SerializeField] private Text _itemName;
+    [SerializeField] private Text _itemNameUI;
     [SerializeField] private Image _fullItem;
     [SerializeField] private Animator _animator;
     [Space]
@@ -16,16 +16,20 @@ public class WinScrollUI : MonoBehaviour
     [Space]
     [SerializeField] private float _delay = 2f;
 
+    private string _itemName;
+    
     private void OnEnable()
     {
         WinCheckerScroll.ItemCollected += OnItemCollected;
         WinScroll.PanelSwiped += HideCanvas;
+        WinScroll.PanelClicked += OnPanelClicked;
     }
 
     private void OnDisable()
     {
         WinCheckerScroll.ItemCollected -= OnItemCollected;
         WinScroll.PanelSwiped -= HideCanvas;
+        WinScroll.PanelClicked -= OnPanelClicked;
     }
     
     private void Start()
@@ -41,40 +45,45 @@ public class WinScrollUI : MonoBehaviour
 
     private IEnumerator OnItemCollectedRoutine(int id)
     {
+        SetElementsUI(id);
+        
         ShowCanvas();
-        ShowBackground(id);
-        SetAnimation(id);
         ShowAnimation();
+        
         // SetFullItem(id);
         // ShowFullItem();
         
         if (_uiGenerator != null)
-        {
             _uiGenerator.GenerateUI();
-        }
-
-        string itemName = _uiGenerator.ItemsDb.Items[id].Name;
-        SetFont(GameDataManager.GetLanguage());
-        SetItemName(itemName);
 
         yield return new WaitForSeconds(_delay);
-
         ShowName();
-        
         yield return new WaitForSeconds(_delay / 2f);
-
-        PlayNameClip(itemName);
-
-        // yield return new WaitForSeconds(_delay * 2f);
-        // HideCanvas();
+        PlayNameClip(_itemName);
     }
 
     private void ShowCanvas()
     {
         _winCanvas.gameObject.SetActive(true);
     }
+
+    private void SetElementsUI(int id)
+    {
+        _itemName = _uiGenerator.ItemsDb.Items[id].Name;
+        
+        SetBackground(id);
+        SetAnimation(id);
+        SetFont(GameDataManager.GetLanguage());
+        SetItemName(_itemName);
+    }
+
+    private void OnPanelClicked()
+    {
+        ShowAnimation();
+        PlayNameClip(_itemName);
+    }
     
-    private void ShowBackground(int id)
+    private void SetBackground(int id)
     {
         _background.sprite = _uiGenerator.ItemsDb.Items[id].Background;
     }
@@ -113,19 +122,19 @@ public class WinScrollUI : MonoBehaviour
     {
         string itemNameText = TextHolder.GetName(GameDataManager.GetLanguage(), itemName);
 
-        _itemName.text = itemNameText;
+        _itemNameUI.text = itemNameText;
     }
 
     private void SetFont(SystemLanguage language)
     {
-        _itemName.font = TextHolder.GetFont(language);
+        _itemNameUI.font = TextHolder.GetFont(language);
     }
     
     private void ShowName()
     {
-        _itemName.transform.localScale = Vector2.zero;
-        _itemName.gameObject.SetActive(true);
-        _itemName.transform.DOScale(Vector2.one, 0.4f);
+        _itemNameUI.transform.localScale = Vector2.zero;
+        _itemNameUI.gameObject.SetActive(true);
+        _itemNameUI.transform.DOScale(Vector2.one, 0.4f);
     }
 
     private void PlayNameClip(string itemName)
@@ -145,6 +154,6 @@ public class WinScrollUI : MonoBehaviour
         // _fullItem.gameObject.SetActive(false);
         _animator.gameObject.SetActive(false);
         _winCanvas.gameObject.SetActive(false);
-        _itemName.gameObject.SetActive(false);
+        _itemNameUI.gameObject.SetActive(false);
     }
 }

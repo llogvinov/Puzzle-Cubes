@@ -9,11 +9,11 @@ public class EntryField : MonoBehaviour
     private Text[] _inputTexts;
 
     public static UnityAction<string> AgeTyped;
-    private UnityAction PanelClosed;
 
-    private void OnEnable() => PanelClosed += ClearInputFields;
-
-    private void OnDisable() => PanelClosed -= ClearInputFields;
+    private void OnEnable()
+    {
+        ClearInputFields();
+    }
 
     public int GetEntryCellsCount() => _inputTexts.Length;
     
@@ -77,7 +77,6 @@ public class EntryField : MonoBehaviour
         }
         
         AgeTyped?.Invoke(ageText);
-        PanelClosed?.Invoke();
     }
 
     private void DeleteLastNumber()

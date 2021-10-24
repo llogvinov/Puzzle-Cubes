@@ -17,7 +17,7 @@ public class TextComponents : MonoBehaviour
     [SerializeField] private Text _checkAge;
 
     [Header("Full Version Panel")]
-    [SerializeField] private Text _fullVersion;
+    [SerializeField] private Text _fullVersionTitle;
     [SerializeField] private Text _openFullVersion;
 
     private void OnEnable() => LanguageUI.LanguageChanged += TranslateAllTexts;
@@ -38,23 +38,34 @@ public class TextComponents : MonoBehaviour
     
     private void TranslateSettings(SystemLanguage language)
     {
-        TranslateWord(_rateUs, language, "rate us");
-        TranslateWord(_contactUs, language, "contact us");
-        TranslateWord(_fullVersionSettings, language, "full version");
-        TranslateWord(_privacyPolicy, language, "privacy policy");
-        TranslateWord(_website, language, "website");
-        TranslateWord(_restore, language, "restore");
+        TranslateWordThin(_rateUs, language, "rate us");
+        TranslateWordThin(_contactUs, language, "contact us");
+        TranslateWordThin(_fullVersionSettings, language, "full version");
+        TranslateWordThin(_privacyPolicy, language, "privacy policy");
+        TranslateWordThin(_website, language, "website");
+        TranslateWordThin(_restore, language, "restore");
     }
 
     private void TranslateCheckAge(SystemLanguage language)
     {
-        TranslateWord(_checkAge, language, "check age");
+        TranslateWordThin(_checkAge, language, "check age");
     }
 
     private void TranslateFullVersion(SystemLanguage language)
     {
-        TranslateWord(_fullVersion, language, "full version");
-        TranslateWord(_openFullVersion, language, "open full version");
+        TranslateWord(_fullVersionTitle, language, "purchase full version");
+        TranslateWordThin(_openFullVersion, language, "open full version");
+    }
+
+    private void TranslateWordThin(Text title, SystemLanguage language, string key)
+    {
+        title.text = TextHolder.GetTitle(language, key);
+
+        var font = TextHolder.GetThinFont(language);
+        if (title.font == font)
+            return;
+        
+        title.font = font;
     }
 
     private void TranslateWord(Text title, SystemLanguage language, string key)

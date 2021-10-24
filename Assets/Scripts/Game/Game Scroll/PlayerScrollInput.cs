@@ -61,7 +61,6 @@ public class PlayerScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandl
     {
         var endValue = _positions[3];
         
-        Handheld.Vibrate();
         Swiped?.Invoke();
         
         _scrollRect
@@ -73,7 +72,6 @@ public class PlayerScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandl
     {
         var endValue = _positions[1];
         
-        Handheld.Vibrate();
         Swiped?.Invoke();
         
         _scrollRect

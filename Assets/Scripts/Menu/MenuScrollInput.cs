@@ -52,6 +52,7 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         var endValue = FindClosestPositionRight(endPosition);
         
+        MenuSoundsManager.Instance.PlaySwipeSound();
         _scrollRect
             .DOHorizontalNormalizedPos(endValue, _duration);
     }
@@ -76,6 +77,7 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         var endValue = FindClosestPositionLeft(endPosition);
 
+        MenuSoundsManager.Instance.PlaySwipeSound();
         _scrollRect
             .DOHorizontalNormalizedPos(endValue, _duration);
     }
