@@ -8,6 +8,7 @@ public class TextComponents : MonoBehaviour
     [Header("Settings Panel")]
     [SerializeField] private Text _rateUs;
     [SerializeField] private Text _contactUs;
+    [SerializeField] private Text _fullVersionSettings;
     [SerializeField] private Text _privacyPolicy;
     [SerializeField] private Text _website;
     [SerializeField] private Text _restore;
@@ -39,6 +40,7 @@ public class TextComponents : MonoBehaviour
     {
         TranslateWord(_rateUs, language, "rate us");
         TranslateWord(_contactUs, language, "contact us");
+        TranslateWord(_fullVersionSettings, language, "full version");
         TranslateWord(_privacyPolicy, language, "privacy policy");
         TranslateWord(_website, language, "website");
         TranslateWord(_restore, language, "restore");
@@ -58,6 +60,11 @@ public class TextComponents : MonoBehaviour
     private void TranslateWord(Text title, SystemLanguage language, string key)
     {
         title.text = TextHolder.GetTitle(language, key);
-        title.font = TextHolder.GetFont(language);
+
+        var font = TextHolder.GetFont(language);
+        if (title.font == font)
+            return;
+        
+        title.font = font;
     }
 }

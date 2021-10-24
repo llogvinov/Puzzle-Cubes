@@ -28,14 +28,14 @@ public class GameSoundsManager : MonoBehaviour
     
     private void OnEnable()
     {
-        SliderInpt.Swiped += PlaySwipeSound;
-        WinChecker.PlayerWon += OnPlayerWon;
+        PlayerScrollInput.Swiped += PlaySwipeSound;
+        WinCheckerScroll.PlayerWon += OnPlayerWon;
     }
 
     private void OnDisable()
     {
-        SliderInpt.Swiped -= PlaySwipeSound;
-        WinChecker.PlayerWon -= OnPlayerWon;
+        PlayerScrollInput.Swiped -= PlaySwipeSound;
+        WinCheckerScroll.PlayerWon -= OnPlayerWon;
     } 
 
     private void OnPlayerWon()
