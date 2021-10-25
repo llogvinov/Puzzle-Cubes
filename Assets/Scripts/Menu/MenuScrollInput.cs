@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,6 +10,8 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     [SerializeField] private Transform _container;
     
     [SerializeField] private float _duration = 0.5f;
+
+    private Transform[] _allButtons;
     
     private float[] _positions;
     private float _distance;
@@ -18,6 +21,24 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     
     private void Start()
     {
+        AdjustButtons();
+        AdjustPositions();
+
+        GetScrollRectToMiddle();
+    }
+
+    private void AdjustButtons()
+    {
+        _allButtons = new Transform[_container.childCount];
+
+        for (int i = 0; i < _allButtons.Length; i++)
+        {
+            _allButtons[i] = _container.GetChild(i);
+        }
+    }
+
+    private void AdjustPositions()
+    {
         _positions = new float[_container.childCount];
         _distance = 1f / (_positions.Length - 1f);
 
@@ -25,8 +46,6 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         {
             _positions[i] = _distance * i;
         }
-        
-        _scrollRect.horizontalNormalizedPosition = _positions[GameDataManager.GetSelectedCategoryID()];
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -39,24 +58,33 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         _endPosition = _scrollRect.horizontalNormalizedPosition;
 
         if (_endPosition > _startPosition)
-        {
             SwipePanelLeft(_endPosition);
-        }
         else
-        {
             SwipePanelRight(_endPosition);
-        }
     }
 
     private void SwipePanelLeft(float endPosition)
     {
         var endValue = FindClosestPositionRight(endPosition);
+        var difference = Mathf.RoundToInt(Mathf.Abs(endValue - _positions[3]) / _distance);
         
         MenuSoundsManager.Instance.PlaySwipeSound();
         _scrollRect
-            .DOHorizontalNormalizedPos(endValue, _duration);
+            .DOHorizontalNormalizedPos(endValue, _duration)
+            .OnComplete(() => OnSwipedLeft(difference));
     }
 
+    private void SwipePanelRight(float endPosition)
+    {
+        var endValue = FindClosestPositionLeft(endPosition);
+        var difference = Mathf.RoundToInt(Mathf.Abs(endValue - _positions[3]) / _distance);
+
+        MenuSoundsManager.Instance.PlaySwipeSound();
+        _scrollRect
+            .DOHorizontalNormalizedPos(endValue, _duration)
+            .OnComplete(() => OnSwipedRight(difference));
+    }
+    
     private float FindClosestPositionRight(float endPosition)
     {
         float result = 1f;
@@ -71,15 +99,6 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         }
 
         return result;
-    }
-
-    private void SwipePanelRight(float endPosition)
-    {
-        var endValue = FindClosestPositionLeft(endPosition);
-
-        MenuSoundsManager.Instance.PlaySwipeSound();
-        _scrollRect
-            .DOHorizontalNormalizedPos(endValue, _duration);
     }
 
     private float FindClosestPositionLeft(float endPosition)
@@ -97,4 +116,43 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         return index == 0 ? _positions[index] : _positions[index - 1];
     }
     
+    private void OnSwipedLeft(int difference)
+    {
+        for (int i = 0; i < difference; i++)
+        {
+            var firstChild = _container.GetChild(0);
+        
+            firstChild.transform.SetAsLastSibling();
+        
+            GetScrollRectToMiddle();
+            ShakeButtons();
+        }
+    }
+
+    private void OnSwipedRight(int difference)
+    {
+        for (int i = 0; i < difference; i++)
+        {
+            var lastChildIndex = _container.childCount - 1;
+            var lastChild = _container.GetChild(lastChildIndex);
+        
+            lastChild.transform.SetAsFirstSibling();
+
+            GetScrollRectToMiddle();
+            ShakeButtons();
+        }
+    }
+
+    private void GetScrollRectToMiddle()
+    {
+        _scrollRect.horizontalNormalizedPosition = _positions[3];
+    }
+
+    private void ShakeButtons()
+    {
+        foreach (var button in _allButtons)
+        {
+            button.DOShakeScale(_duration * 3f, 0.05f);
+        }
+    }
 }

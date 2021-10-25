@@ -199,6 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 71882728}
   - component: {fileID: 71882729}
+  - component: {fileID: 71882730}
   m_Layer: 0
   m_Name: Categories UI
   m_TagString: Untagged
@@ -227,7 +228,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71882727}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fb6b3b17bdc3b5468af62b4efe34a99, type: 3}
   m_Name: 
@@ -235,6 +236,23 @@ MonoBehaviour:
   _categoryDb: {fileID: 11400000, guid: 5a35d49849d755648a7adec90e2290f4, type: 2}
   _categoryButton: {fileID: 3752548186715906867, guid: 9a278874d9e81f348a2177d87f38fcfe, type: 3}
   _buttonsContainer: {fileID: 1979589937}
+  _canvas: {fileID: 1764282433}
+  _purchaseUI: {fileID: 1974219175}
+--- !u!114 &71882730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71882727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c934d718d617d3642ba6c00243b15c79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonsContainer: {fileID: 1979589937}
+  _categoryDatabase: {fileID: 11400000, guid: 5a35d49849d755648a7adec90e2290f4, type: 2}
+  _categoryButton: {fileID: 4669630620909862841, guid: 9a278874d9e81f348a2177d87f38fcfe, type: 3}
   _canvas: {fileID: 1764282433}
   _purchaseUI: {fileID: 1974219175}
 --- !u!1 &121778948
