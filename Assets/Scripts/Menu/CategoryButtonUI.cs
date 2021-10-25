@@ -12,6 +12,8 @@ public class CategoryButtonUI : MonoBehaviour
     [SerializeField] private Shadow _lightShadow;
     [SerializeField] private Image _lockImage;
 
+    [HideInInspector] public int CategoryID;
+    
     private Button _categoryButton;
 
     private void Awake()
@@ -21,11 +23,17 @@ public class CategoryButtonUI : MonoBehaviour
 
     public void SetInformation(Category category, SystemLanguage language, string key)
     {
+        SetID(category);
         SetImage(category.Sprite);
         SetTitle(category, language, key);
         SetLock(category.IsLocked);
     }
 
+    private void SetID(Category category)
+    {
+        CategoryID = category.ID;
+    }
+    
     private void SetImage(Sprite sprite) => _categoryImage.sprite = sprite;
 
     private void SetTitle(Category category, SystemLanguage language, string key)

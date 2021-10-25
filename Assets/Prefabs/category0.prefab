@@ -142,6 +142,7 @@ MonoBehaviour:
   _darkShadow: {fileID: 2734982232482922639}
   _lightShadow: {fileID: 823358069493636586}
   _lockImage: {fileID: 8021935860915542674}
+  CategoryID: 0
 --- !u!1 &4080163744016707905
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0.745283, g: 0, b: 0.09302249, a: 1}
-  m_EffectDistance: {x: 0, y: 7}
+  m_EffectDistance: {x: 0, y: 6}
   m_UseGraphicAlpha: 1
 --- !u!114 &823358069493636586
 MonoBehaviour:
@@ -251,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0.4245283, g: 0, b: 0, a: 0.5}
-  m_EffectDistance: {x: 0, y: -7}
+  m_EffectDistance: {x: 0, y: -6}
   m_UseGraphicAlpha: 1
 --- !u!1 &4947344524324253321
 GameObject:

@@ -34,14 +34,22 @@ public class ScrollUI : MonoBehaviour
     private void GenerateScrollUI()
     {
         var language = GameDataManager.GetLanguage();
-        var middleIndex = Mathf.CeilToInt((_categoryDatabase.GetLength() - 1) / 2f);
+        int leftIndex;
+        
+        var selectedCategoryID = GameDataManager.GetSelectedCategoryID();
+        var middleIndex = (_categoryDatabase.GetLength() - 1) / 2;
+        
+        if (selectedCategoryID < middleIndex)
+            leftIndex = selectedCategoryID + middleIndex + 1;
+        else
+            leftIndex = selectedCategoryID - middleIndex;
 
-        for (int i = middleIndex + 1; i < _categoryDatabase.GetLength(); i++)
+        for (int i = leftIndex; i < _categoryDatabase.GetLength(); i++)
         {
             InstantiateButton(i, language);
         }
 
-        for (int i = 0; i < middleIndex + 1; i++)
+        for (int i = 0; i < leftIndex; i++)
         {
             InstantiateButton(i, language);
         }
@@ -117,7 +125,7 @@ public class ScrollUI : MonoBehaviour
             var categoryButtonUI = _buttonsContainer.transform.GetChild(i).GetComponent<CategoryButtonUI>();
             
             categoryButtonUI.SetLock(false);
-            categoryButtonUI.OnItemSelect(i, OnItemSelected);
+            categoryButtonUI.OnItemSelect(categoryButtonUI.CategoryID, OnItemSelected);
         }
     }
 }

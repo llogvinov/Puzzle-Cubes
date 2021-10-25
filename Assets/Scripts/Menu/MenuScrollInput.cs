@@ -152,7 +152,7 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         foreach (var button in _allButtons)
         {
-            button.DOShakeScale(_duration * 3f, 0.05f);
+            button.DOShakeScale(_duration * 2f, 0.03f);
         }
     }
 }
