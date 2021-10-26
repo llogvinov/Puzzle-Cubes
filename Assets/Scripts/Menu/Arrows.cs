@@ -26,22 +26,14 @@ public class Arrows : MonoBehaviour
     private void OnTutorialWatched()
     {
         GameDataManager.TutorialWatched();
-        gameObject.SetActive(false);
-        foreach (var arrow in _arrows)
-        {
-            arrow.gameObject.SetActive(false);
-        }
+        SetObjectsInactive();
     }
 
     private void Start()
     {
         if (GameDataManager.GetTutorialWatched())
         {
-            gameObject.SetActive(false);
-            foreach (var arrow in _arrows)
-            {
-                arrow.gameObject.SetActive(false);
-            }
+            SetObjectsInactive();
         }
         
         _tMax = _duration * _loopsNumber + 4;
@@ -56,6 +48,15 @@ public class Arrows : MonoBehaviour
         {
             ShakeArrows();
             _t = 0f;
+        }
+    }
+
+    private void SetObjectsInactive()
+    {
+        gameObject.SetActive(false);
+        foreach (var arrow in _arrows)
+        {
+            arrow.gameObject.SetActive(false);
         }
     }
     
