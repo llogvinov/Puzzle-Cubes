@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
@@ -18,6 +19,8 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
     private float _startPosition;
     private float _endPosition;
+
+    public static UnityAction TutorialWatched;
     
     private void Start()
     {
@@ -127,6 +130,11 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
             GetScrollRectToMiddle();
             ShakeButtons();
         }
+
+        if (!GameDataManager.GetTutorialWatched())
+        {
+            TutorialWatched?.Invoke();
+        }
     }
 
     private void OnSwipedRight(int difference)
@@ -140,6 +148,11 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
             GetScrollRectToMiddle();
             ShakeButtons();
+        }
+        
+        if (!GameDataManager.GetTutorialWatched())
+        {
+            TutorialWatched?.Invoke();
         }
     }
 

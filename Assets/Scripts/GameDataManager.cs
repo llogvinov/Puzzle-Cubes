@@ -15,6 +15,7 @@ public class PlayerData
     public SystemLanguage Language;
     
     public bool IsFullVersionPurchased;
+    public bool IsTutorialWatched;
     public int SelectedCategoryID;
 }
 
@@ -65,6 +66,20 @@ public static class GameDataManager
     }
 
     public static SystemLanguage GetLanguage() => _playerData.Language;
+
+    public static bool GetTutorialWatched() => _playerData.IsTutorialWatched;
+    
+    public static void TutorialWatched()
+    {
+        _playerData.IsTutorialWatched = true;
+        SavePlayerData();
+    }
+
+    public static void UnWatchTutorial()
+    {
+        _playerData.IsTutorialWatched = false;
+        SavePlayerData();
+    }
     
     public static void PurchaseFullVersion()
     {
