@@ -11,7 +11,10 @@ public class CategoryButtonUI : MonoBehaviour
     [SerializeField] private Shadow _darkShadow;
     [SerializeField] private Shadow _lightShadow;
     [SerializeField] private Image _lockImage;
-
+    [Space] 
+    [SerializeField] private float _defaultShadowValue;
+    [SerializeField] private float _hieroglyphShadowValue;
+    
     [HideInInspector] public int CategoryID;
     
     private Button _categoryButton;
@@ -40,6 +43,23 @@ public class CategoryButtonUI : MonoBehaviour
     {
         SetName(language, key);
         SetColor(category);
+        SetShadowValues(language);
+    }
+
+    public void SetShadowValues(SystemLanguage language)
+    {
+        if (language == SystemLanguage.ChineseSimplified ||
+            language == SystemLanguage.Japanese ||
+            language == SystemLanguage.Korean)
+        {
+            _darkShadow.effectDistance = new Vector2(0f, _hieroglyphShadowValue);
+            _lightShadow.effectDistance = new Vector2(0f, -_hieroglyphShadowValue);
+        }
+        else
+        {
+            _darkShadow.effectDistance = new Vector2(0f, _defaultShadowValue);
+            _lightShadow.effectDistance = new Vector2(0f, -_defaultShadowValue);
+        }
     }
 
     public void SetName(SystemLanguage language, string key)

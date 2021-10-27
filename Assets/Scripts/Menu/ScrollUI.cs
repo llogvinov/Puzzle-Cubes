@@ -113,6 +113,7 @@ public class ScrollUI : MonoBehaviour
             var categoryButtonUI = _buttonsContainer.transform.GetChild(i).GetComponent<CategoryButtonUI>();
 
             categoryButtonUI.SetName(language, categoryButtonUI.gameObject.name);
+            categoryButtonUI.SetShadowValues(language);
         }
     }
 
