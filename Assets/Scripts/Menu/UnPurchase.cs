@@ -8,10 +8,8 @@ public class UnPurchase : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             GameDataManager.UnpurchaseFullVersion();
-            GameDataManager.UnWatchTutorial();
 #if UNITY_EDITOR
             Debug.Log("full version purchased: " + GameDataManager.GetFullVersionPurchased());
-            Debug.Log("tutorial watched: " + GameDataManager.GetTutorialWatched());
 #endif
         }
     }

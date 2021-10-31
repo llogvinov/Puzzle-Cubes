@@ -16,20 +16,25 @@ public class WinScrollUI : MonoBehaviour
     [Space]
     [SerializeField] private float _delay = 2f;
 
+    [SerializeField] private Button _repeatButton;
+    [SerializeField] private float _animationDuration = 2f;
+
+    private bool _canRepeatAnimation;
     private string _itemName;
     
     private void OnEnable()
     {
         WinCheckerScroll.ItemCollected += OnItemCollected;
         WinScroll.PanelSwiped += HideCanvas;
-        WinScroll.PanelClicked += OnPanelClicked;
+        
+        _repeatButton.onClick.RemoveAllListeners();
+        _repeatButton.onClick.AddListener(OnPanelClicked);
     }
 
     private void OnDisable()
     {
         WinCheckerScroll.ItemCollected -= OnItemCollected;
         WinScroll.PanelSwiped -= HideCanvas;
-        WinScroll.PanelClicked -= OnPanelClicked;
     }
     
     private void Start()
@@ -58,8 +63,9 @@ public class WinScrollUI : MonoBehaviour
 
         yield return new WaitForSeconds(_delay);
         ShowName();
-        yield return new WaitForSeconds(_delay / 2f);
         PlayNameClip(_itemName);
+        yield return new WaitForSeconds(_delay);
+        _canRepeatAnimation = true;
     }
 
     private void ShowCanvas()
@@ -77,10 +83,23 @@ public class WinScrollUI : MonoBehaviour
         SetItemName(_itemName);
     }
 
+    private IEnumerator AnimationCoolDown()
+    {
+        yield return new WaitForSeconds(_animationDuration);
+        _canRepeatAnimation = true;
+    }
+
     private void OnPanelClicked()
     {
-        ShowAnimation();
+        if (!_canRepeatAnimation)
+            return;
+        
+        _canRepeatAnimation = false;
+        
+        ResetAnimation();
         PlayNameClip(_itemName);
+        
+        StartCoroutine(AnimationCoolDown());
     }
     
     private void SetBackground(int id)
@@ -100,6 +119,16 @@ public class WinScrollUI : MonoBehaviour
         _animator.runtimeAnimatorController = controller.runtimeAnimatorController;
     }
 
+    private void ResetAnimation()
+    {
+        var controller = _animator.runtimeAnimatorController;
+        if (controller == null)
+            return;
+        
+        _animator.runtimeAnimatorController = null;
+        _animator.runtimeAnimatorController = controller;
+    }
+    
     /*
     private void SetFullItem(int id)
     {
