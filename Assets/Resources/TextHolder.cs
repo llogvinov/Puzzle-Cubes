@@ -9,6 +9,7 @@ public static class TextHolder
     private static Dictionary<string, List<string>> _namesDictionary = new Dictionary<string, List<string>>();
 
     private static Font _defaultFont;
+    private static Font _plFont;
     private static Font _cnFont;
     private static Font _jpFont;
     private static Font _krFont;
@@ -30,6 +31,7 @@ public static class TextHolder
     {
         return language switch
         {
+            SystemLanguage.Polish => _plFont,
             SystemLanguage.ChineseSimplified => _cnFont,
             SystemLanguage.Japanese => _jpFont,
             SystemLanguage.Korean => _krFont,
@@ -91,6 +93,7 @@ public static class TextHolder
     private static void AdjustFonts()
     {
         _defaultFont = Resources.Load<Font>("Fonts/default_font");
+        _plFont = Resources.Load<Font>("Fonts/pl_font");
         _cnFont = Resources.Load<Font>("Fonts/cn_font");
         _jpFont = Resources.Load<Font>("Fonts/jp_font");
         _krFont = Resources.Load<Font>("Fonts/kr_font");

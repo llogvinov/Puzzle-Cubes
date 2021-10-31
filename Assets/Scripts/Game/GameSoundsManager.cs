@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class GameSoundsManager : MonoBehaviour
 {
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioSource _gameAudioSource;
 
     [SerializeField] private AudioClip _buttonClickClip;
     
     [Header("Swipe clips")] 
     [SerializeField] private AudioClip[] _swipeAudioClips;
     
-    [Header("Win clips")]
-    [SerializeField] private AudioClip[] _winAudioClips;
-
     #region Singleton
 
     public static GameSoundsManager Instance;
@@ -29,32 +26,22 @@ public class GameSoundsManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerScrollInput.Swiped += PlaySwipeSound;
-        WinCheckerScroll.PlayerWon += OnPlayerWon;
     }
 
     private void OnDisable()
     {
         PlayerScrollInput.Swiped -= PlaySwipeSound;
-        WinCheckerScroll.PlayerWon -= OnPlayerWon;
     } 
-
-    private void OnPlayerWon()
-    {
-        foreach (var audioClip in _winAudioClips)
-        {
-            _audioSource.PlayOneShot(audioClip);
-        }
-    }
 
     private void PlaySwipeSound()
     {
-        var clip = RandomSwipeClip();
-
-        if (clip != null)
-            _audioSource.PlayOneShot(clip);
+        if (_gameAudioSource == null) 
+            return;
+        
+        _gameAudioSource.PlayOneShot(RandomSwipeClip());
     }
     
     private AudioClip RandomSwipeClip() => _swipeAudioClips[Random.Range(0, _swipeAudioClips.Length)];
 
-    public void PlayButtonSound() => _audioSource.PlayOneShot(_buttonClickClip);
+    public void PlayButtonSound() => _gameAudioSource.PlayOneShot(_buttonClickClip);
 }

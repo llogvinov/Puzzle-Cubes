@@ -47,6 +47,9 @@ public static class GameDataManager
         LoadCategoriesData();
         
         SetLanguage(Application.systemLanguage);
+        
+        PlayerPrefs.SetInt("music", 1);
+        PlayerPrefs.SetInt("sounds", 1);
     }
 
     public static void SetLanguage(SystemLanguage language)

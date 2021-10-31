@@ -25,7 +25,7 @@ public class WinScrollUI : MonoBehaviour
     private void OnEnable()
     {
         WinCheckerScroll.ItemCollected += OnItemCollected;
-        WinScroll.PanelSwiped += HideCanvas;
+        WinScrollInput.PanelSwiped += HideCanvas;
         
         _repeatButton.onClick.RemoveAllListeners();
         _repeatButton.onClick.AddListener(OnPanelClicked);
@@ -34,7 +34,7 @@ public class WinScrollUI : MonoBehaviour
     private void OnDisable()
     {
         WinCheckerScroll.ItemCollected -= OnItemCollected;
-        WinScroll.PanelSwiped -= HideCanvas;
+        WinScrollInput.PanelSwiped -= HideCanvas;
     }
     
     private void Start()

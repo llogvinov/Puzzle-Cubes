@@ -33,11 +33,11 @@ public class ScrollUI : MonoBehaviour
 
     private void GenerateScrollUI()
     {
-        var language = GameDataManager.GetLanguage();
+        SystemLanguage language = GameDataManager.GetLanguage();
         int leftIndex;
         
-        var selectedCategoryID = GameDataManager.GetSelectedCategoryID();
-        var middleIndex = (_categoryDatabase.GetLength() - 1) / 2;
+        int selectedCategoryID = GameDataManager.GetSelectedCategoryID();
+        int middleIndex = (_categoryDatabase.GetLength() - 1) / 2;
         
         if (selectedCategoryID < middleIndex)
             leftIndex = selectedCategoryID + middleIndex + 1;

@@ -4,14 +4,13 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class WinScroll : MonoBehaviour, IEndDragHandler
+public class WinScrollInput : MonoBehaviour, IEndDragHandler
 {
     [SerializeField] private ScrollRect _scrollRect;
 
     [SerializeField] private float _duration = 0.3f;
 
     public static UnityAction PanelSwiped;
-    public static UnityAction PanelClicked;
     
     private void OnEnable()
     {
@@ -45,9 +44,6 @@ public class WinScroll : MonoBehaviour, IEndDragHandler
 
     private void ResetPanel()
     {
-        PanelClicked?.Invoke();
-        _scrollRect
-            .DOHorizontalNormalizedPos(0f, _duration / 2f)
-            .OnComplete(() => PanelClicked?.Invoke());
+        _scrollRect.DOHorizontalNormalizedPos(0f, _duration / 2f);
     }
 }

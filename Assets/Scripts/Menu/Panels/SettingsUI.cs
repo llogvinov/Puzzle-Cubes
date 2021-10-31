@@ -27,7 +27,7 @@ public class SettingsUI : PanelUI
     private void AddButtonsEvents()
     {
         if (GameDataManager.GetFullVersionPurchased())
-            _fullVersion.gameObject.SetActive(false);
+            _fullVersion.onClick.RemoveAllListeners();
         
         AddPanelButtonsEvents();
         

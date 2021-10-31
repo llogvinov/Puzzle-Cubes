@@ -21,9 +21,6 @@ public class SoundsUI : MonoBehaviour
     [SerializeField] private Sprite _soundSprite;
     [SerializeField] private Sprite _noMusicSprite;
     [SerializeField] private Sprite _noSoundSprite;
-
-    public static UnityAction<int> MusicVolumeChanged;
-    public static UnityAction<int> SoundsVolumeChanged;
     
     private void Start()
     {
@@ -56,8 +53,6 @@ public class SoundsUI : MonoBehaviour
             TurnOnMusic();
         else
             throw new Exception("Invalid button sprite");
-
-        MusicVolumeChanged?.Invoke(PlayerPrefs.GetInt("music"));
     }
 
     // controls Sounds UI element
@@ -72,8 +67,6 @@ public class SoundsUI : MonoBehaviour
             TurnOnSounds();
         else
             throw new Exception("Invalid button sprite");
-
-        SoundsVolumeChanged?.Invoke(PlayerPrefs.GetInt("sounds"));
     }
 
     private void TurnOffMusic(bool valueChecked = false)

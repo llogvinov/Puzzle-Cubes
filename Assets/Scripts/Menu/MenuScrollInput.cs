@@ -1,17 +1,25 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.Events;
 
 public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private Transform _container;
     
-    [SerializeField] private float _duration = 0.5f;
+    [SerializeField] private float _duration;
 
+    [SerializeField] private Button _leftArrow;
+    [SerializeField] private Button _rightArrow;
+
+    [SerializeField] private float _arrowAnimationDuration;
+    [SerializeField] private int _loopsNumber;
+    [SerializeField] private float _finalScale;
+
+    private float _t;
+    private float _tMax;
+    
     private Transform[] _allButtons;
     
     private float[] _positions;
@@ -26,6 +34,38 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         AdjustPositions();
 
         GetScrollRectToMiddle();
+        
+        _tMax = _duration * _loopsNumber + 6;
+        _t = _tMax / 2f;
+    }
+    
+    private void Update()
+    {
+        _t += Time.deltaTime;
+        
+        if (_t >= _tMax)
+        {
+            ShakeArrows();
+            _t = 0f;
+        }
+    }
+
+    private void ShakeArrows()
+    {
+        foreach (var arrow in new [] {_leftArrow, _rightArrow })
+        {
+            arrow.transform.DOScale(_finalScale, _arrowAnimationDuration).SetLoops(_loopsNumber * 2, LoopType.Yoyo);
+        }
+    }
+
+    public void OnLeftArrowClicked()
+    {
+        SwipePanelRight(_positions[2]);
+    }
+
+    public void OnRightArrowClicked()
+    {
+        SwipePanelLeft(_positions[4]);
     }
 
     private void AdjustButtons()
@@ -58,16 +98,24 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         _endPosition = _scrollRect.horizontalNormalizedPosition;
 
-        if (_endPosition > _startPosition)
+        if (_endPosition > _startPosition - _distance / 3.5f 
+            && _endPosition < _startPosition + _distance / 3.5f)
+            ResetPanel();
+        else if (_endPosition > _startPosition)
             SwipePanelLeft(_endPosition);
         else
             SwipePanelRight(_endPosition);
     }
 
+    private void ResetPanel()
+    {
+        _scrollRect.DOHorizontalNormalizedPos(_positions[3], _duration / 2f);
+    }
+    
     private void SwipePanelLeft(float endPosition)
     {
-        var endValue = FindClosestPositionRight(endPosition);
-        var difference = Mathf.RoundToInt(Mathf.Abs(endValue - _positions[3]) / _distance);
+        float endValue = FindClosestPositionRight(endPosition);
+        int difference = Mathf.RoundToInt(Mathf.Abs(endValue - _positions[3]) / _distance);
         
         MenuSoundsManager.Instance.PlaySwipeSound();
         _scrollRect
@@ -77,8 +125,8 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
     private void SwipePanelRight(float endPosition)
     {
-        var endValue = FindClosestPositionLeft(endPosition);
-        var difference = Mathf.RoundToInt(Mathf.Abs(endValue - _positions[3]) / _distance);
+        float endValue = FindClosestPositionLeft(endPosition);
+        int difference = Mathf.RoundToInt(Mathf.Abs(endValue - _positions[3]) / _distance);
 
         MenuSoundsManager.Instance.PlaySwipeSound();
         _scrollRect
