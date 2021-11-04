@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameSoundsManager : MonoBehaviour
@@ -25,12 +23,12 @@ public class GameSoundsManager : MonoBehaviour
     
     private void OnEnable()
     {
-        PlayerScrollInput.Swiped += PlaySwipeSound;
+        GameScrollInput.Swiped += PlaySwipeSound;
     }
 
     private void OnDisable()
     {
-        PlayerScrollInput.Swiped -= PlaySwipeSound;
+        GameScrollInput.Swiped -= PlaySwipeSound;
     } 
 
     private void PlaySwipeSound()

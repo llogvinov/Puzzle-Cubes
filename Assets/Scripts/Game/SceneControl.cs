@@ -4,16 +4,16 @@ using UnityEngine.UI;
 
 public class SceneControl : MonoBehaviour
 {
-    private static int _menuSceneIndex = 0;
-    private static int _gameSceneIndex = 1;
+    private const int MenuSceneIndex = 0;
+    private const int GameSceneIndex = 1;
 
     public static void LoadGameScene()
     {
-        SceneManager.LoadScene(_gameSceneIndex);
+        SceneManager.LoadScene(GameSceneIndex);
     }
 
     public static void LoadMenuScene()
     {
-        SceneManager.LoadScene(_menuSceneIndex);
+        SceneManager.LoadScene(MenuSceneIndex);
     }
 }

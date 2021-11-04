@@ -7,7 +7,7 @@ using DG.Tweening;
 public class WinScrollInput : MonoBehaviour, IEndDragHandler
 {
     [SerializeField] private ScrollRect _scrollRect;
-
+    
     [SerializeField] private float _duration = 0.3f;
 
     public static UnityAction PanelSwiped;
@@ -44,6 +44,7 @@ public class WinScrollInput : MonoBehaviour, IEndDragHandler
 
     private void ResetPanel()
     {
-        _scrollRect.DOHorizontalNormalizedPos(0f, _duration / 2f);
+        _scrollRect
+            .DOHorizontalNormalizedPos(0f, _duration / 2f);
     }
 }

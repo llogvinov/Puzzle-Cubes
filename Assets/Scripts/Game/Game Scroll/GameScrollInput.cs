@@ -4,16 +4,13 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Events;
 
-public class PlayerScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
+public class GameScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private Transform _container;
     [SerializeField] private WinCheckerScroll _winCheckerScroll;
 
     [SerializeField] private float _duration = 0.3f;
-    
-    private float[] _positions;
-    private float _distance;
     
     private float _startPosition;
     private float _endPosition;
@@ -22,20 +19,12 @@ public class PlayerScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandl
     
     private void Start()
     {
-        _positions = new float[_container.childCount];
-        _distance = 1f / (_positions.Length - 1f);
-
-        for (int i = 0; i < _positions.Length; i++)
-        {
-            _positions[i] = _distance * i;
-        }
-
         GetScrollRectToMiddle();
     }
     
     private void GetScrollRectToMiddle()
     {
-        _scrollRect.horizontalNormalizedPosition = _positions[2];
+        _scrollRect.horizontalNormalizedPosition = GameScrollUI.Positions[GameScrollUI.MiddlePositionIndex];
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -59,7 +48,7 @@ public class PlayerScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandl
 
     private void SwipePanelLeft()
     {
-        var endValue = _positions[3];
+        float endValue = GameScrollUI.Positions[GameScrollUI.MiddlePositionIndex + 1];
         
         Swiped?.Invoke();
         
@@ -70,7 +59,7 @@ public class PlayerScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandl
     
     private void SwipePanelRight()
     {
-        var endValue = _positions[1];
+        float endValue = GameScrollUI.Positions[GameScrollUI.MiddlePositionIndex - 1];
         
         Swiped?.Invoke();
         
@@ -81,22 +70,26 @@ public class PlayerScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandl
 
     private void OnSwipedLeft()
     {
-        var firstChild = _container.GetChild(0);
+        Transform firstChild = _container.GetChild(0);
         
         firstChild.transform.SetAsLastSibling();
         
-        GetScrollRectToMiddle();
-        _winCheckerScroll.CheckAllPartsMatch(2);
+        OnSwipeEnded();
     }
 
     private void OnSwipedRight()
     {
-        var lastChildIndex = _container.childCount - 1;
-        var lastChild = _container.GetChild(lastChildIndex);
+        int lastChildIndex = _container.childCount - 1;
+        Transform lastChild = _container.GetChild(lastChildIndex);
         
         lastChild.transform.SetAsFirstSibling();
 
+        OnSwipeEnded();
+    }
+
+    private void OnSwipeEnded()
+    {
         GetScrollRectToMiddle();
-        _winCheckerScroll.CheckAllPartsMatch(2);
+        _winCheckerScroll.CheckAllPartsMatch(GameScrollUI.MiddlePositionIndex);
     }
 }

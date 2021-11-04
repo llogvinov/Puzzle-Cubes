@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GenerateScrollUI : MonoBehaviour
+public class GameScrollUI : MonoBehaviour
 {
     [Header("Containers")]
     [SerializeField] private Transform _headParts;
@@ -10,50 +10,23 @@ public class GenerateScrollUI : MonoBehaviour
     [SerializeField] private Transform _legsParts;
     [Space]
     [SerializeField] private int _numberOfItems;
-    [Space] 
-    [SerializeField] private ItemPart _itemPart;
     
     [SerializeField] private CategoryDatabase _categoriesDb;
     [HideInInspector] public ItemDatabase ItemsDb;
     
     private bool _hasMatchesAtStart;
-    private int _halfNumberOfItems;
+    
+    public static float[] Positions;
+    public static float Distance;
 
-    private Transform[] _allContainers;
+    public static int MiddlePositionIndex;
     
     private void Awake()
     {
-        _allContainers = new[] {_headParts, _bodyParts, _legsParts};
-        
         ItemsDb = _categoriesDb.Categories[GameDataManager.GetSelectedCategoryID()].ItemDatabase;
-        _halfNumberOfItems = (_numberOfItems - 1) / 2;
-
-        // ClearAllContainers(_allContainers);
-        // FillAllContainers(_allContainers);
 
         GenerateUI();
-    }
-
-    private void ClearAllContainers(Transform[] containers)
-    {
-        foreach (var container in containers)
-        {
-            for (int i = 0; i < container.childCount; i++)
-            {
-                Destroy(container.GetChild(i).gameObject);
-            }
-        }
-    }
-
-    private void FillAllContainers(Transform[] containers)
-    {
-        foreach (var container in containers)
-        {
-            for (int i = -_halfNumberOfItems; i <= _halfNumberOfItems; i++)
-            {
-                Instantiate(_itemPart, container);
-            }
-        }
+        AdjustPositions();
     }
     
     public void GenerateUI()
@@ -66,14 +39,27 @@ public class GenerateScrollUI : MonoBehaviour
 #if UNITY_EDITOR
             Debug.Log("check matches at start");
 #endif
-            SetHeadItems(Shuffle(items));
-            SetBodyItems(Shuffle(items));
-            SetLegsItems(Shuffle(items));
+            SetHeadItems(ShuffleList(items));
+            SetBodyItems(ShuffleList(items));
+            SetLegsItems(ShuffleList(items));
 
-            CheckNearbyPartsMatch(_halfNumberOfItems);
+            CheckNearbyPartsMatch(MiddlePositionIndex);
         }
     }
+    
+    private void AdjustPositions()
+    {
+        Positions = new float[_headParts.childCount];
+        Distance = 1f / (Positions.Length - 1f);
 
+        for (int i = 0; i < Positions.Length; i++)
+        {
+            Positions[i] = Distance * i;
+        }
+        
+        MiddlePositionIndex = Positions.Length / 2;
+    }
+    
     private void SetHeadItems(List<Item> items)
     {
         for (int i = 0; i < items.Count; i++)
@@ -101,11 +87,11 @@ public class GenerateScrollUI : MonoBehaviour
         }
     }
     
-    private void CheckNearbyPartsMatch(int halfNumberOfItems)
+    private void CheckNearbyPartsMatch(int middlePositionIndex)
     {
-        int headItemID = _headParts.GetChild(halfNumberOfItems).GetComponent<ItemPart>().ItemID;
-        int bodyItemID = _bodyParts.GetChild(halfNumberOfItems).GetComponent<ItemPart>().ItemID;
-        int legsItemID = _legsParts.GetChild(halfNumberOfItems).GetComponent<ItemPart>().ItemID;
+        int headItemID = _headParts.GetChild(middlePositionIndex).GetComponent<ItemPart>().ItemID;
+        int bodyItemID = _bodyParts.GetChild(middlePositionIndex).GetComponent<ItemPart>().ItemID;
+        int legsItemID = _legsParts.GetChild(middlePositionIndex).GetComponent<ItemPart>().ItemID;
 
         if (headItemID == bodyItemID || bodyItemID == legsItemID)
             return;
@@ -134,7 +120,7 @@ public class GenerateScrollUI : MonoBehaviour
         return finalItems;
     }
     
-    private List<Item> Shuffle(List<Item> list) 
+    private List<Item> ShuffleList(List<Item> list) 
     {
         int n = list.Count;
         var rnd = new System.Random();

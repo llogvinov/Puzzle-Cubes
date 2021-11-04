@@ -6,16 +6,16 @@ using DG.Tweening;
 public class WinScrollUI : MonoBehaviour
 {
     [SerializeField] private Canvas _winCanvas;
-    [SerializeField] private Image _background;
+    [SerializeField] private Image _itemBackgroundUI;
     [SerializeField] private Text _itemNameUI;
-    [SerializeField] private Image _fullItem;
-    [SerializeField] private Animator _animator;
+    [SerializeField] private Image _itemFullUI;
+    [SerializeField] private Animator _itemAnimatorUI;
     [Space]
-    [SerializeField] private GenerateScrollUI _uiGenerator;
+    [SerializeField] private GameScrollUI _gameScrollUI;
     [SerializeField] private AudioSource _audioSource;
     [Space]
     [SerializeField] private float _delay = 2f;
-
+    [Header("Repeat Animation")]
     [SerializeField] private Button _repeatButton;
     [SerializeField] private float _animationDuration = 2f;
 
@@ -58,8 +58,8 @@ public class WinScrollUI : MonoBehaviour
         // SetFullItem(id);
         // ShowFullItem();
         
-        if (_uiGenerator != null)
-            _uiGenerator.GenerateUI();
+        if (_gameScrollUI != null)
+            _gameScrollUI.GenerateUI();
 
         yield return new WaitForSeconds(_delay);
         ShowName();
@@ -75,7 +75,7 @@ public class WinScrollUI : MonoBehaviour
 
     private void SetElementsUI(int id)
     {
-        _itemName = _uiGenerator.ItemsDb.Items[id].Name;
+        _itemName = _gameScrollUI.ItemsDb.Items[id].Name;
         
         SetBackground(id);
         SetAnimation(id);
@@ -104,29 +104,29 @@ public class WinScrollUI : MonoBehaviour
     
     private void SetBackground(int id)
     {
-        _background.sprite = _uiGenerator.ItemsDb.Items[id].Background;
+        _itemBackgroundUI.sprite = _gameScrollUI.ItemsDb.Items[id].Background;
     }
     
     private void SetAnimation(int id)
     {
-        if (!_animator.enabled)
-            _animator.enabled = true;
+        if (!_itemAnimatorUI.enabled)
+            _itemAnimatorUI.enabled = true;
 
-        var controller = _uiGenerator.ItemsDb.Items[id].Controller;
+        var controller = _gameScrollUI.ItemsDb.Items[id].Controller;
         if (controller == null)
             return;
         
-        _animator.runtimeAnimatorController = controller.runtimeAnimatorController;
+        _itemAnimatorUI.runtimeAnimatorController = controller.runtimeAnimatorController;
     }
 
     private void ResetAnimation()
     {
-        var controller = _animator.runtimeAnimatorController;
+        var controller = _itemAnimatorUI.runtimeAnimatorController;
         if (controller == null)
             return;
         
-        _animator.runtimeAnimatorController = null;
-        _animator.runtimeAnimatorController = controller;
+        _itemAnimatorUI.runtimeAnimatorController = null;
+        _itemAnimatorUI.runtimeAnimatorController = controller;
     }
     
     /*
@@ -144,7 +144,7 @@ public class WinScrollUI : MonoBehaviour
     
     private void ShowAnimation()
     {
-        _animator.gameObject.SetActive(true);
+        _itemAnimatorUI.gameObject.SetActive(true);
     }
     
     private void SetItemName(string itemName)
@@ -181,7 +181,7 @@ public class WinScrollUI : MonoBehaviour
     private void HideCanvas()
     {
         // _fullItem.gameObject.SetActive(false);
-        _animator.gameObject.SetActive(false);
+        _itemAnimatorUI.gameObject.SetActive(false);
         _winCanvas.gameObject.SetActive(false);
         _itemNameUI.gameObject.SetActive(false);
     }
