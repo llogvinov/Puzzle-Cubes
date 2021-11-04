@@ -43,10 +43,10 @@ public class CategoryButtonUI : MonoBehaviour
     {
         SetName(language, key);
         SetColor(category);
-        SetShadowValues(language);
+        SetShadowThickness(language);
     }
 
-    public void SetShadowValues(SystemLanguage language)
+    public void SetShadowThickness(SystemLanguage language)
     {
         if (language == SystemLanguage.ChineseSimplified ||
             language == SystemLanguage.Japanese ||

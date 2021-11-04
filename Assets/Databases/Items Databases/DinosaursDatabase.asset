@@ -19,67 +19,67 @@ MonoBehaviour:
     Head: {fileID: 21300000, guid: 722c611bd52b2114da327c2729ade09c, type: 3}
     Body: {fileID: 21300000, guid: 87f22186f31df9d46bdaa80a051572fd, type: 3}
     Legs: {fileID: 21300000, guid: 9dd5fba1922c7ed43894745a35268d1c, type: 3}
-    Controller: {fileID: 1951066101717580239, guid: 6f4b10e85be3efa459f54375e020571c, type: 3}
+    Controller: {fileID: 1091262557451859954, guid: 56d465e7dcf9b794a8acd60e53d9d966, type: 3}
   - ID: 1
     Name: d02
     Background: {fileID: 21300000, guid: 39b9d9ef27b24a945bdce052a4dff2d5, type: 3}
     Head: {fileID: 21300000, guid: 70362dc7e58395540a4bbdf58eac0b03, type: 3}
     Body: {fileID: 21300000, guid: b6407a3348f7c0742878cef459b35b9e, type: 3}
     Legs: {fileID: 21300000, guid: cb1c168231e6c8646920471ff2a64674, type: 3}
-    Controller: {fileID: 7280485491841051962, guid: 935f093f35060ff4ba1518e0634b6cf2, type: 3}
+    Controller: {fileID: 8358409683395022215, guid: fce1dd81e607b194bb36f5628025c18f, type: 3}
   - ID: 2
     Name: d03
     Background: {fileID: 21300000, guid: 2359e0acb1c5fe742b8de1a188cefc8e, type: 3}
     Head: {fileID: 21300000, guid: 9e92c7292586a9d499ff7c1a98c7a650, type: 3}
     Body: {fileID: 21300000, guid: de05270232b14134aa526a933a4046b1, type: 3}
     Legs: {fileID: 21300000, guid: f3d7e742f08cd5041a6380b9c1e5a84a, type: 3}
-    Controller: {fileID: 5036922084878903531, guid: c3b8782011c8d6f4c8f9fda2aabe977a, type: 3}
+    Controller: {fileID: 6443674843787163160, guid: b86f99cdec096c24ea831b4a59987863, type: 3}
   - ID: 3
     Name: d04
     Background: {fileID: 21300000, guid: 6b60c17cb336cb140a4ffd29c8b021b8, type: 3}
     Head: {fileID: 21300000, guid: 1109df8e0c1def6459a50f855be583d1, type: 3}
     Body: {fileID: 21300000, guid: 29e934a9990ab19408ac44e5dd7a1764, type: 3}
     Legs: {fileID: 21300000, guid: 710e76eb19af4b64a8b0a490f15e3d32, type: 3}
-    Controller: {fileID: 947408208791983989, guid: 17b0a3eec74a2534885f583e8390dc07, type: 3}
+    Controller: {fileID: 7364607427044808006, guid: e542136e14ae4ec42857750312d7f7c3, type: 3}
   - ID: 4
     Name: d05
     Background: {fileID: 21300000, guid: d55e778431b0b964eac7650e9cf00b22, type: 3}
     Head: {fileID: 21300000, guid: 13aa09cfbef70f14294c69363ade6961, type: 3}
     Body: {fileID: 21300000, guid: 32d4bb537a33ceb488316193d8f669a4, type: 3}
     Legs: {fileID: 21300000, guid: ca9c4e5da19f1114fb3b4c3e64e1a195, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 6325428172205544667, guid: 7f34cae4cedd66f4ba8832ec5455f565, type: 3}
   - ID: 5
     Name: d06
     Background: {fileID: 21300000, guid: 0da82b55d26b0fe4880e78f5b66f8db6, type: 3}
     Head: {fileID: 21300000, guid: 9be28baed9495004db5ac49aa35026a3, type: 3}
     Body: {fileID: 21300000, guid: 0d76a3f76408c1d46a46cc66164f6ced, type: 3}
     Legs: {fileID: 21300000, guid: 00b524f6b96ee6e4daf223ac2d3e246c, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 1293392675114322837, guid: d44c0117410bcd74b9157736e341fcc6, type: 3}
   - ID: 6
     Name: d07
     Background: {fileID: 21300000, guid: 04b1d6306ac443b448dc35f5e747d743, type: 3}
     Head: {fileID: 21300000, guid: cb55da994cdf2754ea7b71d98beab566, type: 3}
     Body: {fileID: 21300000, guid: fe9233659bd04a84189785f82a952d27, type: 3}
     Legs: {fileID: 21300000, guid: c0482626f7b7b9a4e9cf0cfaed4b992f, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 8062474651739757658, guid: 701a608a5e7770c4d9b2825309381689, type: 3}
   - ID: 7
     Name: d08
     Background: {fileID: 21300000, guid: e617e7a2867d609479b44caef51c8be9, type: 3}
     Head: {fileID: 21300000, guid: 0e9a941f2fc16c5419be16af62f65092, type: 3}
     Body: {fileID: 21300000, guid: 69ce9fdedfee0284a883c9b4699f4baf, type: 3}
     Legs: {fileID: 21300000, guid: 4520d54c1769e944d8a720ff9560540b, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 6784627952365749807, guid: 03b7a58787045a04a808c51c04ba336b, type: 3}
   - ID: 8
     Name: d09
     Background: {fileID: 21300000, guid: 1584364a187305549bee33cfd45b593b, type: 3}
     Head: {fileID: 21300000, guid: 9e71e3e5c59b718479a4dfe35e9fcc86, type: 3}
     Body: {fileID: 21300000, guid: 32884a86756f7b64dad5631aafac3753, type: 3}
     Legs: {fileID: 21300000, guid: 28205747dceeff641b021f2a4c7fc068, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 5813283791555750929, guid: 63c6de5859e7e254fa056599cbfd0d80, type: 3}
   - ID: 9
     Name: d10
     Background: {fileID: 21300000, guid: 0d84dc6391b5a4148a0ac020baf15818, type: 3}
     Head: {fileID: 21300000, guid: 23732104491c7184fabf52e0b7897048, type: 3}
     Body: {fileID: 21300000, guid: 6c0993934a0afb54e9b45579b5848263, type: 3}
     Legs: {fileID: 21300000, guid: d19bbe3838611ad479b5783d89238979, type: 3}
-    Controller: {fileID: 0}
+    Controller: {fileID: 684047252007086662, guid: 9defab9cfa22a5d41a4f2542195abb01, type: 3}

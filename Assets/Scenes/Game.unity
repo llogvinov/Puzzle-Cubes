@@ -1008,8 +1008,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 586803260}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
-  m_Value: -0.000000059604638
-  m_Size: 0.13093318
+  m_Value: 0
+  m_Size: 0.19987817
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2763,7 +2763,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1023.9995, y: 1622}
+  m_AnchoredPosition: {x: -1024, y: 1622}
   m_SizeDelta: {x: 0, y: 2048}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1701180847
@@ -3101,8 +3101,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1775225600}
   m_HandleRect: {fileID: 0}
   m_Direction: 0
-  m_Value: -0.000000059604638
-  m_Size: 0.13093318
+  m_Value: 0
+  m_Size: 0.19987817
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3229,7 +3229,7 @@ MonoBehaviour:
   _background: {fileID: 7605450498748221536}
   _itemNameUI: {fileID: 7605450498455579003}
   _fullItem: {fileID: 5789879769881742915}
-  _animator: {fileID: 4391765524633615958}
+  _animator: {fileID: 5789879769881742974}
   _uiGenerator: {fileID: 1775252536}
   _audioSource: {fileID: 1824357889}
   _delay: 2
@@ -3628,7 +3628,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1023.9995, y: 1024}
+  m_AnchoredPosition: {x: -1024, y: 1024}
   m_SizeDelta: {x: 0, y: 2048}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1887735380
@@ -3803,6 +3803,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1386069648092135498, guid: e4200935a2fec6449a72ede8d6eb9405, type: 3}
+      propertyPath: m_Volume
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1386069648092135498, guid: e4200935a2fec6449a72ede8d6eb9405, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 3160472863979545981, guid: 20b1612accb129840952fc152ba437f6, type: 2}
     - target: {fileID: 1386069648092135499, guid: e4200935a2fec6449a72ede8d6eb9405, type: 3}
       propertyPath: m_Name
       value: Win Sounds Audio Source
@@ -4047,6 +4055,7 @@ GameObject:
   - component: {fileID: 5789879769881742914}
   - component: {fileID: 5789879769881742912}
   - component: {fileID: 5789879769881742915}
+  - component: {fileID: 5789879769881742974}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -4054,6 +4063,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!95 &5789879769881742974
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5789879769881742973}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7605450497335240244
 MonoBehaviour:
   m_ObjectHideFlags: 0

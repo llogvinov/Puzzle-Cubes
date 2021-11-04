@@ -9,9 +9,9 @@ public class SoundsUI : MonoBehaviour
     [SerializeField] private AudioMixerGroup _musicMixer;
     [SerializeField] private AudioMixerGroup _soundsMixer;
     [Space]
-    [Range(-80f, 0f)]
+    [Range(-80f, 20f)]
     [SerializeField] private float _maxMusicVolume;
-    [Range(-80f, 0f)]
+    [Range(-80f, 20f)]
     [SerializeField] private float _maxSoundsVolume;
     [Header("Buttons")]
     [SerializeField] private Button _musicButton;
@@ -35,15 +35,15 @@ public class SoundsUI : MonoBehaviour
     private void AddSoundsButtonsEvents()
     {
         _musicButton.onClick.RemoveAllListeners();
-        _musicButton.onClick.AddListener(Music);
+        _musicButton.onClick.AddListener(ControlMusicVolume);
 
         _soundButton.onClick.RemoveAllListeners();
-        _soundButton.onClick.AddListener(Sound);
+        _soundButton.onClick.AddListener(ControlSoundsVolume);
     }
 
     // controls Music UI element
     // turns on or off the music
-    private void Music()
+    private void ControlMusicVolume()
     {
         MenuSoundsManager.Instance.PlayClickedSound();
         
@@ -57,7 +57,7 @@ public class SoundsUI : MonoBehaviour
 
     // controls Sounds UI element
     // turns on or off the sounds
-    private void Sound()
+    private void ControlSoundsVolume()
     {
         MenuSoundsManager.Instance.PlayClickedSound();
         

@@ -7,23 +7,9 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private Transform _container;
-    
     [SerializeField] private float _duration;
 
-    [SerializeField] private Button _leftArrow;
-    [SerializeField] private Button _rightArrow;
-
-    [SerializeField] private float _arrowAnimationDuration;
-    [SerializeField] private int _loopsNumber;
-    [SerializeField] private float _finalScale;
-
-    private float _t;
-    private float _tMax;
-    
     private Transform[] _allButtons;
-    
-    private float[] _positions;
-    private float _distance;
 
     private float _startPosition;
     private float _endPosition;
@@ -31,43 +17,9 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     private void Start()
     {
         AdjustButtons();
-        AdjustPositions();
-
         GetScrollRectToMiddle();
-        
-        _tMax = _duration * _loopsNumber + 6;
-        _t = _tMax / 2f;
     }
     
-    private void Update()
-    {
-        _t += Time.deltaTime;
-        
-        if (_t >= _tMax)
-        {
-            ShakeArrows();
-            _t = 0f;
-        }
-    }
-
-    private void ShakeArrows()
-    {
-        foreach (var arrow in new [] {_leftArrow, _rightArrow })
-        {
-            arrow.transform.DOScale(_finalScale, _arrowAnimationDuration).SetLoops(_loopsNumber * 2, LoopType.Yoyo);
-        }
-    }
-
-    public void OnLeftArrowClicked()
-    {
-        SwipePanelRight(_positions[2]);
-    }
-
-    public void OnRightArrowClicked()
-    {
-        SwipePanelLeft(_positions[4]);
-    }
-
     private void AdjustButtons()
     {
         _allButtons = new Transform[_container.childCount];
@@ -75,17 +27,6 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         for (int i = 0; i < _allButtons.Length; i++)
         {
             _allButtons[i] = _container.GetChild(i);
-        }
-    }
-
-    private void AdjustPositions()
-    {
-        _positions = new float[_container.childCount];
-        _distance = 1f / (_positions.Length - 1f);
-
-        for (int i = 0; i < _positions.Length; i++)
-        {
-            _positions[i] = _distance * i;
         }
     }
 
@@ -98,8 +39,8 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         _endPosition = _scrollRect.horizontalNormalizedPosition;
 
-        if (_endPosition > _startPosition - _distance / 3.5f 
-            && _endPosition < _startPosition + _distance / 3.5f)
+        if (_endPosition > _startPosition - MenuScrollUI.Distance / 3.5f 
+            && _endPosition < _startPosition + MenuScrollUI.Distance / 3.5f)
             ResetPanel();
         else if (_endPosition > _startPosition)
             SwipePanelLeft(_endPosition);
@@ -109,13 +50,13 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
     private void ResetPanel()
     {
-        _scrollRect.DOHorizontalNormalizedPos(_positions[3], _duration / 2f);
+        _scrollRect.DOHorizontalNormalizedPos(MenuScrollUI.MiddlePosition, _duration / 2f);
     }
     
-    private void SwipePanelLeft(float endPosition)
+    public void SwipePanelLeft(float endPosition)
     {
         float endValue = FindClosestPositionRight(endPosition);
-        int difference = Mathf.RoundToInt(Mathf.Abs(endValue - _positions[3]) / _distance);
+        int difference = Mathf.RoundToInt(Mathf.Abs(endValue - MenuScrollUI.MiddlePosition) / MenuScrollUI.Distance);
         
         MenuSoundsManager.Instance.PlaySwipeSound();
         _scrollRect
@@ -123,10 +64,10 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
             .OnComplete(() => OnSwipedLeft(difference));
     }
 
-    private void SwipePanelRight(float endPosition)
+    public void SwipePanelRight(float endPosition)
     {
         float endValue = FindClosestPositionLeft(endPosition);
-        int difference = Mathf.RoundToInt(Mathf.Abs(endValue - _positions[3]) / _distance);
+        int difference = Mathf.RoundToInt(Mathf.Abs(endValue - MenuScrollUI.MiddlePosition) / MenuScrollUI.Distance);
 
         MenuSoundsManager.Instance.PlaySwipeSound();
         _scrollRect
@@ -138,7 +79,7 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         float result = 1f;
 
-        foreach (var position in _positions)
+        foreach (var position in MenuScrollUI.Positions)
         {
             if (position < endPosition) 
                 continue;
@@ -154,15 +95,15 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         int index = 0;
 
-        for (int i = 0; i < _positions.Length; i++)
+        for (int i = 0; i < MenuScrollUI.Positions.Length; i++)
         {
             index = i;
 
-            if (_positions[i] > endPosition)
+            if (MenuScrollUI.Positions[i] > endPosition)
                 break;
         }
 
-        return index == 0 ? _positions[index] : _positions[index - 1];
+        return index == 0 ? MenuScrollUI.Positions[index] : MenuScrollUI.Positions[index - 1];
     }
     
     private void OnSwipedLeft(int difference)
@@ -194,14 +135,22 @@ public class MenuScrollInput : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
     private void GetScrollRectToMiddle()
     {
-        _scrollRect.horizontalNormalizedPosition = _positions[3];
+        _scrollRect.horizontalNormalizedPosition = MenuScrollUI.MiddlePosition;
     }
 
     private void ShakeButtons()
     {
+        /*
+        Sequence mySequence = DOTween.Sequence();
+
+        mySequence.Append(_container.DOLocalMoveX(_container.transform.position .x + 2f, _duration / 4f))
+            .Append(_container.DOLocalMoveX(_container.transform.position .x - 4f, _duration / 4f))
+            .Append(_container.DOLocalMoveX(_container.transform.position .x + 2f, _duration / 4f));
+        */
+        
         foreach (var button in _allButtons)
         {
-            button.DOShakeScale(_duration * 2f, 0.03f);
+            // button.DOShakeScale(_duration * 2f, 0.03f);
         }
     }
 }
