@@ -23,8 +23,6 @@ public class CheckAgeUI : PanelUI
 
     #endregion
     
-    private new void OnAgeConfirmed() => HidePanel();
-    
     private void OnEnable()
     {
         EntryField.AgeTyped += OnAgeTyped;
@@ -66,9 +64,14 @@ public class CheckAgeUI : PanelUI
         }
         else
         {
-            HidePanel();
-            HideBackground();
-            ShowButtons();
+            OnAgeNotConfirmed();
         }
+    }
+
+    private void OnAgeNotConfirmed()
+    {
+        HidePanel();
+        HideBackground();
+        ShowButtons();
     }
 }

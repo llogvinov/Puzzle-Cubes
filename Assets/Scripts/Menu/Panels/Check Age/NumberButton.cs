@@ -4,16 +4,21 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class NumberButton : MonoBehaviour
 {
+    [SerializeField] private EntryField _entryField;
+    [SerializeField] private Button _buttonComponent;
+    
     [SerializeField] private int _buttonValue;
     
-    private EntryField _entryField;
-
     private void Start()
     {
-        _entryField = FindObjectOfType<EntryField>();
+        if (_entryField == null)
+            _entryField = FindObjectOfType<EntryField>();
         
-        gameObject.GetComponent<Button>().onClick.RemoveAllListeners();
-        gameObject.GetComponent<Button>().onClick.AddListener(ButtonClicked);
+        if (_buttonComponent == null)
+            _buttonComponent = gameObject.GetComponent<Button>();
+        
+        _buttonComponent.onClick.RemoveAllListeners();
+        _buttonComponent.onClick.AddListener(ButtonClicked);
     }
 
     private void ButtonClicked()

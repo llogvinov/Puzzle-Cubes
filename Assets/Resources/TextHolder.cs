@@ -21,8 +21,8 @@ public static class TextHolder
 
     static TextHolder()
     {
-        _namesDictionary = ReadCsv("NamesLocalization");
-        _generalTextsDictionary = ReadCsv("GeneralTexts");
+        _namesDictionary = ReadCSV("NamesLocalization");
+        _generalTextsDictionary = ReadCSV("GeneralTexts");
         
         AdjustFonts();
     }
@@ -66,19 +66,19 @@ public static class TextHolder
         if (index == -1)
             throw new ArgumentException();
         
-        var itemTitle = dictionary[key][index];
+        string itemTitle = dictionary[key][index];
         return itemTitle;
     }
 
-    private static Dictionary<string, List<string>> ReadCsv(string path)
+    private static Dictionary<string, List<string>> ReadCSV(string path)
     {
         Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
-        var dataset = Resources.Load<TextAsset>(path);
-        var splitDataset = dataset.text.Split(new char[] {'\n'});
+        TextAsset dataset = Resources.Load<TextAsset>(path);
+        string[] splitDataset = dataset.text.Split('\n');
  
         for (int i = 1; i < splitDataset.Length; i++) 
         {
-            string[] row = splitDataset[i].Split(new char[] {';'});
+            string[] row = splitDataset[i].Split(';');
 
             string key = row[0];
             List<string> list = row.ToList();

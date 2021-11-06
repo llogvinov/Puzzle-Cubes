@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ public static class AudioHolder
     
     public static AudioClip GetAudioClip(string name)
     {
-        var audioClip = _audioClips.Find(x => x.name.Contains(name));
+        AudioClip audioClip = _audioClips.Find(x => x.name.Contains(name));
         
         return audioClip;
     }
@@ -29,7 +30,7 @@ public static class AudioHolder
             SystemLanguage.ChineseSimplified => LoadAudioClips("cn"),
             SystemLanguage.Japanese => LoadAudioClips("jp"),
             SystemLanguage.Korean => LoadAudioClips("kr"),
-            _ => _audioClips
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 
