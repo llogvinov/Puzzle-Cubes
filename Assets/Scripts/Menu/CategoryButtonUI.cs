@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
@@ -52,11 +51,19 @@ public class CategoryButtonUI : MonoBehaviour
             language == SystemLanguage.Japanese ||
             language == SystemLanguage.Korean)
         {
+            if (!(Math.Abs(_darkShadow.effectDistance.y - _hieroglyphShadowValue) > 0.1f) ||
+                !(Math.Abs(_lightShadow.effectDistance.y - _hieroglyphShadowValue) > 0.1f)) 
+                return;
+            
             _darkShadow.effectDistance = new Vector2(0f, _hieroglyphShadowValue);
             _lightShadow.effectDistance = new Vector2(0f, -_hieroglyphShadowValue);
         }
         else
         {
+            if (!(Math.Abs(_darkShadow.effectDistance.y - _defaultShadowValue) > 0.1f) ||
+                !(Math.Abs(_lightShadow.effectDistance.y - _defaultShadowValue) > 0.1f)) 
+                return;
+            
             _darkShadow.effectDistance = new Vector2(0f, _defaultShadowValue);
             _lightShadow.effectDistance = new Vector2(0f, -_defaultShadowValue);
         }
@@ -64,7 +71,10 @@ public class CategoryButtonUI : MonoBehaviour
 
     public void SetName(SystemLanguage language, string key)
     {
-        _categoryName.font = TextHolder.GetFont(language);
+        Font font = TextHolder.GetFont(language);
+        if (_categoryName.font != font)
+            _categoryName.font = font;
+        
         _categoryName.text = TextHolder.GetTitle(language, key);
     }
 
@@ -74,6 +84,7 @@ public class CategoryButtonUI : MonoBehaviour
         _darkShadow.effectColor = category.DarkShadow;
         _lightShadow.effectColor = category.LightShadow;
     }
+    
     public void SetLock(bool isLocked) => _lockImage.gameObject.SetActive(isLocked);
     
     public void OnItemSelect(int itemIndex, UnityAction<int> action)

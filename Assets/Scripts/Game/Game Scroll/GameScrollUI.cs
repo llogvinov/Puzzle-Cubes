@@ -24,9 +24,9 @@ public class GameScrollUI : MonoBehaviour
     private void Awake()
     {
         ItemsDb = _categoriesDb.Categories[GameDataManager.GetSelectedCategoryID()].ItemDatabase;
-
-        GenerateUI();
+        
         AdjustPositions();
+        GenerateUI();
     }
     
     public void GenerateUI()
@@ -46,6 +46,16 @@ public class GameScrollUI : MonoBehaviour
             CheckNearbyPartsMatch(MiddlePositionIndex);
         }
     }
+
+    private void Test(List<Item> list)
+    {
+        string s = "";
+        foreach (var elementID in list)
+        {
+            s += elementID.ID;
+        }
+        Debug.Log(s);
+    }
     
     private void AdjustPositions()
     {
@@ -59,6 +69,23 @@ public class GameScrollUI : MonoBehaviour
         
         MiddlePositionIndex = Positions.Length / 2;
     }
+    
+    /*
+    private bool HasMatchesAtStart(int middlePositionIndex)
+    {
+        int headItemID = _headItems[middlePositionIndex].ID;
+        int bodyItemID = _bodyItems[middlePositionIndex].ID;
+        int legsItemID = _legsItems[middlePositionIndex].ID;
+
+        if (headItemID == bodyItemID)
+            Debug.Log("head and body");
+        
+        if (bodyItemID == legsItemID)
+            Debug.Log("body and legs");
+
+        return (headItemID == bodyItemID || bodyItemID == legsItemID);
+    }
+    */
     
     private void SetHeadItems(List<Item> items)
     {
@@ -93,6 +120,12 @@ public class GameScrollUI : MonoBehaviour
         int bodyItemID = _bodyParts.GetChild(middlePositionIndex).GetComponent<ItemPart>().ItemID;
         int legsItemID = _legsParts.GetChild(middlePositionIndex).GetComponent<ItemPart>().ItemID;
 
+        if (headItemID == bodyItemID)
+            Debug.Log("head and body");
+        
+        if (bodyItemID == legsItemID)
+            Debug.Log("body and legs");
+        
         if (headItemID == bodyItemID || bodyItemID == legsItemID)
             return;
 
@@ -112,7 +145,7 @@ public class GameScrollUI : MonoBehaviour
 
         for (int i = 0; i < _numberOfItems; i++)
         {
-            int index = UnityEngine.Random.Range(0, items.Count);
+            int index = Random.Range(0, items.Count);
             finalItems.Add(items[index]);
             items.Remove(items[index]);
         }
@@ -130,8 +163,16 @@ public class GameScrollUI : MonoBehaviour
             n--;
             (list[k], list[n]) = (list[n], list[k]);
         }
-
+        
         return list;
+    }
+
+    private void MoveElementsRight(List<Item> list)
+    {
+        var lastElement = list[list.Count - 1];
+        list.RemoveAt(list.Count - 1);
+        
+        list.Insert(0, lastElement);
     }
     
 }

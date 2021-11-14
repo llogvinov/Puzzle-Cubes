@@ -8,6 +8,9 @@ public static class TextHolder
     private static Dictionary<string, List<string>> _generalTextsDictionary = new Dictionary<string, List<string>>();
     private static Dictionary<string, List<string>> _namesDictionary = new Dictionary<string, List<string>>();
 
+    private const string NamesCsvPath = "NamesLocalization";
+    private const string GeneralCsvPath = "GeneralTexts";
+
     private static Font _defaultFont;
     private static Font _plFont;
     private static Font _cnFont;
@@ -21,8 +24,8 @@ public static class TextHolder
 
     static TextHolder()
     {
-        _namesDictionary = ReadCSV("NamesLocalization");
-        _generalTextsDictionary = ReadCSV("GeneralTexts");
+        NewReadCSV(_namesDictionary, NamesCsvPath);
+        NewReadCSV(_generalTextsDictionary, GeneralCsvPath);
         
         AdjustFonts();
     }
@@ -70,9 +73,8 @@ public static class TextHolder
         return itemTitle;
     }
 
-    private static Dictionary<string, List<string>> ReadCSV(string path)
+    private static void NewReadCSV(Dictionary<string, List<string>> dictionary, string path)
     {
-        Dictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
         TextAsset dataset = Resources.Load<TextAsset>(path);
         string[] splitDataset = dataset.text.Split('\n');
  
@@ -86,8 +88,6 @@ public static class TextHolder
             
             dictionary.Add(key, list);
         }
-        
-        return dictionary;
     }
 
     private static void AdjustFonts()

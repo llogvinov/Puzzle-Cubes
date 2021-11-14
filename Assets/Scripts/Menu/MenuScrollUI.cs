@@ -42,15 +42,19 @@ public class MenuScrollUI : MonoBehaviour
     private void GenerateScrollUI()
     {
         SystemLanguage language = GameDataManager.GetLanguage();
-        int leftIndex;
         
         int selectedCategoryID = GameDataManager.GetSelectedCategoryID();
         int middleIndex = (_categoryDatabase.GetLength() - 1) / 2;
         
+        int leftIndex;
         if (selectedCategoryID < middleIndex)
+        {
             leftIndex = selectedCategoryID + middleIndex + 1;
+        }
         else
+        {
             leftIndex = selectedCategoryID - middleIndex;
+        }
 
         for (int i = leftIndex; i < _categoryDatabase.GetLength(); i++)
         {

@@ -59,23 +59,19 @@ public class TextComponents : MonoBehaviour
 
     private void TranslateWordThin(Text title, SystemLanguage language, string key)
     {
-        title.text = TextHolder.GetTitle(language, key);
-
-        var font = TextHolder.GetThinFont(language);
-        if (title.font == font)
-            return;
+        Font font = TextHolder.GetThinFont(language);
+        if (title.font != font)
+            title.font = font;
         
-        title.font = font;
+        title.text = TextHolder.GetTitle(language, key);
     }
 
     private void TranslateWord(Text title, SystemLanguage language, string key)
     {
-        title.text = TextHolder.GetTitle(language, key);
-
-        var font = TextHolder.GetFont(language);
-        if (title.font == font)
-            return;
+        Font font = TextHolder.GetFont(language);
+        if (title.font != font)
+            title.font = font;
         
-        title.font = font;
+        title.text = TextHolder.GetTitle(language, key);
     }
 }
